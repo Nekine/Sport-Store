@@ -1,2 +1,2 @@
-# Shoes-store
+# Sport-store
 My project
