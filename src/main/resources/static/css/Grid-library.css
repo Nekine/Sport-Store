@@ -302,6 +302,7 @@
     }
 
     .l-1,
+    .l-1-5,
     .l-2,
     .l-2-4,
     .l-3,
@@ -320,6 +321,11 @@
     .l-1 {
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
+    }
+
+    .l-1-5 {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
     }
 
     .l-2 {
@@ -428,14 +434,14 @@
 }
 
 /* Tablet - PC low resolution */
-@media (min-width: 740px) and (max-width: 1023px) {
+/* @media (min-width: 740px) and (max-width: 1023px) {
     .wide {
         width: 644px;
     }
-}
+} */
 
 /* > PC low resolution */
-@media (min-width: 1024px) and (max-width: 1239px) {
+/* @media (min-width: 1024px) and (max-width: 1239px) {
     .wide {
         width: 984px;
     }
@@ -588,4 +594,4 @@
     .wide .l-o-11 {
         margin-left: 91.66667%;
     }
-}
+} */
