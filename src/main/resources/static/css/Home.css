@@ -46,7 +46,7 @@ header.fixed {
 }
 
 .header-mid{
-    padding: 30px 10px 0 0;
+    padding: 10px 0;
     text-align: center;
 }
 
@@ -274,7 +274,6 @@ header.fixed {
 
 /* product */
 
-/* nhom 1 */
 section h1 {
     padding: 50px 0;
     text-align: center;
@@ -283,36 +282,111 @@ section h1 {
     letter-spacing: 1px;
 }
 
-.shoes {
+
+
+section {
     display: flex;
     flex-wrap: wrap; /* Đảm bảo rằng các phần tử sẽ wrap nếu không đủ chỗ */
+    position: relative;
 }
 
-.shoes .product-item {
+section .product {
+    margin-bottom: 20px;
+}
+
+section .product-item {
     box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
-    padding: 0 15px;
+    padding: 0 5px;
     overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
-
+    position: relative;
 }
 
-.shoes .product-item img {
+section .product-item .percent {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding: 2px 5px;
+    background-color: #fff;
+    color: red;
+}
+
+section .product-item img {
     width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
     height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
 }
 
-.shoes .product-item .product-img .first-img,
-.shoes .product-item .product-img:hover .second-img{
+section .product-item .product-img .first-img,
+section .product-item .product-img:hover .second-img{
     display: block;
 }
 
-.shoes .product-item .product-img:hover .first-img,
-.shoes .product-item .second-img {
+section .product-item .product-img:hover .first-img,
+section .product-item .second-img {
     display: none;
 }
 
-
-
-.shoes .product-item a {
+section .product-item a {
     text-decoration: none; /* Bỏ gạch chân */
     color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+}
+
+section .product-item p {
+    font-size: 14px;
+    padding-top: 20px;
+}
+
+section .product-item .cost {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+section .product-item .cost .price{
+    color: red;
+    padding-right: 10px;
+}
+
+section .product-item .cost .old-price{
+    color: #9c9c9c;
+    text-decoration: line-through;
+}
+
+/* select prev-next */
+section .prev {
+    position: absolute;
+    z-index: 50;
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 1%;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
+    cursor: pointer;
+}
+
+section .next i,
+section .prev i {
+    color: #000;
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section .next {
+    position: absolute;
+    z-index: 50;
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 95%;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
+    cursor: pointer;
 }
