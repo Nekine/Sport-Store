@@ -15,7 +15,7 @@
     <script th:src="@{/js/Home.js}"></script>
 </head>
 <body>
-    <header class="grid wide">
+    <header class="grid">
         <div class="header-mid row">
             <div class="col l-6 l-o-3 m-8 m-o-2 c-9 title">
                 <h1>Online Sport Store</h1>
@@ -104,7 +104,98 @@
             <button class="m-1 c-1"><i class="ti-search"></i></button>
         </form>
     </header>
-    <main></main>
+    <main class="grid">
+        <!-- slides -->
+        <div class="slides row">
+            <div class="home-banner col l-4 m-4 c-12">
+                <a th:href="@{/neekine}">
+                    <img th:src="@{/images/ad-1.jpg}" alt="">
+                </a>
+            </div>
+            <div class="home-banner col l-4 m-4 c-12">
+                <a th:href="@{/neekine}">
+                    <img th:src="@{/images/ad-2.jpg}" alt="">
+                </a>
+            </div>
+            <div class="home-banner col l-4 m-4 c-12">
+                <a th:href="@{/neekine}">
+                    <img th:src="@{/images/ad-3.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+
+        <!-- nhom 1 -->
+         <section class="grid">
+            <h1>SẢN PHẨM MỚI MỖI NGÀY</h1>
+            <div class="shoes row">
+                <div class="col l-2-4 m-6 c-12">
+                    <div class="product-item">
+                        <a th:href="@{/neekine}">
+                            <div class="product-img">
+                                <img th:src="@{/images/shoes-1.1.jpg}" alt="" class="first-img">
+                                <img th:src="@{/images/shoes-1.2.jpg}" alt="" class="second-img">
+                            </div>
+                            <p>New Balance Fresh Foam Arishi v3 Slip Resistant - Grey</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col l-2-4 m-6 c-12">
+                    <div class="product-item">
+                        <a th:href="@{/neekine}">
+                            <div class="product-img">
+                                <img th:src="@{/images/shoes-1.1.jpg}" alt="" class="first-img">
+                                <img th:src="@{/images/shoes-1.2.jpg}" alt="" class="second-img">
+                            </div>
+                            <p>New Balance Fresh Foam Arishi v3 Slip Resistant - Grey</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col l-2-4 m-6 c-12">
+                    <div class="product-item">
+                        <a th:href="@{/neekine}">
+                            <div class="product-img">
+                                <img th:src="@{/images/shoes-1.1.jpg}" alt="" class="first-img">
+                                <img th:src="@{/images/shoes-1.2.jpg}" alt="" class="second-img">
+                            </div>
+                            <p>New Balance Fresh Foam Arishi v3 Slip Resistant - Grey</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col l-2-4 m-6 c-12">
+                    <div class="product-item">
+                        <a th:href="@{/neekine}">
+                            <div class="product-img">
+                                <img th:src="@{/images/shoes-1.1.jpg}" alt="" class="first-img">
+                                <img th:src="@{/images/shoes-1.2.jpg}" alt="" class="second-img">
+                            </div>
+                            <p>New Balance Fresh Foam Arishi v3 Slip Resistant - Grey</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col l-2-4 m-6 c-12">
+                    <div class="product-item">
+                        <a th:href="@{/neekine}">
+                            <div class="product-img">
+                                <img th:src="@{/images/shoes-1.1.jpg}" alt="" class="first-img">
+                                <img th:src="@{/images/shoes-1.2.jpg}" alt="" class="second-img">
+                            </div>
+                            <p>New Balance Fresh Foam Arishi v3 Slip Resistant - Grey</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+         </section>
+
+         <!-- nhom 2 -->
+         <section class="grid">
+            <h1>BAOLO TÚI XÁCH CHÍNH HÃNG</h1>
+         </section>
+
+         <!-- nhom 3 -->
+         <section class="grid">
+            <h1>QUẦN ÁO CHÍNH HÃNG</h1>
+         </section>
+    </main>
     <footer></footer>
 </body>
 </html>
