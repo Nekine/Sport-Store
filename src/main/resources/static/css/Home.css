@@ -8,16 +8,41 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Đảm bảo chiều cao tối thiểu bằng chiều cao viewport */
+}
+
+header {
+    flex: 0 0 auto; /* Header có chiều cao tự động */
+}
+
+main {
+    flex: 1 0 auto; /* Nội dung chính chiếm hết không gian còn lại */
+}
+
+footer {
+    flex: 0 0 auto; /* Footer có chiều cao tự động */
+}
+
 /* header */
 
 /* title */
-.header {
-    position: fixed;
-    z-index : 1000; /* không bị đè lên thanh header */
+header {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     width: 100%;
+    background-color: #fff;
+    transition: top 0.3s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho thuộc tính top */
+}
+
+/* Khi cuộn xuống, thêm lớp cố định */
+header.fixed {
+    position: fixed; /* Làm cho header cố định */
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000; /* Đảm bảo header nằm trên các phần tử khác */
 }
 
 .header-mid{
@@ -152,6 +177,7 @@ html {
     position: relative;
 }
 
+
 .menu-desktop .has-subnav .subnav {
     display: none;
 }
@@ -162,8 +188,8 @@ html {
     width: max-content;
     list-style-type: none; /* Loại bỏ dấu đầu dòng mặc định */
     margin-top: 5px; /* Loại bỏ khoảng cách giữa các dấu đầu dòng */
-    padding: 5px 10px 0 0; /* Loại bỏ lề ngoài của danh sách */
-    
+    padding: 5px 0 0 0; /* Loại bỏ lề ngoài của danh sách */
+    background-color: #fff;
 }
 
 .menu-desktop .has-subnav:hover .subnav .item-top {
@@ -173,11 +199,17 @@ html {
 .menu-desktop .has-subnav:hover .subnav li {
     padding: 10px 0;
     border-bottom: 1px solid #f0efef;
+    cursor: pointer;
+}
+
+.menu-desktop .has-subnav:hover .subnav li:hover {
+    background-color: #e5e5e5;
 }
 
 .menu-desktop .has-subnav:hover .subnav li a {
     padding: 0 10px;
 }
+
 
 /* search */
 .search-box {
@@ -204,4 +236,83 @@ html {
     font-size: 15px;
     color: #989797;
     padding-right: 15px;
+}
+
+/* main */
+
+/* slides */
+.slides {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo rằng các phần tử sẽ wrap nếu không đủ chỗ */
+}
+
+.slides .home-banner {
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
+    padding: 0;
+    overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
+
+}
+
+.home-banner img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
+    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+    transition: transform 1.5s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho transform */
+
+}
+
+/* Tạo hiệu ứng phóng to khi hover */
+.home-banner img:hover {
+    transform: scale(1.1); /* Phóng to ảnh lên 1.1 lần */
+}
+
+@media (max-width: 1112px){
+    .slides .home-banner {
+        box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
+        padding: 10px 0;
+    }  
+}
+
+/* product */
+
+/* nhom 1 */
+section h1 {
+    padding: 50px 0;
+    text-align: center;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.shoes {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo rằng các phần tử sẽ wrap nếu không đủ chỗ */
+}
+
+.shoes .product-item {
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
+    padding: 0 15px;
+    overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
+
+}
+
+.shoes .product-item img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
+    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+}
+
+.shoes .product-item .product-img .first-img,
+.shoes .product-item .product-img:hover .second-img{
+    display: block;
+}
+
+.shoes .product-item .product-img:hover .first-img,
+.shoes .product-item .second-img {
+    display: none;
+}
+
+
+
+.shoes .product-item a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
 }
