@@ -52,13 +52,14 @@ header.fixed {
 
 .header-mid h1{
     font-size: 35px;
-    font-weight: 600;
+    font-weight: 500;
     padding: 5px 0;
 }
 
 .header-mid p{
     font-size: 35px;
     color: #5f5e5e; 
+    font-weight: 100;
 }
 
 /* icon */
@@ -355,12 +356,13 @@ section .product-item .cost .old-price{
 /* select prev-next */
 section .prev {
     position: absolute;
+    left: 0;
+    margin-left: 8px;
     z-index: 50;
     background-color: #ffffff;
     width: 50px;
     height: 50px;
     top: 50%;
-    left: 1%;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
     cursor: pointer;
@@ -380,13 +382,159 @@ section .prev i {
 
 section .next {
     position: absolute;
+    right: 0;
+    margin-right: 8px;
     z-index: 50;
     background-color: #ffffff;
     width: 50px;
     height: 50px;
     top: 50%;
-    left: 95%;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
     cursor: pointer;
+}
+
+/* footer */
+
+/* footer -> top-footer */
+footer .top-footer{
+    background-color: #f3f3f3;
+    padding: 15px 10px !important;
+}
+
+footer .receive-email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .receive-email .email-text {
+    display: flex;
+    align-items: center;
+}
+
+footer .receive-email .email-text i {
+    padding: 0 5px;
+    font-size: 25px;
+}
+
+footer .receive-email .email-text p {
+    font-size: 15px;
+    padding: 0 10px;
+    color: #4d4d4d;
+}
+
+footer .receive-email .input-email {
+    display: flex;
+    justify-content: center;
+}
+
+footer .receive-email .input-email input{
+    width: 85%;
+    height: 40px;
+    padding: 0 15px;
+}
+
+footer .receive-email .input-email button{
+    width: 14%;
+    height: 40px;
+    background-color: #000;
+    letter-spacing: 1px; /* dãn chữ trên dòng */
+    font-size: 12px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    margin-left: -1%;
+}
+
+footer .top-footer .infor-store {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+footer .top-footer .infor-store .phone-number {
+    display: flex;
+    align-items: center;
+
+}
+
+footer .top-footer .infor-store .phone-number i {
+    margin-right: 10px;
+}
+
+footer .top-footer .infor-store .phone-number p {
+    letter-spacing: 1px; /* dãn chữ trên dòng */
+}
+
+
+footer .top-footer .infor-store .email a {
+    text-decoration: none; /* Bỏ gạch chân */
+    letter-spacing: 1px; /* dãn chữ trên dòng */
+    color: #4d4d4d;
+    color: red;
+}
+
+@media (max-width: 1112px) {
+    footer .top-footer .receive-email .email-text,
+    footer .top-footer .receive-email .input-email,
+    footer .top-footer .infor-store {
+        padding: 10px 0 10px 10px;
+    }
+}
+
+@media (max-width: 739px) {
+    footer .top-footer .infor-store .phone-number {
+        margin-bottom: 10px;
+    }
+}
+
+/* main-footer */
+
+footer .main-footer {
+    margin-top: 25px;
+    margin-bottom: 40px;
+}
+
+footer .main-footer h2 {
+    padding: 20px 0;
+    font-weight: 200;
+}
+
+
+footer .main-footer .introduce p {
+    letter-spacing: 1px; /* dãn chữ trên dòng */
+    line-height: 1.5; /* Khoảng cách giữa các dòng bằng 1.5 lần kích thước font */
+    font-size: 14px;
+    color: #4d4d4d;
+}
+
+footer .main-footer .contact span {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+    font-weight: 600;
+}
+
+footer .main-footer .contact span p {
+    font-weight: 100;
+    padding: 0 10px;
+    color: #4d4d4d;
+}
+
+footer .main-footer .contact span a {
+    text-decoration: none; /* Bỏ gạch chân */
+    padding: 0 10px;
+    font-weight: 100;
+    color: #4d4d4d;
+}
+
+/* bottom-footer */
+
+footer .bottom-footer {
+    background-color: #f3f3f3 ;
+    border-top: 1px solid #dbdbdb;
+    text-align: center;
+    padding: 20px 0;
+    color: #4d4d4d;
 }
