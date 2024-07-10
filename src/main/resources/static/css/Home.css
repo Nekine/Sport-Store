@@ -26,6 +26,62 @@ footer {
     flex: 0 0 auto; /* Footer có chiều cao tự động */
 }
 
+/* body */
+body {
+    position: relative;
+}
+
+/* body -> body-content */
+.body-content {
+    opacity: 0.3;
+    position: relative;
+    z-index: 1; /* Đảm bảo nó nằm dưới body-search-pc */
+}
+
+/* body -> body-search-pc */
+.body-search-pc {
+    position: fixed;
+    z-index: 1000; /* Đảm bảo nó nổi lên trên */
+    height: 100vh; /* Chiều cao bằng với khung hình hiện tại */
+    background-color: #fff; /* Để nhìn thấy được các nội dung bên dưới */
+    top: 0;
+    right: 0;
+
+    width: 40%;
+    padding: 40px 50px;
+}
+
+.body-search-pc .header-search {
+    display: flex;
+}
+
+.body-search-pc p {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.body-search-pc .header-search i {
+    right: 0;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.body-search-pc .search-pc {
+    margin-top: 50px;
+    height: auto;
+}
+
+.body-search-pc .search-pc form{
+    height: 50px;
+}
+
+.body-search-pc .search-pc .content-search {
+    background-color: #5f5e5e;
+    height: 50px;
+    margin-top: 10px;
+}
+
 /* header */
 
 /* title */
@@ -42,7 +98,7 @@ header.fixed {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000; /* Đảm bảo header nằm trên các phần tử khác */
+    z-index: 500; /* Đảm bảo header nằm trên các phần tử khác */
 }
 
 .header-mid{
