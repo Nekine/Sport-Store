@@ -12,188 +12,204 @@
     <link rel="stylesheet" th:href="@{/themify-icons/themify-icons.css}">
 
 </head>
-<body>
-    <header class="grid">
-        <div class="header-mid row">
-            <div class="col l-6 l-o-3 m-8 m-o-2 c-9 title">
-                <h1>Online Sport Store</h1>
-                <p>Hàng chính hãng giá tốt</p>
-            </div>
-            <div class="header-wrap-icon col l-2 l-o-1 m-2 c-3 row">
-                <span class="ti-user l-3 l-o-3 m-0 c-0"></span>
-                <span class="ti-search l-3 m-0 c-0"></span>
-                <span class="ti-shopping-cart l-3 m-3 c-3 phone-icon-12"></span>
-                <span class="ti-menu l-0 m-9 c-9 phone-icon-12">
-                    <p class="phone-icon-0">MENU</p>
-                </span>
-            </div>
-        </div>
-        <div class="menu-desktop">
-            <ul class="row">
-                <li class="col l-1-3 l-o-1 m-0 c-0">
-                    <a th:href="@{/neekine}" class="current-page">TRANG CHỦ</a>
-                </li>
-                <li class="col l-1-5 m-0 c-0 has-subnav">
-                    <a th:href="@{/neekine}">TẤT CẢ SẢN PHẨM</a>
-                    <i class="ti-angle-down"></i>
-
-                    <ul class="subnav">
-                        <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
-                        <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
-                        <li><a th:href="@{/neekine}">Nike Air Max</a></li>
-                        <li><a th:href="@{/neekine}">Nike Dunk</a></li>
-                    </ul>
-                </li>
-                <li class="col l-1-3 m-0 c-0 has-subnav">
-                    <a th:href="@{/neekine}">GIÀY</a>
-                    <i class="ti-angle-down"></i>
-
-                    <ul class="subnav">
-                        <li class="item-top"><a th:href="@{/neekine}">Giày Nike</a></li>
-                        <li><a th:href="@{/neekine}">Giày adidas</a></li>
-                        <li><a th:href="@{/neekine}">Giày New Balance</a></li>
-                        <li><a th:href="@{/neekine}">Giày Reebok</a></li>
-                    </ul>
-                </li>
-                <li class="col l-1-3 m-0 c-0 has-subnav">
-                    <a th:href="@{/neekine}">DÉP</a>
-                    <i class="ti-angle-down"></i>
-
-                    <ul class="subnav">
-                        <li class="item-top"><a th:href="@{/neekine}">Dép adidas</a></li>
-                        <li><a th:href="@{/neekine}">Dép Nike</a></li>
-                        <li><a th:href="@{/neekine}">Dép Puma</a></li>
-                        <li><a th:href="@{/neekine}">Dép Crocs</a></li>
-                    </ul>
-                </li>
-                <li class="col l-1-3 m-0 c-0 has-subnav">
-                    <a th:href="@{/neekine}">QUẦN/ÁO</a>
-                    <i class="ti-angle-down"></i>
-
-                    <ul class="subnav">
-                        <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
-                        <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
-                        <li><a th:href="@{/neekine}">Nike Air Max</a></li>
-                        <li><a th:href="@{/neekine}">Nike Dunk</a></li>
-                    </ul>
-                </li>
-                <li class="col l-1-3 m-0 c-0 has-subnav">
-                    <a th:href="@{/neekine}">BALO/TÚI</a>
-                    <i class="ti-angle-down"></i>
-
-                    <ul class="subnav">
-                        <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
-                        <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
-                        <li><a th:href="@{/neekine}">Nike Air Max</a></li>
-                        <li><a th:href="@{/neekine}">Nike Dunk</a></li>
-                    </ul>
-                </li>
-                <li class="col l-1-3 m-0 c-0">
-                    <a th:href="@{/neekine}">TIN TỨC</a>
-                </li>
-                <li class="col l-1-3 m-0 c-0">
-                    <a th:href="@{/neekine}">TUYỂN DỤNG</a>
-                </li>
-            </ul>
-        </div>
-        
-        <form th:action="@{/neekine}" class="search-box row l-0">
-            <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col m-11 c-11">
-            <button class="m-1 c-1"><i class="ti-search"></i></button>
-        </form>
-    </header>
-    <main class="grid">
-        <!-- slides -->
-        <div class="slides row">
-            <div class="home-banner col l-4 m-4 c-12">
-                <a th:href="@{/neekine}">
-                    <img th:src="@{/images/ad-1.jpg}" alt="">
-                </a>
-            </div>
-            <div class="home-banner col l-4 m-4 c-12">
-                <a th:href="@{/neekine}">
-                    <img th:src="@{/images/ad-2.jpg}" alt="">
-                </a>
-            </div>
-            <div class="home-banner col l-4 m-4 c-12">
-                <a th:href="@{/neekine}">
-                    <img th:src="@{/images/ad-3.jpg}" alt="">
-                </a>
-            </div>
-        </div>
-
-        <!-- nhom 1 -->
-        <section class="grid">
-            <h1>GIÀY CHÍNH HÃNG</h1>
-            <div class="shoes row"></div>
-        </section>
-
-        <!-- nhom 2 -->
-        <section class="grid">
-            <h1>BAOLO TÚI XÁCH CHÍNH HÃNG</h1>
-            <div class="bag row"></div>
-        </section>
-
-        <!-- nhom 3 -->
-        <section class="grid">
-            <h1>QUẦN ÁO CHÍNH HÃNG</h1>
-            <div class="clothes row"></div>
-        </section>
-    </main>
-    <footer class="grid">
-        <div class="top-footer row"> 
-            <div class="receive-email col l-9 m-12 c-12 row">
-                <div class="email-text col l-3 m-12 c-12">
-                    <i class="ti-email"></i>
-                    <p>Đăng ký nhận tin</p>
+<body class="grid">
+    <div class="body-content">
+        <header class="grid">
+            <div class="header-mid row">
+                <div class="col l-6 l-o-3 m-8 m-o-2 c-9 title">
+                    <h1>Online Sport Store</h1>
+                    <p>Hàng chính hãng giá tốt</p>
                 </div>
-                <div class="input-email col l-9 m-12 c-12 row">
-                    <input type="text" placeholder="Nhập email của bạn">
-                    <button>ĐĂNG KÝ</button>
+                <div class="header-wrap-icon col l-2 l-o-1 m-2 c-3 row">
+                    <span class="ti-user l-3 l-o-3 m-0 c-0"></span>
+                    <span class="ti-search l-3 m-0 c-0"></span>
+                    <span class="ti-shopping-cart l-3 m-3 c-3 phone-icon-12"></span>
+                    <span class="ti-menu l-0 m-9 c-9 phone-icon-12">
+                        <p class="phone-icon-0">MENU</p>
+                    </span>
                 </div>
             </div>
-            <div class="infor-store col l-3 m-12 c-12 row">
-                <div class="phone-number col l-12 m-3 c-12">
-                    <i class="ti-headphone-alt"></i>
-                    <p>Hỗ trợ: 0999999999</p>
-                </div>
-                <div class="email col l-12 m-3 c-12">
-                    <a th:href="@{/neekine}">Kien12045@gmail.com</a>
-                </div>
-            </div>
-        </div>
+            <div class="menu-desktop">
+                <ul class="row">
+                    <li class="col l-1-3 l-o-1 m-0 c-0">
+                        <a th:href="@{/neekine}" class="current-page">TRANG CHỦ</a>
+                    </li>
+                    <li class="col l-1-5 m-0 c-0 has-subnav">
+                        <a th:href="@{/neekine}">TẤT CẢ SẢN PHẨM</a>
+                        <i class="ti-angle-down"></i>
 
-        <div class="main-footer row">
-            <div class="introduce col l-5 l-o-1 m-5 m-o-1 c-11 c-o-1">
-                <h2>Gới thiệu</h2>
-                <p>
-                    Online Sport Store là địa chỉ uy tín cho những người yêu thể thao 
-                    và phong cách sống năng động. Chúng tôi cung cấp sản phẩm 
-                    chính hãng từ các thương hiệu hàng đầu như Nike, Adidas, Puma 
-                    và nhiều thương hiệu nổi tiếng khác. Sản phẩm của chúng tôi bao 
-                    gồm giày chạy bộ, giày đá bóng, giày tập gym, trang phục thể
-                    thao và phụ kiện như balo, túi xách, nón, tất. Online Sport Store 
-                    cam kết chất lượng, đảm bảo hàng chính hãng và mang đến 
-                    trải nghiệm mua sắm tuyệt vời cùng dịch vụ hậu mãi chu đáo. 
-                    Hãy đến với chúng tôi để nâng cao phong cách và hiệu suất thể 
-                    thao của bạn!
-                </p>
-            </div>
-            <div class="contact col l-5 l-o-1 m-5 m-o-1 c-11 c-o-1">
-                <h2>Thông tin liên hệ</h2>
-                <span class="ti-location-pin"><p>110 Đ. Trần Duy Hưng, Hà Nội</p></span>
-                <span class="ti-headphone-alt"><p>0999999999</p></span>
-                <span class="ti-email"><p>Kien12045@gmail.com</p></span>
-                <span class="ti-facebook">
-                    <a href="https://www.facebook.com/profile.php?id=100049780284291">Neekine</a>
-                </span>
-            </div>
-        </div>
+                        <ul class="subnav">
+                            <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
+                            <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
+                            <li><a th:href="@{/neekine}">Nike Air Max</a></li>
+                            <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                        </ul>
+                    </li>
+                    <li class="col l-1-3 m-0 c-0 has-subnav">
+                        <a th:href="@{/neekine}">GIÀY</a>
+                        <i class="ti-angle-down"></i>
 
-        <div class="bottom-footer">
-            <p>Copyright © 2024 Online Sport Store.</p>
+                        <ul class="subnav">
+                            <li class="item-top"><a th:href="@{/neekine}">Giày Nike</a></li>
+                            <li><a th:href="@{/neekine}">Giày adidas</a></li>
+                            <li><a th:href="@{/neekine}">Giày New Balance</a></li>
+                            <li><a th:href="@{/neekine}">Giày Reebok</a></li>
+                        </ul>
+                    </li>
+                    <li class="col l-1-3 m-0 c-0 has-subnav">
+                        <a th:href="@{/neekine}">DÉP</a>
+                        <i class="ti-angle-down"></i>
+
+                        <ul class="subnav">
+                            <li class="item-top"><a th:href="@{/neekine}">Dép adidas</a></li>
+                            <li><a th:href="@{/neekine}">Dép Nike</a></li>
+                            <li><a th:href="@{/neekine}">Dép Puma</a></li>
+                            <li><a th:href="@{/neekine}">Dép Crocs</a></li>
+                        </ul>
+                    </li>
+                    <li class="col l-1-3 m-0 c-0 has-subnav">
+                        <a th:href="@{/neekine}">QUẦN/ÁO</a>
+                        <i class="ti-angle-down"></i>
+
+                        <ul class="subnav">
+                            <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
+                            <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
+                            <li><a th:href="@{/neekine}">Nike Air Max</a></li>
+                            <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                        </ul>
+                    </li>
+                    <li class="col l-1-3 m-0 c-0 has-subnav">
+                        <a th:href="@{/neekine}">BALO/TÚI</a>
+                        <i class="ti-angle-down"></i>
+
+                        <ul class="subnav">
+                            <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
+                            <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
+                            <li><a th:href="@{/neekine}">Nike Air Max</a></li>
+                            <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                        </ul>
+                    </li>
+                    <li class="col l-1-3 m-0 c-0">
+                        <a th:href="@{/neekine}">TIN TỨC</a>
+                    </li>
+                    <li class="col l-1-3 m-0 c-0">
+                        <a th:href="@{/neekine}">TUYỂN DỤNG</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <form th:action="@{/neekine}" class="search-box row l-0">
+                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col m-11 c-11">
+                <button class="m-1 c-1"><i class="ti-search"></i></button>
+            </form>
+        </header>
+        <main class="grid">
+            <!-- slides -->
+            <div class="slides row">
+                <div class="home-banner col l-4 m-4 c-12">
+                    <a th:href="@{/neekine}">
+                        <img th:src="@{/images/ad-1.jpg}" alt="">
+                    </a>
+                </div>
+                <div class="home-banner col l-4 m-4 c-12">
+                    <a th:href="@{/neekine}">
+                        <img th:src="@{/images/ad-2.jpg}" alt="">
+                    </a>
+                </div>
+                <div class="home-banner col l-4 m-4 c-12">
+                    <a th:href="@{/neekine}">
+                        <img th:src="@{/images/ad-3.jpg}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <!-- nhom 1 -->
+            <section class="grid">
+                <h1>GIÀY CHÍNH HÃNG</h1>
+                <div class="shoes row"></div>
+            </section>
+
+            <!-- nhom 2 -->
+            <section class="grid">
+                <h1>BAOLO TÚI XÁCH CHÍNH HÃNG</h1>
+                <div class="bag row"></div>
+            </section>
+
+            <!-- nhom 3 -->
+            <section class="grid">
+                <h1>QUẦN ÁO CHÍNH HÃNG</h1>
+                <div class="clothes row"></div>
+            </section>
+        </main>
+        <footer class="grid">
+            <div class="top-footer row"> 
+                <div class="receive-email col l-9 m-12 c-12 row">
+                    <div class="email-text col l-3 m-12 c-12">
+                        <i class="ti-email"></i>
+                        <p>Đăng ký nhận tin</p>
+                    </div>
+                    <div class="input-email col l-9 m-12 c-12 row">
+                        <input type="text" placeholder="Nhập email của bạn">
+                        <button>ĐĂNG KÝ</button>
+                    </div>
+                </div>
+                <div class="infor-store col l-3 m-12 c-12 row">
+                    <div class="phone-number col l-12 m-3 c-12">
+                        <i class="ti-headphone-alt"></i>
+                        <p>Hỗ trợ: 0999999999</p>
+                    </div>
+                    <div class="email col l-12 m-3 c-12">
+                        <a th:href="@{/neekine}">Kien12045@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-footer row">
+                <div class="introduce col l-5 l-o-1 m-5 m-o-1 c-11 c-o-1">
+                    <h2>Gới thiệu</h2>
+                    <p>
+                        Online Sport Store là địa chỉ uy tín cho những người yêu thể thao 
+                        và phong cách sống năng động. Chúng tôi cung cấp sản phẩm 
+                        chính hãng từ các thương hiệu hàng đầu như Nike, Adidas, Puma 
+                        và nhiều thương hiệu nổi tiếng khác. Sản phẩm của chúng tôi bao 
+                        gồm giày chạy bộ, giày đá bóng, giày tập gym, trang phục thể
+                        thao và phụ kiện như balo, túi xách, nón, tất. Online Sport Store 
+                        cam kết chất lượng, đảm bảo hàng chính hãng và mang đến 
+                        trải nghiệm mua sắm tuyệt vời cùng dịch vụ hậu mãi chu đáo. 
+                        Hãy đến với chúng tôi để nâng cao phong cách và hiệu suất thể 
+                        thao của bạn!
+                    </p>
+                </div>
+                <div class="contact col l-5 l-o-1 m-5 m-o-1 c-11 c-o-1">
+                    <h2>Thông tin liên hệ</h2>
+                    <span class="ti-location-pin"><p>110 Đ. Trần Duy Hưng, Hà Nội</p></span>
+                    <span class="ti-headphone-alt"><p>0999999999</p></span>
+                    <span class="ti-email"><p>Kien12045@gmail.com</p></span>
+                    <span class="ti-facebook">
+                        <a href="https://www.facebook.com/profile.php?id=100049780284291">Neekine</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="bottom-footer">
+                <p>Copyright © 2024 Online Sport Store.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="body-search-pc">
+        <div class="header-search">
+            <p>Tìm kiếm</p>
+            <i class="ti-close"></i>
         </div>
-    </footer>
+        <div class="search-box search-pc">
+            <form th:action="@{/neekine}" class="row">
+                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col l-9 m-9 c-9">
+                <button class="col l-3 m-3 c-3"><i class="ti-search"></i></button>
+            </form>
+            <div class="content-search"></div>
+        </div>
+    </div>
 </body>
 <script th:src="@{/js/Home.js}"></script>
 </html>
