@@ -140,7 +140,60 @@
             <div class="clothes row"></div>
         </section>
     </main>
-    <footer></footer>
+    <footer class="grid">
+        <div class="top-footer row"> 
+            <div class="receive-email col l-9 m-12 c-12 row">
+                <div class="email-text col l-3 m-12 c-12">
+                    <i class="ti-email"></i>
+                    <p>Đăng ký nhận tin</p>
+                </div>
+                <div class="input-email col l-9 m-12 c-12 row">
+                    <input type="text" placeholder="Nhập email của bạn">
+                    <button>ĐĂNG KÝ</button>
+                </div>
+            </div>
+            <div class="infor-store col l-3 m-12 c-12 row">
+                <div class="phone-number col l-12 m-3 c-12">
+                    <i class="ti-headphone-alt"></i>
+                    <p>Hỗ trợ: 0999999999</p>
+                </div>
+                <div class="email col l-12 m-3 c-12">
+                    <a th:href="@{/neekine}">Kien12045@gmail.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-footer row">
+            <div class="introduce col l-5 l-o-1 m-5 m-o-1 c-11 c-o-1">
+                <h2>Gới thiệu</h2>
+                <p>
+                    Online Sport Store là địa chỉ uy tín cho những người yêu thể thao 
+                    và phong cách sống năng động. Chúng tôi cung cấp sản phẩm 
+                    chính hãng từ các thương hiệu hàng đầu như Nike, Adidas, Puma 
+                    và nhiều thương hiệu nổi tiếng khác. Sản phẩm của chúng tôi bao 
+                    gồm giày chạy bộ, giày đá bóng, giày tập gym, trang phục thể
+                    thao và phụ kiện như balo, túi xách, nón, tất. Online Sport Store 
+                    cam kết chất lượng, đảm bảo hàng chính hãng và mang đến 
+                    trải nghiệm mua sắm tuyệt vời cùng dịch vụ hậu mãi chu đáo. 
+                    Hãy đến với chúng tôi để nâng cao phong cách và hiệu suất thể 
+                    thao của bạn!
+                </p>
+            </div>
+            <div class="contact col l-5 l-o-1 m-5 m-o-1 c-11 c-o-1">
+                <h2>Thông tin liên hệ</h2>
+                <span class="ti-location-pin"><p>110 Đ. Trần Duy Hưng, Hà Nội</p></span>
+                <span class="ti-headphone-alt"><p>0999999999</p></span>
+                <span class="ti-email"><p>Kien12045@gmail.com</p></span>
+                <span class="ti-facebook">
+                    <a href="https://www.facebook.com/profile.php?id=100049780284291">Neekine</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="bottom-footer">
+            <p>Copyright © 2024 Online Sport Store.</p>
+        </div>
+    </footer>
 </body>
 <script th:src="@{/js/Home.js}"></script>
 </html>
