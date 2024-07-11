@@ -51,9 +51,9 @@ window.addEventListener('scroll', () => {
 // // Lắng nghe sự kiện cuộn trang
 // window.addEventListener('scroll', handleScroll);
 
-// main -> section -> nhom 1,2,3
 
- document.addEventListener('DOMContentLoaded', function() {
+// main -> section -> nhom 1,2,3
+document.addEventListener('DOMContentLoaded', function() {
     const shoesElement = document.querySelector('.shoes');
     const bagElement = document.querySelector('.bag');
     const clothesElement = document.querySelector('.clothes');
@@ -157,4 +157,22 @@ window.addEventListener('scroll', () => {
 
         clothesElement.innerHTML += product_item;
     }
+});
+
+// body -> body-search-pc
+// thao tác ẩn hiện search-pc
+document.querySelector('.ti-search').addEventListener('click', () => {
+    var search_pc = document.querySelector('.body-search-pc')
+    var body_content = document.querySelector('.body-content')
+
+    search_pc.classList.add('active')
+    body_content.classList.add('blur')
+});
+
+document.querySelector('.ti-close').addEventListener('click', () => {
+    var search_pc = document.querySelector('.body-search-pc')
+    var body_content = document.querySelector('.body-content')
+
+    search_pc.classList.remove('active')
+    body_content.classList.remove('blur')
 });

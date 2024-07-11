@@ -33,6 +33,11 @@ body {
 
 /* body -> body-content */
 .body-content {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Thêm hiệu ứng chuyển động */
+}
+
+.body-content.blur{
     opacity: 0.3;
     position: relative;
     z-index: 1; /* Đảm bảo nó nằm dưới body-search-pc */
@@ -45,10 +50,15 @@ body {
     height: 100vh; /* Chiều cao bằng với khung hình hiện tại */
     background-color: #fff; /* Để nhìn thấy được các nội dung bên dưới */
     top: 0;
-    right: 0;
-
+    right: -100%;
+    transition: right 0.5s ease-in-out; /* Thêm hiệu ứng chuyển động */
+    box-shadow: -10px 0px 15px -5px rgba(0, 0, 0, 0.5); /* Đổ bóng ở bên trái */   
     width: 40%;
     padding: 40px 50px;
+}
+
+.body-search-pc.active {
+    right: 0; /* Di chuyển vào khung hình */
 }
 
 .body-search-pc .header-search {
@@ -82,12 +92,14 @@ body {
     margin-top: 10px;
 }
 
+
 /* header */
 
 /* title */
 header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     width: 100%;
+    top: -100%;
     background-color: #fff;
     transition: top 0.3s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho thuộc tính top */
 }
@@ -277,6 +289,7 @@ header.fixed {
 
 .search-box input {
     border: none;
+    outline: none;
     background-color: #f5f5f5;
 }
 
