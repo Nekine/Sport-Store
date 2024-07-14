@@ -71,6 +71,10 @@ body {
     font-weight: 100;
 }
 
+.body-search-pc .ti-close {
+    cursor: pointer;
+}
+
 .body-search-pc .header-search i {
     right: 0;
     font-size: 25px;

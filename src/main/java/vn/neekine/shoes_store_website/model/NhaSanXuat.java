@@ -21,7 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "photo")
+@Table(name = "NhaSanXuat")
 public class NhaSanXuat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,18 +29,6 @@ public class NhaSanXuat {
 
     @Column(name = "ten")
     private String ten;
-
-    @Column(name = "loai")
-    private String loai;
-
-    @Column(name = "so_luong")
-    private Long soluong;
-
-    @Column(name = "gia_tung_sp")
-    private Long giaTungSP;
-
-    @Column(name = "ngay_nhap_hang")
-    private Date ngayNhapHang;
 
     // NSX - SanPham
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH,

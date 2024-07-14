@@ -30,4 +30,9 @@ public class KhachHang {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gioHang_id")
     private GioHang gioHang;
+
+    // KhachHang - TaiKhoan
+    @OneToOne(mappedBy = "khachHang", cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.REFRESH})
+    private Account Account;
 }
