@@ -1,36 +1,31 @@
 package vn.neekine.shoes_store_website.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-
-@Data
 @Entity
-@Table(name = "photo")
-public class Anh {
+@Data
+@Table(name = "Roles")
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ten")
-    private String ten;
+    @Column(name = "authority")
+    private String authority;
 
-    // Anh - SanPham
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sanPham_id")
-    private SanPham sanPham;
+    // Roles - Account
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "email")
+    private Account account;
 }

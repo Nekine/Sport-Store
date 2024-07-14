@@ -1,5 +1,6 @@
 package vn.neekine.shoes_store_website.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -26,26 +28,34 @@ public class SanPham {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "gia")
-    private int gia;
-
     @Column(name = "ten")
     private String tenSanPham;
 
     @Column(name = "kich_thuoc")
     private String size;
 
+    @Column(name = "loai")
+    private String loai;
+
+    @Column(name = "so_luong")
+    private Long soluong;
+
+    @Column(name = "gia_nhap")
+    private Long giaNhap;
+
+    @Column(name = "gia_ban")
+    private Long giaBan;
+
+    @Column(name = "ngay_nhap_hang")
+    private Date ngayNhapHang;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "khuyenMai_id")
     private KhuyenMai khuyenMai;
 
     // SanPham - Anh
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "sanPham_anh",
-        joinColumns = @JoinColumn(name = "sanPham_id"),
-        inverseJoinColumns = @JoinColumn(name = "anh_id")
-    )
+    @OneToMany(mappedBy = "sanPham",cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.REFRESH})
     private List<Anh> photos;
 
     // SanPham - GioHang
