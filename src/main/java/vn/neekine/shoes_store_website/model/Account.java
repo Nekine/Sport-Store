@@ -17,7 +17,7 @@ import lombok.Data;
 @Table(name = "TaiKhoan")
 public class Account {
     @Id
-    @Column(name = "email")
+    @Column(name = "username")
     private String email;
 
     @Column(name = "password")
