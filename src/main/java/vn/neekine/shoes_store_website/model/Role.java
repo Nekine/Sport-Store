@@ -26,6 +26,6 @@ public class Role {
     // Roles - Account
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
         CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "username")
     private Account account;
 }

@@ -25,9 +25,9 @@ public class SecurityConfig {
     UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
 
-        jdbcUserDetailsManager.setUsersByUsernameQuery("select * from dbo.tai_khoan where email = ?");
+        jdbcUserDetailsManager.setUsersByUsernameQuery("select username, password, enabled from dbo.tai_khoan where username = ?");
 
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select * from dbo.roles where email =?");
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select username, authority from dbo.roles where username =?");
 
         return jdbcUserDetailsManager;
     }
