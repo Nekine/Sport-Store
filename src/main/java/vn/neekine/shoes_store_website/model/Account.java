@@ -20,7 +20,7 @@ public class Account {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "mat_khau")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "enabled")
