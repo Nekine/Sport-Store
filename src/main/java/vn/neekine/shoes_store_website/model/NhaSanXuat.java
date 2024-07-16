@@ -1,7 +1,5 @@
 package vn.neekine.shoes_store_website.model;
 
-
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
