@@ -11,4 +11,9 @@ public class StoreController {
     public String homePage(){
         return "Home";
     }
+
+    @GetMapping("/login")
+    public String loginPage(){
+        return "Login";
+    }
 }
