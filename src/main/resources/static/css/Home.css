@@ -371,8 +371,15 @@ section {
     position: relative;
 }
 
-section .product {
-    margin-bottom: 20px;
+section .shoes .box-product {
+    transition: transform 0.5s ease-in-out;
+    width: calc(200%); /* Adjust based on the number of slides */
+}
+
+@media (max-width: 1112px) {
+    section .shoes .box-product {
+        width: calc(500%); /* Adjust based on the number of slides */
+    }
 }
 
 section .product-item {
