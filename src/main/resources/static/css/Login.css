@@ -332,7 +332,7 @@ main .title-login {
 }
 
 main .form-login {
-    padding: 100px;
+    padding: 130px 100px;
     height: 100vh;
 }
 
@@ -343,6 +343,36 @@ main .form-login input {
     background: #ededed;
     padding: 0 20px;
     margin-bottom: 30px;
+    
+}
+
+main .form-login .button {
+    display: flex;
+    align-items: center;
+}
+
+main .form-login button {
+    height: 55px;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 0 30px;
+}
+
+main .form-login button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+main .form-login .button p {
+    margin-left: 20px;
+    color: #989797;
+}
+
+main .form-login .button p a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #000;
 }
 
 /* Bỏ viền và đổi màu nền khi input có focus */
@@ -350,6 +380,43 @@ main .form-login input:focus {
     outline: none; /* Bỏ outline mặc định */
     border: 1px solid #e3e3e3;  /* Bỏ viền */
     background-color: #fff; /* Đổi màu nền */
+}
+
+@media (max-width: 1112px) {
+    main .title-login {
+        height: 50vh;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    main .form-login {
+        height: 80vh;
+    }
+}
+
+@media (max-width: 739px) {
+    main .title-login {
+        height: auto;
+        padding: 70px 0;
+        border-bottom: 1px solid #e3e3e3;
+        font-size: 40px;
+    }
+
+    main .form-login {
+        height: auto;
+        padding: 100px 30px;
+    }
+}
+
+@media (max-width: 350px) {
+    main .form-login .button {
+        display: block;
+        text-align: center;
+    }
+
+    main .form-login .button p {
+        margin-left: 0;
+        margin-top: 20px;
+    }
 }
 
 /* footer */

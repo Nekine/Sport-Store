@@ -51,38 +51,16 @@ window.addEventListener('scroll', () => {
 // // Lắng nghe sự kiện cuộn trang
 // window.addEventListener('scroll', handleScroll);
 
-
-// main -> section -> nhom 1,2,3
+// main -> section -> nhom 1
 document.addEventListener('DOMContentLoaded', function() {
     const shoesElement = document.querySelector('.shoes');
-    const bagElement = document.querySelector('.bag');
-    const clothesElement = document.querySelector('.clothes');
+    const boxElement = document.querySelector('.box-product');
 
-    // Lấy chiều rộng của toàn bộ trang (viewport)
-    const viewportWidth = window.innerWidth;
-    var count_shoes = 5;
-    var count_bag = 8;
-    var count_clothes = 7;
+    var count_shoes = 10;
 
-    shoesElement.innerHTML += `
-        <div class="prev">
-            <i class="ti-angle-left"></i>
-        </div>
-    `
-
-    if(viewportWidth <= 1112){
-        console.log("ok")
-        count_shoes = 2;
-        count_clothes = 6;
-    }
-    else {
-        count_shoes = 5;
-        count_clothes = 7;
-    }
-    
     for(let i = 0; i < count_shoes; i++) {
         const product_item = `
-            <div class="col l-2-4 m-6 c-6 product">
+            <div class="col l-1-2 m-1-2 c-1-2 product">
                     <div class="product-item">
                         <a href="/neekine">
                             <div class="product-img">
@@ -100,15 +78,68 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
         `;
-    
-        shoesElement.innerHTML += product_item;
+        
+        boxElement.innerHTML += product_item;
+        console.log(boxElement)
     }
+
+    shoesElement.innerHTML += `
+        <div class="prev">
+            <i class="ti-angle-left"></i>
+        </div>
+    `
 
     shoesElement.innerHTML += `
         <div class="next">
             <i class="ti-angle-right"></i>
         </div>
     `
+});
+
+// main -> section -> nhom 1 (hieu ung chuyen san pham)
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.box-product');
+    const slides = document.querySelectorAll('.product');
+    const nextButton = document.querySelector('.next');
+    const prevButton = document.querySelector('.prev');
+    let index = 0;
+
+    nextButton.addEventListener('click', () => {
+        if (index < slides.length - 5) {
+            index++;
+            updateSlider();
+        }
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (index > 0) {
+            index--;
+            updateSlider();
+        }
+    });
+
+    function updateSlider() {
+        slider.style.transform = `translateX(-${index * 10}%)`;
+    }
+});
+
+
+// main -> section -> nhom 2,3
+document.addEventListener('DOMContentLoaded', function() {
+    const bagElement = document.querySelector('.bag');
+    const clothesElement = document.querySelector('.clothes');
+
+    // Lấy chiều rộng của toàn bộ trang (viewport)
+    const viewportWidth = window.innerWidth;
+    var count_bag = 8;
+    var count_clothes = 7;
+
+    if(viewportWidth <= 1112){
+        count_clothes = 6;
+    }
+    else {
+        count_clothes = 7;
+    }
 
     for(let i=2; i<count_bag; i++){
         const product_item = `
@@ -136,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     for(let i=0; i<count_clothes; i++){
         const product_item = `
-         <div class="col l-2-4 m-6 c-6 product">
+        <div class="col l-2-4 m-6 c-6 product">
             <div class="product-item">
                 <a href="/neekine">
                     <div class="product-img">

@@ -42,12 +42,12 @@ public class SecurityConfig {
                             .anyRequest().permitAll()    
             )
             // đường dẫn đến trang đăng nhập
-            // .formLogin(form ->
-            //         form
-            //                     .loginPage("/neekine/showLoginPage")
-            //                     .loginProcessingUrl("/authenticateTheUser")
-            //                     .permitAll()
-            // )
+            .formLogin(form ->
+                    form
+                                .loginPage("/neekine/login")
+                                .loginProcessingUrl("/authenticateTheUser")
+                                .permitAll()
+            )
             // đường dẫn đến trang đăng nhập khi muốn đăng xuất 
             //.logout(logout -> logout.permitAll())
             // đường dẫn đến trang khi không truy cập được trang mong muốn

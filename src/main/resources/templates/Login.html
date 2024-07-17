@@ -109,12 +109,12 @@
                 <div class="title-login col l-6 m-12 c-12">
                     <p>Đăng nhập</p>
                 </div>
-                <form th:action="@{/neekine}" class="form-login col l-6 m-12 c-12">
-                    <input type="text" placeholder="Email">
-                    <input type="password" placeholder="Mật khẩu">
-                    <div class="button row">
-                        <button type="submit" class="col l-4 m-2 c-3">Đăng nhập</button>
-                        <p class="col l-4 m-2 c-3"><a th:href="@{/neekine}">Quên mật khẩu?</a> hoặc <a th:href="@{/neekine}">Đăng ký</a></p>
+                <form th:action="@{/authenticateTheUser}" class="form-login col l-6 m-12 c-12" method="post">
+                    <input type="text" id="username" name="username" placeholder="Email">
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu">
+                    <div class="button">
+                        <button type="submit">Đăng nhập</button>
+                        <p><a th:href="@{/neekine}">Quên mật khẩu?<br></a> hoặc <a th:href="@{/neekine}">Đăng ký</a></p>
                     </div>
                 </form>
             </div>
