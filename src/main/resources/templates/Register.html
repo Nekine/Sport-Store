@@ -8,7 +8,7 @@
 
     <!-- css -->
     <link rel="stylesheet" th:href="@{/css/Grid-library.css}">
-    <link rel="stylesheet" th:href="@{/css/Login.css}">
+    <link rel="stylesheet" th:href="@{/css/Register.css}">
     <link rel="stylesheet" th:href="@{/themify-icons/themify-icons.css}">
 
 </head>
@@ -107,21 +107,26 @@
         <main class="box-login grid">
             <div class="row">
                 <div class="title-login col l-6 m-12 c-12">
-                    <p>Đăng nhập</p>
+                    <p>Đăng ký</p>
                 </div>
-                <form th:action="@{/authenticateTheUser}" class="form-login col l-6 m-12 c-12" method="post">
-                    <div th:if="${param.error}" class="error-infor">
-                        <p>Email hoặc mật khẩu không chính xác !</p>
+                <form th:action="@{/neekine/register}" th:object="${registerClientDTO}" class="form-login col l-6 m-12 c-12" method="post">
+                    <input type="text" th:field="*{client.fullName}" id="fullname" name="fullname" placeholder="Họ và tên">
+                    <div class="sex">
+                        <input type="radio" id="radio1" th:field="*{client.gioiTinh}" th:value="nam">
+                        <label for="radio1">Nam</label>
+                        <input type="radio" id="radio2" th:field="*{client.gioiTinh}" th:value="nữ">
+                        <label for="radio2">Nữ</label>
+                        <input type="radio" id="radio3" th:field="*{client.gioiTinh}" th:value="khác">
+                        <label for="radio3">Khác</label>
                     </div>
-                    <input type="text" id="username" name="username" placeholder="Email">
-                    <input type="password" id="password" name="password" placeholder="Mật khẩu">
-                    <div class="button">
-                        <button type="submit">Đăng nhập</button>
-                        <p><a th:href="@{/neekine}">Quên mật khẩu?<br></a> hoặc <a th:href="@{/neekine/account/register}">Đăng ký</a></p>
-                    </div>
+                    <input type="text" th:field="*{account.email}" id="username" name="username" placeholder="Email">
+                    <input type="password" th:field="*{account.password}" id="password" name="password" placeholder="Mật khẩu">
+                    <button type="submit">Đăng ký</button><br><br><br>
+                    <a th:href="@{/neekine}"><i class="ti-arrow-left"></i>Quay lại trang chủ</a>
                 </form>
             </div>
         </main>
+        
 
         <footer class="grid">
             <div class="top-footer row"> 

@@ -336,6 +336,12 @@ main .form-login {
     height: 100vh;
 }
 
+main .form-login .error-infor {
+    color: red;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
 main .form-login input {
     width: 100%;
     height: 55px;
