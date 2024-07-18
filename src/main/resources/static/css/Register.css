@@ -321,167 +321,139 @@ header.fixed {
 
 /* main */
 
-/* slides */
-.slides {
-    display: flex;
-    flex-wrap: wrap; /* Đảm bảo rằng các phần tử sẽ wrap nếu không đủ chỗ */
-}
-
-.slides .home-banner {
-    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
-    padding: 0;
-    overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
-
-}
-
-.home-banner img {
-    width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
-    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
-    transition: transform 1.5s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho transform */
-
-}
-
-/* Tạo hiệu ứng phóng to khi hover */
-.home-banner img:hover {
-    transform: scale(1.1); /* Phóng to ảnh lên 1.1 lần */
-}
-
-@media (max-width: 1112px){
-    .slides .home-banner {
-        box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
-        padding: 10px 0;
-    }  
-}
-
-/* product */
-section .product {
-    margin-top: 15px;
-}
-
-section h1 {
-    padding: 50px 0;
-    text-align: center;
-    font-size: 35px;
-    font-weight: 300;
-    letter-spacing: 1px;
-}
-
-
-
-section {
-    display: flex;
-    flex-wrap: wrap; /* Đảm bảo rằng các phần tử sẽ wrap nếu không đủ chỗ */
-    position: relative;
-}
-
-section .shoes .box-product {
-    transition: transform 0.5s ease-in-out;
-    width: calc(200%); /* Adjust based on the number of slides */
-}
-
-@media (max-width: 1112px) {
-    section .shoes .box-product {
-        width: calc(500%); /* Adjust based on the number of slides */
-    }
-}
-
-section .product-item {
-    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
-    padding: 0 5px;
-    overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
-    position: relative;
-}
-
-section .product-item .percent {
-    position: absolute;
-    font-size: 14px;
+main .title-login {
+    font-size: 55px;
     font-weight: 600;
-    margin-top: 10px;
-    margin-left: 5px;
-    padding: 2px 5px;
-    background-color: #fff;
-    color: red;
-}
-
-section .product-item img {
-    width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
-    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
-}
-
-section .product-item .product-img .first-img,
-section .product-item .product-img:hover .second-img{
-    display: block;
-}
-
-section .product-item .product-img:hover .first-img,
-section .product-item .second-img {
-    display: none;
-}
-
-section .product-item a {
-    text-decoration: none; /* Bỏ gạch chân */
-    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
-}
-
-section .product-item p {
-    font-size: 14px;
-    padding-top: 20px;
-}
-
-section .product-item .cost {
-    font-size: 14px;
-    padding: 10px 0;
-}
-
-section .product-item .cost .price{
-    color: red;
-    padding-right: 10px;
-}
-
-section .product-item .cost .old-price{
-    color: #9c9c9c;
-    text-decoration: line-through;
-}
-
-/* select prev-next */
-section .prev {
-    position: absolute;
-    left: 0;
-    margin-left: 8px;
-    z-index: 50;
-    background-color: #ffffff;
-    width: 50px;
-    height: 50px;
-    top: 50%;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
-    cursor: pointer;
-}
-
-section .next i,
-section .prev i {
-    color: #000;
-    width: 100%;
-    height: 100%;
-    font-size: 15px;
-    font-weight: 600;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-right: 1px solid #e3e3e3;
 }
 
-section .next {
-    position: absolute;
-    right: 0;
-    margin-right: 8px;
-    z-index: 50;
-    background-color: #ffffff;
-    width: 50px;
-    height: 50px;
-    top: 50%;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
+main .form-login {
+    padding: 130px 100px;
+    height: 100vh;
+}
+
+main .form-login .error-infor {
+    color: red;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+main .form-login input {
+    width: 100%;
+    height: 55px;
+    border: none;
+    background: #ededed;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    
+}
+
+main .form-login input[type="radio"] {
+    width: 20px;
+    height: 18px;
     cursor: pointer;
+    background-color: #ededed;
+    border: 1px dashed #989797;
+}
+
+.main .form-login input[type="radio"]:checked {
+    background-color: #ededed; /* Màu nền mới khi được chọn */
+    border-color: #000; /* Màu border mới khi được chọn */
+}
+
+main .form-login .sex {
+    display: flex;
+    align-content: center;
+}
+
+
+main .form-login .sex label {
+    margin: 2px 20px 0 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+main .form-login #sex {
+    height: 5px;
+    width: 20%;
+}
+
+main .form-login .button {
+    display: flex;
+    align-items: center;
+}
+
+main .form-login button {
+    height: 55px;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 0 30px;
+}
+
+main .form-login button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+main .form-login a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #000;
+    font-size: 14px;
+}
+
+main .form-login a i {
+    font-weight: 800;
+    margin-right: 15px;
+}
+
+/* Bỏ viền và đổi màu nền khi input có focus */
+main .form-login input:focus {
+    outline: none; /* Bỏ outline mặc định */
+    border: 1px solid #e3e3e3;  /* Bỏ viền */
+    background-color: #fff; /* Đổi màu nền */
+}
+
+@media (max-width: 1112px) {
+    main .title-login {
+        height: 50vh;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    main .form-login {
+        height: 80vh;
+    }
+}
+
+@media (max-width: 739px) {
+    main .title-login {
+        height: auto;
+        padding: 70px 0;
+        border-bottom: 1px solid #e3e3e3;
+        font-size: 40px;
+    }
+
+    main .form-login {
+        height: auto;
+        padding: 100px 30px;
+    }
+}
+
+@media (max-width: 350px) {
+    main .form-login .button {
+        display: block;
+        text-align: center;
+    }
+
+    main .form-login .button p {
+        margin-left: 0;
+        margin-top: 20px;
+    }
 }
 
 /* footer */
