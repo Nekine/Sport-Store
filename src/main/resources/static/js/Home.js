@@ -14,41 +14,6 @@ const handleScroll = () => {
     }
 };
 
-// Add scroll event listener
-window.addEventListener('scroll', handleScroll);
-
-// Add resize event listener to handle changes in screen size
-window.addEventListener('resize', () => {
-    handleScroll(); // Re-evaluate scroll position on resize
-});
-
-// main -> section
-
-// // Hàm kiểm tra xem phần tử đã cuộn đến chưa
-// function isElementInViewport(el, index) {
-//     var rect = el.getBoundingClientRect();
-//     console.log(rect.top)
-//     return (
-//         rect.top >= 0 
-//         // rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-//     );
-// }
-
-// // Hàm xử lý khi cuộn trang
-// function handleScroll() {
-//     var section = document.querySelectorAll('section');
-//     section.forEach(function(section_item, index) {
-//         if (isElementInViewport(section_item, index)) {
-//             section_item.classList.add('visible'); // Thêm lớp visible khi cuộn đến phần tử
-//             //window.removeEventListener('scroll', handleScroll); // Ngừng lắng nghe sự kiện cuộn khi đã hiển thị
-//         }
-//     })
-//     console.log("ok")
-// }
-
-// // Lắng nghe sự kiện cuộn trang
-// window.addEventListener('scroll', handleScroll);
-
 // main -> section -> nhom 1
 document.addEventListener('DOMContentLoaded', function() {
     const shoesElement = document.querySelector('.shoes');
