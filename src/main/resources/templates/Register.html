@@ -109,18 +109,34 @@
                 <div class="title-login col l-6 m-12 c-12">
                     <p>Đăng ký</p>
                 </div>
-                <form th:action="@{/neekine/register}" th:object="${registerClientDTO}" class="form-login col l-6 m-12 c-12" method="post">
-                    <input type="text" th:field="*{client.fullName}" id="fullname" name="fullname" placeholder="Họ và tên">
-                    <div class="sex">
-                        <input type="radio" id="radio1" th:field="*{client.gioiTinh}" th:value="nam">
-                        <label for="radio1">Nam</label>
-                        <input type="radio" id="radio2" th:field="*{client.gioiTinh}" th:value="nữ">
-                        <label for="radio2">Nữ</label>
-                        <input type="radio" id="radio3" th:field="*{client.gioiTinh}" th:value="khác">
-                        <label for="radio3">Khác</label>
+                <form th:action="@{/account/register}" th:object="${registerClientDTO}" class="form-login col l-6 m-12 c-12" id="form-1" method="post">
+                    <div class="form-group">
+                        <span class="form-message"></span>
+                        <input type="text" th:field="*{client.fullName}" id="fullname" name="fullname" placeholder="Họ và tên">
                     </div>
-                    <input type="text" th:field="*{account.email}" id="username" name="username" placeholder="Email">
-                    <input type="password" th:field="*{account.password}" id="password" name="password" placeholder="Mật khẩu">
+                    <div class="form-group">
+                        <span class="form-message"></span>
+                        <div class="sex">
+                            <input type="radio" id="radio1" class="form-radio" th:field="*{client.gioiTinh}" th:value="nam">
+                            <label for="radio1">Nam</label>
+                            <input type="radio" id="radio2" class="form-radio" th:field="*{client.gioiTinh}" th:value="nữ">
+                            <label for="radio2">Nữ</label>
+                            <input type="radio" id="radio3" class="form-radio" th:field="*{client.gioiTinh}" th:value="khác">
+                            <label for="radio3">Khác</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-message"></span>
+                        <input type="text" th:field="*{account.email}" id="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <span class="form-message"></span>
+                        <input type="password" th:field="*{account.password}" id="password" name="password" placeholder="Mật khẩu">
+                    </div>
+                    <div class="form-group">
+                        <span class="form-message"></span>
+                        <input type="password"  id="password_confirmation" name="password" placeholder="Nhập lại mật khẩu">
+                    </div>
                     <button type="submit">Đăng ký</button><br><br><br>
                     <a th:href="@{/neekine}"><i class="ti-arrow-left"></i>Quay lại trang chủ</a>
                 </form>
@@ -198,5 +214,26 @@
         </div>
     </div>
 </body>
-<script th:src="@{/js/Login.js}"></script>
+<script th:src="@{/js/Register.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                Validator.isEmail('#email'),
+                Validator.isSex('.form-radio', 'Vui lòng chọn giới tính của bạn'),
+                Validator.minLength('#password', 6),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirmed('#password_confirmation', function () {
+                return document.querySelector('#form-1 #password').value;
+            }, 'Mật khẩu nhập lại không chính xác')
+            ]
+        });
+
+    });
+</script>
 </html>
