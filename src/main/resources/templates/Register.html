@@ -109,7 +109,7 @@
                 <div class="title-login col l-6 m-12 c-12">
                     <p>Đăng ký</p>
                 </div>
-                <form th:action="@{/account/register}" th:object="${registerClientDTO}" class="form-login col l-6 m-12 c-12" id="form-1" method="post">
+                <form th:action="@{/neekine/addUser}" th:object="${registerClientDTO}" class="form-login col l-6 m-12 c-12" id="form-1" method="post">
                     <div class="form-group">
                         <span class="form-message"></span>
                         <input type="text" th:field="*{client.fullName}" id="fullname" name="fullname" placeholder="Họ và tên">

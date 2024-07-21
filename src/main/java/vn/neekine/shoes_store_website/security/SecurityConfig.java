@@ -38,7 +38,7 @@ public class SecurityConfig {
             // cấp quyền cho người dùng
             .authorizeHttpRequests(configurer -> 
                     configurer
-                            .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/neekine/admin/**").hasRole("ADMIN")
                             .anyRequest().permitAll()    
             )
             // đường dẫn đến trang đăng nhập
@@ -46,6 +46,7 @@ public class SecurityConfig {
                     form
                                 .loginPage("/neekine/login")
                                 .loginProcessingUrl("/authenticateTheUser")
+                                .defaultSuccessUrl("/neekine") // URL chuyển hướng sau khi đăng nhập thành công
                                 .permitAll()
             )
             // đường dẫn đến trang đăng nhập khi muốn đăng xuất 
