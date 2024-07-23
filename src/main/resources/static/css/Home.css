@@ -358,6 +358,12 @@ section .product {
     margin-top: 15px;
 }
 
+section .shoes {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Ẩn mọi thứ bên ngoài vùng chứa này */
+}
+
 section h1 {
     padding: 50px 0;
     text-align: center;
@@ -366,8 +372,6 @@ section h1 {
     letter-spacing: 1px;
 }
 
-
-
 section {
     display: flex;
     flex-wrap: wrap; /* Đảm bảo rằng các phần tử sẽ wrap nếu không đủ chỗ */
@@ -375,6 +379,7 @@ section {
 }
 
 section .shoes .box-product {
+    display: flex;
     transition: transform 0.5s ease-in-out;
     width: calc(200%); /* Adjust based on the number of slides */
 }
@@ -452,7 +457,7 @@ section .prev {
     background-color: #ffffff;
     width: 50px;
     height: 50px;
-    top: 50%;
+    top: 40%;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
     cursor: pointer;
@@ -478,7 +483,7 @@ section .next {
     background-color: #ffffff;
     width: 50px;
     height: 50px;
-    top: 50%;
+    top: 40%;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
     cursor: pointer;

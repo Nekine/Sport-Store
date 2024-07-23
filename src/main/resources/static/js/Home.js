@@ -14,61 +14,65 @@ const handleScroll = () => {
     }
 };
 
+// Add scroll event listener
+window.addEventListener('scroll', handleScroll);
+
+// Add resize event listener to handle changes in screen size
+window.addEventListener('resize', () => {
+    handleScroll(); // Re-evaluate scroll position on resize
+});
+
+
+// #################################################################
 // main -> section -> nhom 1
-document.addEventListener('DOMContentLoaded', function() {
-    const shoesElement = document.querySelector('.shoes');
+async function fetchProducts() {
     const boxElement = document.querySelector('.box-product');
 
     var count_shoes = 10;
+    var product_name = '';
 
-    for(let i = 0; i < count_shoes; i++) {
-        const product_item = `
+    const response = await fetch('/api/products');
+    const products = await response.json();
+
+    for(let i=0; i<products.length; i++) {
+        if(products[i].ten !== product_name) {
+            const product_item = `
             <div class="col l-1-2 m-1-2 c-1-2 product">
-                    <div class="product-item">
-                        <a href="/neekine">
-                            <div class="product-img">
-                                <span class="percent">20%</span>
-                                <img src="/images/shoes-${i+1}.1.jpg" alt="" class="first-img">
-                                <img src="/images/shoes-${i+1}.2.jpg" alt="" class="second-img">
-                            </div>
-                            <p>New Balance Fresh Foam Arishi v3 Slip Resistant - Grey</p>
-                        </a>
-
-                        <div class="cost">
-                            <span class="price">1,000,000 đ</span>
-                            <span class="old-price">1,250,000 đ</span>
+                <div class="product-item">
+                    <a href="/neekine">
+                        <div class="product-img">
+                            <span class="percent">${products[i].phan_tram}%</span>
+                            <img src="/images/${products[i].photoNames[0]}" alt="" class="first-img">
+                            <img src="/images/${products[i].photoNames[1]}" alt="" class="second-img">
                         </div>
+                        <p>${products[i].ten}</p>
+                    </a>
+
+                    <div class="cost">
+                        <span class="price">${products[i].gia_ban * (products[i].phan_tram/100)} đ</span>
+                        <span class="old-price">${products[i].gia_ban} đ</span>
                     </div>
                 </div>
-        `;
-        
-        boxElement.innerHTML += product_item;
-        console.log(boxElement)
+            </div>
+            `;
+            boxElement.innerHTML += product_item;
+
+            product_name = products[i].ten;
+            count_shoes--;
+
+            if(count_shoes == 0) {
+                break;
+            }
+        }
     }
 
-    shoesElement.innerHTML += `
-        <div class="prev">
-            <i class="ti-angle-left"></i>
-        </div>
-    `
-
-    shoesElement.innerHTML += `
-        <div class="next">
-            <i class="ti-angle-right"></i>
-        </div>
-    `
-});
-
-// main -> section -> nhom 1 (hieu ung chuyen san pham)
-document.addEventListener('DOMContentLoaded', function() {
     const slider = document.querySelector('.box-product');
-    const slides = document.querySelectorAll('.product');
     const nextButton = document.querySelector('.next');
     const prevButton = document.querySelector('.prev');
     let index = 0;
 
     nextButton.addEventListener('click', () => {
-        if (index < slides.length - 5) {
+        if (index < 5) {
             index++;
             updateSlider();
         }
@@ -84,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSlider() {
         slider.style.transform = `translateX(-${index * 10}%)`;
     }
-});
+}
+document.addEventListener('DOMContentLoaded', fetchProducts);
 
 
 // main -> section -> nhom 2,3
