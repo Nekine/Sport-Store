@@ -90,6 +90,10 @@ body {
     height: 50px;
 }
 
+.body-search-pc .search-pc form button{
+    
+}
+
 .body-search-pc .search-pc .content-search {
     background-color: #5f5e5e;
     height: 50px;
@@ -426,11 +430,18 @@ section .product-item .second-img {
 section .product-item a {
     text-decoration: none; /* Bỏ gạch chân */
     color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+    cursor: pointer;
 }
 
 section .product-item p {
     font-size: 14px;
     padding-top: 20px;
+    /* ẩn phần tên thừa khỏi khung */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%; /* Đảm bảo nó chiếm hết chiều rộng của phần tử cha */
+    display: block;
 }
 
 section .product-item .cost {
@@ -438,7 +449,7 @@ section .product-item .cost {
     padding: 10px 0;
 }
 
-section .product-item .cost .price{
+section .product-item .cost .new-price{
     color: red;
     padding-right: 10px;
 }
@@ -489,9 +500,21 @@ section .next {
     cursor: pointer;
 }
 
+@media (max-width: 400px) {
+    section .prev,
+    section .next {
+        width: 40px;
+        height: 40px;
+    }
+}
+
 /* footer */
 
 /* footer -> top-footer */
+footer {
+    margin-top: 20px;
+}
+
 footer .top-footer{
     background-color: #f3f3f3;
     padding: 15px 10px !important;

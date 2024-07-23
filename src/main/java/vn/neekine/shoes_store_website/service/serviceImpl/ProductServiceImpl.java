@@ -22,21 +22,23 @@ public class ProductServiceImpl implements ProductService{
         List<SanPham> products = productRepository.findAllProducts();
 
         return products.stream()
-                       .map(product -> {
-                           List<String> photoNames = product.getPhotos().stream()
-                                                             .map(Anh::getTen)
-                                                             .collect(Collectors.toList());
-                           return new ProductDTO(
-                                   product.getId(), 
-                                   product.getLoai(), 
-                                   product.getTenSanPham(), 
-                                   product.getSize(), 
-                                   product.getSoluong(), 
-                                   product.getGiaBan(), 
-                                   product.getKhuyenMai().getPhanTram(), 
-                                   photoNames);
-                       })
-                       .collect(Collectors.toList());
+                        .map(product -> {
+                            Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
+                            List<String> photoNames = product.getPhotos().stream()
+                                                                .map(Anh::getTen)
+                                                                .sorted() // Sắp xếp tên ảnh từ nhỏ đến lớn
+                                                                .collect(Collectors.toList());
+                            return new ProductDTO(
+                                    product.getId(), 
+                                    product.getLoai(), 
+                                    product.getTenSanPham(), 
+                                    product.getSize(), 
+                                    product.getSoluong(), 
+                                    product.getGiaBan(), 
+                                    phanTram, 
+                                    photoNames);
+                        })
+                        .collect(Collectors.toList());
     }
 
 }
