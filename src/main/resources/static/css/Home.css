@@ -90,14 +90,60 @@ body {
     height: 50px;
 }
 
-.body-search-pc .search-pc form button{
-    
+.content-search {
+    margin: 10px 10px;
 }
 
-.body-search-pc .search-pc .content-search {
-    background-color: #5f5e5e;
-    height: 50px;
-    margin-top: 10px;
+.content-search a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    height: auto;
+}
+
+.content-search .resultsMore {
+    border: none;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    padding: 10px;
+    color: #707070;
+}
+
+.content-search a .content-product {
+    font-size: 12px;
+}
+
+.content-search a .content-product p {
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;/* ẩn phần tên thừa khỏi khung */
+    width: 100%; /* Đảm bảo nó chiếm hết chiều rộng của phần tử cha */
+    display: block;
+
+}
+
+.content-search a .content-product .cost .price {
+    color: #4b4b4b;
+}
+
+.content-search a .content-product .cost .new-price{
+    color: red;
+    padding-right: 10px;
+}
+
+.content-search a .content-product .cost .old-price{
+    color: #9c9c9c;
+    text-decoration: line-through;
+}
+
+.content-search a img {
+    width: 100%;
+    height: auto;
 }
 
 
@@ -436,10 +482,9 @@ section .product-item a {
 section .product-item p {
     font-size: 14px;
     padding-top: 20px;
-    /* ẩn phần tên thừa khỏi khung */
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;/* ẩn phần tên thừa khỏi khung */
     width: 100%; /* Đảm bảo nó chiếm hết chiều rộng của phần tử cha */
     display: block;
 }

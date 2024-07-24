@@ -99,9 +99,12 @@
             </div>
             
             <form th:action="@{/neekine}" class="search-box row l-0">
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col m-11 c-11">
+                <input type="text" id="searchInput-1" placeholder="Tìm kiếm sản phẩm..." class="col m-11 c-11">
                 <button class="m-1 c-1"><i class="ti-search"></i></button>
             </form>
+            <div class="content-search" id="search-1">
+                <!-- search result -->
+            </div>
         </header>
         <main class="grid">
             <!-- slides -->
@@ -212,10 +215,12 @@
         </div>
         <div class="search-box search-pc">
             <form th:action="@{/neekine}" class="row">
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col l-10 m-10 c-10">
+                <input type="text" id="searchInput-2" placeholder="Tìm kiếm sản phẩm..." class="col l-10 m-10 c-10">
                 <button class="col l-2 m-2 c-2"><i class="ti-search"></i></button>
             </form>
-            <div class="content-search"></div>
+            <div class="content-search grid" id="search-2">
+                <!-- search result -->
+            </div>
         </div>
     </div>
 </body>
