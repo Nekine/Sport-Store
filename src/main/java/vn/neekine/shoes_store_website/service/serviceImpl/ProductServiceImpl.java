@@ -26,7 +26,29 @@ public class ProductServiceImpl implements ProductService{
                             Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
                             List<String> photoNames = product.getPhotos().stream()
                                                                 .map(Anh::getTen)
-                                                                .sorted() // Sắp xếp tên ảnh từ nhỏ đến lớn
+                                                                .collect(Collectors.toList());
+                            return new ProductDTO(
+                                    product.getId(), 
+                                    product.getLoai(), 
+                                    product.getTenSanPham(), 
+                                    product.getSize(), 
+                                    product.getSoluong(), 
+                                    product.getGiaBan(), 
+                                    phanTram, 
+                                    photoNames);
+                        })
+                        .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> searchProduct(String name) {
+        List<SanPham> products = productRepository.searchProductByName(name);
+
+        return products.stream()
+                        .map(product -> {
+                            Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
+                            List<String> photoNames = product.getPhotos().stream()
+                                                                .map(Anh::getTen)
                                                                 .collect(Collectors.toList());
                             return new ProductDTO(
                                     product.getId(), 
