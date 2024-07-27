@@ -1,4 +1,4 @@
-//main cách top 1 khaongr bằng đúng header  
+//main cách top 1 khaongr bằng₫úng header  
 // khi croll qua header thì nó sẽ suất hiện trượt xuống
 // Function to handle scroll event
 const handleScroll = () => {
@@ -61,13 +61,13 @@ async function fetchProducts() {
 
             if(products[i].phan_tram !== 0){
                 product_item += ` <div class="cost">
-                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))} đ</span>
-                            <span class="old-price">${formatCurrency(products[i].gia_ban)} đ</span>
+                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                            <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
             else{
                 product_item += ` <div class="cost">
-                            <span class="price">${products[i].gia_ban.toLocaleString('vi-VN')} đ</span>
+                            <span class="price">${products[i].gia_ban.toLocaleString('vi-VN')}₫</span>
                         </div>`
             }
                 `</div>
@@ -100,13 +100,13 @@ async function fetchProducts() {
 
             if(products[i].phan_tram !== 0){
                 product_item += ` <div class="cost">
-                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))} đ</span>
-                            <span class="old-price">${formatCurrency(products[i].gia_ban)} đ</span>
+                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                            <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
             else{
                 product_item += ` <div class="cost">
-                            <span class="price">${formatCurrency(products[i].gia_ban)} đ</span>
+                            <span class="price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
                 `</div>
@@ -139,13 +139,13 @@ async function fetchProducts() {
             
             if(products[i].phan_tram !== 0){
                 product_item += ` <div class="cost">
-                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))} đ</span>
-                            <span class="old-price">${formatCurrency(products[i].gia_ban)} đ</span>
+                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                            <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
             else{
                 product_item += ` <div class="cost">
-                            <span class="price">${formatCurrency(products[i].gia_ban)} đ</span>
+                            <span class="price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
                     
@@ -254,13 +254,13 @@ function search(idInput, idContent) {
 
                 if(products[i].phan_tram !== 0){
                     product_item += ` <div class="cost">
-                                <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))} đ</span>
-                                <span class="old-price">${formatCurrency(products[i].gia_ban)} đ</span>
+                                <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                                <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                             </div>`
                 }
                 else{
                     product_item += ` <div class="cost">
-                                <span class="price">${formatCurrency(products[i].gia_ban)} đ</span>
+                                <span class="price">${formatCurrency(products[i].gia_ban)}₫</span>
                             </div>`
                 }
 
