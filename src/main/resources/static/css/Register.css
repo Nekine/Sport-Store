@@ -90,10 +90,60 @@ body {
     height: 50px;
 }
 
-.body-search-pc .search-pc .content-search {
-    background-color: #5f5e5e;
-    height: 50px;
-    margin-top: 10px;
+.content-search {
+    margin: 10px 10px;
+}
+
+.content-search a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    height: auto;
+}
+
+.content-search .resultsMore {
+    border: none;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    padding: 10px;
+    color: #707070;
+}
+
+.content-search a .content-product {
+    font-size: 12px;
+}
+
+.content-search a .content-product p {
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;/* ẩn phần tên thừa khỏi khung */
+    width: 100%; /* Đảm bảo nó chiếm hết chiều rộng của phần tử cha */
+    display: block;
+
+}
+
+.content-search a .content-product .cost .price {
+    color: #4b4b4b;
+}
+
+.content-search a .content-product .cost .new-price{
+    color: red;
+    padding-right: 10px;
+}
+
+.content-search a .content-product .cost .old-price{
+    color: #9c9c9c;
+    text-decoration: line-through;
+}
+
+.content-search a img {
+    width: 100%;
+    height: auto;
 }
 
 
@@ -101,20 +151,20 @@ body {
 
 /* title */
 header {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     width: 100%;
     top: -100%;
+    z-index: 500; /* Đảm bảo header nằm trên các phần tử khác */
     background-color: #fff;
     transition: top 0.3s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho thuộc tính top */
 }
 
 /* Khi cuộn xuống, thêm lớp cố định */
 header.fixed {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     position: fixed; /* Làm cho header cố định */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 500; /* Đảm bảo header nằm trên các phần tử khác */
 }
 
 .header-mid{
@@ -473,6 +523,10 @@ main .form-login input:focus {
 /* footer */
 
 /* footer -> top-footer */
+footer {
+    margin-top: 20px;
+}
+
 footer .top-footer{
     background-color: #f3f3f3;
     padding: 15px 10px !important;
