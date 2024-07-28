@@ -35,7 +35,7 @@
                         <a th:href="@{/neekine}" class="current-page">TRANG CHỦ</a>
                     </li>
                     <li class="col l-1-5 m-0 c-0 has-subnav">
-                        <a th:href="@{/neekine}">TẤT CẢ SẢN PHẨM</a>
+                        <a th:href="@{/neekine/collections/all}">TẤT CẢ SẢN PHẨM</a>
                         <i class="ti-angle-down"></i>
 
                         <ul class="subnav">
@@ -43,6 +43,19 @@
                             <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
                             <li><a th:href="@{/neekine}">Nike Air Max</a></li>
                             <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                            <li><a th:href="@{/neekine}">Air Jordan</a></li>
+                            <li><a th:href="@{/neekine}">adidas Adilette 22</a></li>
+                            <li><a th:href="@{/neekine}">adidas Samba</a></li>
+                            <li><a th:href="@{/neekine}">adidas Gazelle</a></li>
+                            <li><a th:href="@{/neekine}">adidas Campus</a></li>
+                            <li><a th:href="@{/neekine}">adidas Stan Smith</a></li>
+                            <li><a th:href="@{/neekine}">adidas UltraBOOST</a></li>
+                            <li><a th:href="@{/neekine}">adidas NMD</a></li>
+                            <li><a th:href="@{/neekine}">New Balance 530</a></li>
+                            <li><a th:href="@{/neekine}">New Balance 550</a></li>
+                            <li><a th:href="@{/neekine}">Reebok Club C</a></li>
+                            <li><a th:href="@{/neekine}">aReebok Court Advance</a></li>
+                            <li><a th:href="@{/neekine}">YEEZY</a></li>
                         </ul>
                     </li>
                     <li class="col l-1-3 m-0 c-0 has-subnav">
@@ -72,10 +85,18 @@
                         <i class="ti-angle-down"></i>
 
                         <ul class="subnav">
-                            <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
-                            <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
-                            <li><a th:href="@{/neekine}">Nike Air Max</a></li>
-                            <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                            <li class="item-top"><a th:href="@{/neekine}">OSS MERCHANDISE</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Nike</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo adidas</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Reebok</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Uniqlo</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Puma</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Champion</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Ralph Lauren</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo G-Star</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Fred Perry</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Lacoste</a></li>
+                            <li><a th:href="@{/neekine}">Quần áo Under Armour</a></li>
                         </ul>
                     </li>
                     <li class="col l-1-3 m-0 c-0 has-subnav">
@@ -83,10 +104,15 @@
                         <i class="ti-angle-down"></i>
 
                         <ul class="subnav">
-                            <li class="item-top"><a th:href="@{/neekine}">Nike By You on SALE</a></li>
-                            <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
-                            <li><a th:href="@{/neekine}">Nike Air Max</a></li>
-                            <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                            <li class="item-top"><a th:href="@{/neekine}">Balo/túi Nike</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi Herschel</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi FRONT</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi The North Face</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi Patagonia</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi adidas</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi Coach</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi Michael Kors</a></li>
+                            <li><a th:href="@{/neekine}">Balo/túi KENZO</a></li>
                         </ul>
                     </li>
                     <li class="col l-1-3 m-0 c-0">
@@ -99,9 +125,12 @@
             </div>
             
             <form th:action="@{/neekine}" class="search-box row l-0">
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col m-11 c-11">
+                <input type="text" id="searchInput-1" placeholder="Tìm kiếm sản phẩm..." class="col m-11 c-11">
                 <button class="m-1 c-1"><i class="ti-search"></i></button>
             </form>
+            <div class="content-search" id="search-1">
+                <!-- search result -->
+            </div>
         </header>
 
         <main class="box-login grid">
@@ -186,10 +215,12 @@
         </div>
         <div class="search-box search-pc">
             <form th:action="@{/neekine}" class="row">
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="col l-10 m-10 c-10">
+                <input type="text" id="searchInput-2" placeholder="Tìm kiếm sản phẩm..." class="col l-10 m-10 c-10">
                 <button class="col l-2 m-2 c-2"><i class="ti-search"></i></button>
             </form>
-            <div class="content-search"></div>
+            <div class="content-search grid" id="search-2">
+                <!-- search result -->
+            </div>
         </div>
     </div>
 </body>

@@ -151,20 +151,20 @@ body {
 
 /* title */
 header {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     width: 100%;
     top: -100%;
+    z-index: 900; /* Đảm bảo header nằm trên các phần tử khác */
     background-color: #fff;
     transition: top 0.3s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho thuộc tính top */
 }
 
 /* Khi cuộn xuống, thêm lớp cố định */
 header.fixed {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     position: fixed; /* Làm cho header cố định */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 500; /* Đảm bảo header nằm trên các phần tử khác */
 }
 
 .header-mid{

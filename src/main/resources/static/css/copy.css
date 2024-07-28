@@ -1,0 +1,150 @@
+/* main */
+
+main .title-login {
+    font-size: 55px;
+    font-weight: 600;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #e3e3e3;
+}
+
+main .form-login {
+    padding: 100px 100px;
+    height: 100vh;
+}
+
+main .form-login .error-infor {
+    color: red;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+main .form-login input {
+    width: 100%;
+    height: 55px;
+    border: none;
+    background: #ededed;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    
+}
+
+.form-group.invalid input {
+    border: 1px solid #f33a58;
+}
+
+.form-group.invalid .form-message {
+    color: #f33a58;
+}
+
+.form-message {
+    font-size: 13px;
+    line-height: 1.6rem;
+    margin-bottom: 8px;
+}
+
+main .form-login input[type="radio"] {
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+    background-color: #ededed;
+    border: 1px dashed #ffffff;
+}
+
+.main .form-login input[type="radio"]:checked {
+    background-color: #ededed; /* Màu nền mới khi được chọn */
+    border-color: #000; /* Màu border mới khi được chọn */
+}
+
+main .form-login .sex {
+    display: flex;
+    align-content: center;
+}
+
+
+main .form-login .sex label {
+    margin: 2px 20px 0 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+main .form-login #sex {
+    height: 5px;
+    width: 20%;
+}
+
+main .form-login .button {
+    display: flex;
+    align-items: center;
+}
+
+main .form-login button {
+    height: 55px;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 0 30px;
+}
+
+main .form-login button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+main .form-login a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #000;
+    font-size: 14px;
+}
+
+main .form-login a i {
+    font-weight: 800;
+    margin-right: 15px;
+}
+
+/* Bỏ viền và đổi màu nền khi input có focus */
+main .form-login input:focus {
+    outline: none; /* Bỏ outline mặc định */
+    border: 1px solid #e3e3e3;  /* Bỏ viền */
+    background-color: #fff; /* Đổi màu nền */
+}
+
+@media (max-width: 1112px) {
+    main .title-login {
+        height: 50vh;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    main .form-login {
+        height: 100vh;
+    }
+}
+
+@media (max-width: 739px) {
+    main .title-login {
+        height: auto;
+        padding: 70px 0;
+        border-bottom: 1px solid #e3e3e3;
+        font-size: 40px;
+    }
+
+    main .form-login {
+        height: auto;
+        padding: 100px 30px;
+    }
+}
+
+@media (max-width: 350px) {
+    main .form-login .button {
+        display: block;
+        text-align: center;
+    }
+
+    main .form-login .button p {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}

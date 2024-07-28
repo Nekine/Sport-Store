@@ -146,25 +146,93 @@ body {
     height: auto;
 }
 
+/* product */
+.box-product {
+    margin-top: 50px;
+}
+
+.product-item {
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
+    padding: 0 5px;
+    overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
+    position: relative;
+}
+
+.product-item .percent {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding: 2px 5px;
+    background-color: #fff;
+    color: red;
+}
+
+.product-item img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
+    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+}
+
+.product-item .product-img .first-img,
+.product-item .product-img:hover .second-img{
+    display: block;
+}
+
+.product-item .product-img:hover .first-img,
+.product-item .second-img {
+    display: none;
+}
+
+.product-item a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+    cursor: pointer;
+}
+
+.product-item p {
+    font-size: 14px;
+    padding-top: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;/* ẩn phần tên thừa khỏi khung */
+    width: 100%; /* Đảm bảo nó chiếm hết chiều rộng của phần tử cha */
+    display: block;
+}
+
+.product-item .cost {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.product-item .cost .new-price{
+    color: red;
+    padding-right: 10px;
+}
+
+.product-item .cost .old-price{
+    color: #9c9c9c;
+    text-decoration: line-through;
+}
 
 /* header */
 
 /* title */
 header {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     width: 100%;
     top: -100%;
+    z-index: 500; /* Đảm bảo header nằm trên các phần tử khác */
     background-color: #fff;
     transition: top 0.3s ease-in-out; /* Thêm hiệu ứng chuyển đổi cho thuộc tính top */
 }
 
 /* Khi cuộn xuống, thêm lớp cố định */
 header.fixed {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng để header nổi bật */
     position: fixed; /* Làm cho header cố định */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 500; /* Đảm bảo header nằm trên các phần tử khác */
 }
 
 .header-mid{
@@ -435,8 +503,15 @@ main .none-block {
 
 main .group-menu ul a{
     text-decoration: none;
-    color: #000;
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
 }
+
+main .product-filter {
+    padding: 15px 0 0 15px;
+    letter-spacing: 0 !important;
+    color: #666;
+}
+
 
 /* filter */
 
