@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### không đẩy folder images lên remote ###
+src/main/resources/static/images/
