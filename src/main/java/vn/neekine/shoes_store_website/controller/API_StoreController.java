@@ -26,7 +26,7 @@ public class API_StoreController {
 
     @GetMapping("/all")
     public Page<ProductDetailsDTO> productsPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
-        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 10);
+        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 20);
     
         return pages;
     }

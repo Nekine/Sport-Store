@@ -1,7 +1,5 @@
 package vn.neekine.shoes_store_website.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -44,7 +42,7 @@ public class StoreController {
 
     @GetMapping("/collections/all")
     public String productsPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
-        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 10);
+        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 5);
 
         model.addAttribute("products", pages);
         model.addAttribute("totalPage", pages.getTotalPages());

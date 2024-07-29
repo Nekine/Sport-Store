@@ -72,9 +72,6 @@ function search(idInput, idContent) {
         resultsContainer.innerHTML = '';
         for(let i=0; i<products.length; i++){
             if(products[i].ten !== name_product && count_product < 5){
-                // Sắp xếp mảng photoNames
-                products[i].photoNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
                 var product_item = `
                     <a th:href="@{/neekine}" class="search-item row">
                         <div class="content-product col l-10 m-11 c-10">
@@ -82,7 +79,7 @@ function search(idInput, idContent) {
 
                 if(products[i].phan_tram !== 0){
                     product_item += ` <div class="cost">
-                                <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                                <span class="new-price">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
                                 <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                             </div>`
                 }
@@ -119,6 +116,28 @@ function search(idInput, idContent) {
     }
 }
 
+// giá trị tiền hiển thị theo đúng format
+document.addEventListener("DOMContentLoaded", function() {
+    var newPriceElements = document.querySelectorAll('.new-price');
+    var oldPriceElements = document.querySelectorAll('.old-price');
+    var priceElements = document.querySelectorAll('.price');
+    
+    newPriceElements.forEach(function(element) {
+        var number = parseFloat(element.textContent);
+        element.textContent = formatCurrency(number) + '₫';
+    });
+    
+    oldPriceElements.forEach(function(element) {
+        var number = parseFloat(element.textContent);
+        element.textContent = formatCurrency(number) + '₫';
+    });
+    
+    priceElements.forEach(function(element) {
+        var number = parseFloat(element.textContent);
+        element.textContent = formatCurrency(number) + '₫';
+    });
+});
+
 function formatCurrency(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -137,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var iconDownElement = document.querySelectorAll('.ti-angle-double-down');
     var iconUpElement = document.querySelectorAll('.ti-angle-double-up');
 
+    var checkElement = -1;
+
     itemFilter.forEach(function(item, index){
         item.addEventListener('click', function(){
             if(iconDownElement[index].classList.contains('none-block')){
@@ -148,6 +169,16 @@ document.addEventListener('DOMContentLoaded', function(){
                 iconDownElement[index].classList.add('none-block');
                 iconUpElement[index].classList.remove('none-block');
                 bodyItemFilter[index].classList.remove('none-block');
+
+                if(index !== checkElement){
+                    if(checkElement >= 0){
+                        bodyItemFilter[checkElement].classList.add('none-block');
+                        iconDownElement[checkElement].classList.remove('none-block');
+                        iconUpElement[checkElement].classList.add('none-block');
+                    }
+
+                    checkElement = index;
+                }
             }
         });
     })

@@ -149,6 +149,11 @@ body {
 /* product */
 .box-product {
     margin-top: 50px;
+    display: flex;
+}
+
+.product {
+    margin: 10px 0;
 }
 
 .product-item {
@@ -471,7 +476,8 @@ main .breadcrumb ol li span {
 
 /* menu */
 main .collections-body {
-    height: auto;
+    overflow: hidden; /* Ẩn cuộn */
+    align-items: flex-start; /* Không kéo dài các thẻ div con */
 }
 
 main .sidebar {
@@ -553,6 +559,34 @@ main .product-filter {
     border: none;
     padding: 2px 10px 2px 0;
     text-align: center;
+}
+
+/* phân trang */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 5px 0;
+    right: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li span,
+.pagination li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #b4b4b4;
+    border-radius: 5px;
+}
+
+.pagination li a:hover {
+    color: #000;
+}
+
+.pagination .active a {
+    color: #000;
 }
 
 /* footer */
