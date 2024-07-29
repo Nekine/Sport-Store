@@ -72,9 +72,6 @@ function search(idInput, idContent) {
         resultsContainer.innerHTML = '';
         for(let i=0; i<products.length; i++){
             if(products[i].ten !== name_product && count_product < 5){
-                // Sắp xếp mảng photoNames
-                products[i].photoNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
                 var product_item = `
                     <a th:href="@{/neekine}" class="search-item row">
                         <div class="content-product col l-10 m-11 c-10">
@@ -82,7 +79,7 @@ function search(idInput, idContent) {
 
                 if(products[i].phan_tram !== 0){
                     product_item += ` <div class="cost">
-                                <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                                <span class="new-price">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
                                 <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                             </div>`
                 }

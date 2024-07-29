@@ -148,6 +148,7 @@
                 </ol>
             </div>
             <div class="collections-body row">
+                <!-- sidebar -->
                 <div class="sidebar col l-3 m-0 c-0">
                     <!-- menu -->
                     <div class="group-menu">
@@ -365,8 +366,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col l-9 m-12 c-12 row box-product" th:each="p : ${products.content}">
-                    <div class="col l-3 m-6 c-6 product">
+
+                <!-- product -->
+                <div class="col l-9 m-12 c-12 row box-product">
+                    <div class="col l-3 m-6 c-6 product" th:each="p : ${products.content}">
                         <div class="product-item">
                             <a th:href="@{/neekine}">
                                 <div class="product-img">
@@ -385,15 +388,34 @@
                             </a>
                             <div class="cost">
                                 <div th:if="${p.phan_tram != 0}">
-                                    <span class="new-price" th:text="${#numbers.formatDecimal(p.gia_ban * (1 - p.phan_tram / 100.0), 0, 'POINT', 'COMMA')} + '₫'"></span>
-                                    <span class="old-price" th:text="${#numbers.formatDecimal(p.gia_ban, 0, 'POINT', 'COMMA')} + '₫'"></span>
+                                    <span class="new-price" th:text="${p.gia_ban * (1 - p.phan_tram / 100.0)} + '₫'"></span>
+                                    <span class="old-price" th:text="${p.gia_ban} + '₫'"></span>
                                 </div>
                                 <div th:if="${p.phan_tram == 0}">
-                                    <span class="price" th:text="${#numbers.formatDecimal(p.gia_ban, 0, 'POINT', 'COMMA')} + '₫'"></span>
+                                    <span class="price" th:text="${p.gia_ban} + '₫'"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- phân trang -->
+                <div class="col l-3 l-o-9">
+                    <ul class="pagination">
+                        <li th:if="${products.hasPrevious()}">
+                            <a th:href="@{/neekine/collections/all(page=${products.number})}" class="ti-arrow-left"></a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}" 
+                            th:classappend="${i == products.number} ? 'active'"
+                            th:if="${(i <= 3) || (i == (products.totalPages - 1))}">
+                            <a th:href="@{/neekine/collections/all(page=${i+1})}" th:if="${(i < 3) || (products.totalPages < 6)}" th:text="${i + 1}"></a>
+                            <a th:if="${(products.totalPages >= 6) && (i == 3)}">...</a>
+                            <a th:href="@{/neekine/collections/all(page=${products.totalPages})}" th:if="${(i == products.totalPages - 1) && (products.totalPages >= 6)}" th:text="${i + 1}"></a>
+                        </li>
+                        <li th:if="${products.hasNext()}">
+                            <a th:href="@{/neekine/collections/all(page=${products.number + 2})}" class="ti-arrow-right"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </main>

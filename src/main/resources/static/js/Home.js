@@ -40,9 +40,6 @@ async function fetchProducts() {
 
     for(let i=0; i<products.length; i++) {
         if(products[i].ten !== product_name && products[i].loai === "giày" && count_shoes > 0) {
-            // Sắp xếp mảng photoNames
-            products[i].photoNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
             var product_item = `
             <div class="col l-1-2 m-1-2 c-1-2 product">
                 <div class="product-item">
@@ -61,7 +58,7 @@ async function fetchProducts() {
 
             if(products[i].phan_tram !== 0){
                 product_item += ` <div class="cost">
-                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                            <span class="new-price">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
                             <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
@@ -79,9 +76,6 @@ async function fetchProducts() {
             count_shoes--;
         }
         else if(products[i].ten !== product_name && products[i].loai === "bag" && count_bags > 0) {
-            // Sắp xếp mảng photoNames
-            products[i].photoNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
             var product_item = `
             <div class="col l-2-4 m-6 c-6 product">
                 <div class="product-item">
@@ -100,7 +94,7 @@ async function fetchProducts() {
 
             if(products[i].phan_tram !== 0){
                 product_item += ` <div class="cost">
-                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                            <span class="new-price">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
                             <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
@@ -118,9 +112,6 @@ async function fetchProducts() {
             count_bags--;
         }
         else if(products[i].ten !== product_name && products[i].loai === "clothes" && count_clothes > 0) {
-            // Sắp xếp mảng photoNames
-            products[i].photoNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
             var product_item = `
             <div class="col l-2-4 m-6 c-6 product">
                 <div class="product-item">
@@ -139,7 +130,7 @@ async function fetchProducts() {
             
             if(products[i].phan_tram !== 0){
                 product_item += ` <div class="cost">
-                            <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                            <span class="new-price">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
                             <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                         </div>`
             }
@@ -244,9 +235,6 @@ function search(idInput, idContent) {
         resultsContainer.innerHTML = '';
         for(let i=0; i<products.length; i++){
             if(products[i].ten !== name_product && count_product < 5){
-                // Sắp xếp mảng photoNames
-                products[i].photoNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
                 var product_item = `
                     <a th:href="@{/neekine}" class="search-item row">
                         <div class="content-product col l-10 m-11 c-10">
@@ -254,7 +242,7 @@ function search(idInput, idContent) {
 
                 if(products[i].phan_tram !== 0){
                     product_item += ` <div class="cost">
-                                <span class="new-price">${formatCurrency(products[i].gia_ban * (products[i].phan_tram/100))}₫</span>
+                                <span class="new-price">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
                                 <span class="old-price">${formatCurrency(products[i].gia_ban)}₫</span>
                             </div>`
                 }

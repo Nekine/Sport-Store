@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ public class ProductServiceImpl implements ProductService{
                         Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
                         List<String> photoNames = product.getPhotos().stream()
                                                         .map(Anh::getTen)
+                                                        .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                         .collect(Collectors.toList());
                         return new ProductDetailsDTO(
                             product.getId(), 
@@ -62,6 +65,7 @@ public class ProductServiceImpl implements ProductService{
                             Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
                             List<String> photoNames = product.getPhotos().stream()
                                                                 .map(Anh::getTen)
+                                                                .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                                 .collect(Collectors.toList());
                             return new ProductDetailsDTO(
                                     product.getId(), 
@@ -96,8 +100,9 @@ public class ProductServiceImpl implements ProductService{
                 .map(product -> {
                     Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
                     List<String> photoNames = product.getPhotos().stream()
-                            .map(Anh::getTen)
-                            .collect(Collectors.toList());
+                                                        .map(Anh::getTen)
+                                                        .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
+                                                        .collect(Collectors.toList());
                     return new ProductDetailsDTO(
                             product.getId(),
                             product.getLoai(),
@@ -114,4 +119,22 @@ public class ProductServiceImpl implements ProductService{
         return new PageImpl<>(productDTOs, PageRequest.of(page, size), uniqueProducts.size());
     }
 
+    private int comparePhotoNames(String name1, String name2) {
+        Double number1 = extractNumberAfterDot(name1);
+        Double number2 = extractNumberAfterDot(name2);
+
+        return Double.compare(number1, number2);
+    }
+
+    private Double extractNumberAfterDot(String name) {
+        try {
+            String[] parts = name.split("\\.");
+            if (parts.length > 1) {
+                return Double.parseDouble(parts[1]);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
 }
