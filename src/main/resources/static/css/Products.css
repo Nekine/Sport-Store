@@ -565,7 +565,7 @@ main .product-filter {
 .pagination {
     display: flex;
     list-style: none;
-    padding: 5px 0;
+    padding-top: 15px;
     right: 0;
 }
 
