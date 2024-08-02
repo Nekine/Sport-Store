@@ -184,3 +184,42 @@ document.addEventListener('DOMContentLoaded', function(){
     })
 });
 
+// gửi yêu cầu filter với các điều kiện được chọn
+document.querySelectorAll('.body-item-filter input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', function() {
+        let brands = [];
+        let prices = [];
+        let sizes = [];
+
+        // Duyệt qua tất cả các checkbox đang được chọn
+        document.querySelectorAll('.body-item-filter input[type="checkbox"]:checked').forEach(checkedInput => {
+            // Phân loại checkbox theo loại (brand, price, size)
+            if (checkedInput.name === 'brand') {
+                brands.push(checkedInput.value);
+            } else if (checkedInput.name === 'price') {
+                prices.push(checkedInput.value);
+            } else if (checkedInput.name === 'size') {
+                sizes.push(checkedInput.value);
+            }
+        });
+
+        let pathname = window.location.pathname;
+        let segments = pathname.split('/');
+        let typeCollections;
+
+        for(let i = 0; i < segments.length; i++) {
+            if(segments[i] === "all" || segments[i] === "shoes" 
+                || segments[i] === "sandal" || segments[i] === "clothes"
+                || segments[i] === "bag"
+            )
+            {
+                typeCollections = segments[i];
+                break;
+            }
+        }
+
+        // Tạo URL với các tham số filter được nối lại bằng ký tự '&'
+        let url = '/neekine/collections/' + typeCollections + '?filter=' + brands.concat(prices, sizes).join('&');
+        window.location.href = url;
+    });
+});

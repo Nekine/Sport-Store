@@ -282,6 +282,7 @@ header.fixed {
 .menu-desktop ul {
     list-style-type: none; /* Loại bỏ dấu chấm đầu dòng */
     padding: 30px 10px 20px 20px; /* Loại bỏ padding mặc định */
+    z-index: 500;
 }
 
 .menu-desktop .current-page {

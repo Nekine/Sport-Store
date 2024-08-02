@@ -1,5 +1,8 @@
 package vn.neekine.shoes_store_website.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -41,13 +44,47 @@ public class StoreController {
     }
 
     @GetMapping("/collections/all")
-    public String productsPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
-        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 5);
+    public String productsPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "filter", required = false) List<String> filters){
+        if(filters == null){
+            filters = new ArrayList<>();
+        }
+
+        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 20, filters);
 
         model.addAttribute("products", pages);
-        model.addAttribute("totalPage", pages.getTotalPages());
-        model.addAttribute("currentPage", page);
         return "Products";
+    }
+
+    @GetMapping("/collections/shoes")
+    public String productsShoesPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
+        Page<ProductDetailsDTO> pages = this.productService.getAllShoesPages(page-1, 20);
+
+        model.addAttribute("products", pages);
+        return "SneakerProducts";
+    }
+
+    @GetMapping("/collections/sandal")
+    public String productsSandalPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
+        Page<ProductDetailsDTO> pages = this.productService.getAllSandalPages(page-1, 20);
+
+        model.addAttribute("products", pages);
+        return "SandalProducts";
+    }
+
+    @GetMapping("/collections/bag")
+    public String productsBagPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
+        Page<ProductDetailsDTO> pages = this.productService.getAllBagPages(page-1, 20);
+
+        model.addAttribute("products", pages);
+        return "BagProducts";
+    }
+
+    @GetMapping("/collections/clothes")
+    public String productsClothesPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
+        Page<ProductDetailsDTO> pages = this.productService.getAllClothesPages(page-1, 20);
+
+        model.addAttribute("products", pages);
+        return "ClothesProducts";
     }
 
     @GetMapping("/login")
