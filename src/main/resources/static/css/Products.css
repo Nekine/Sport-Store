@@ -189,7 +189,7 @@ body {
     display: none;
 }
 
-.product-item a {
+a {
     text-decoration: none; /* Bỏ gạch chân */
     color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
     cursor: pointer;

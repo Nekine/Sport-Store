@@ -116,28 +116,6 @@ function search(idInput, idContent) {
     }
 }
 
-// giá trị tiền hiển thị theo đúng format
-document.addEventListener("DOMContentLoaded", function() {
-    var newPriceElements = document.querySelectorAll('.new-price');
-    var oldPriceElements = document.querySelectorAll('.old-price');
-    var priceElements = document.querySelectorAll('.price');
-    
-    newPriceElements.forEach(function(element) {
-        var number = parseFloat(element.textContent);
-        element.textContent = formatCurrency(number) + '₫';
-    });
-    
-    oldPriceElements.forEach(function(element) {
-        var number = parseFloat(element.textContent);
-        element.textContent = formatCurrency(number) + '₫';
-    });
-    
-    priceElements.forEach(function(element) {
-        var number = parseFloat(element.textContent);
-        element.textContent = formatCurrency(number) + '₫';
-    });
-});
-
 function formatCurrency(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -184,7 +162,120 @@ document.addEventListener('DOMContentLoaded', function(){
     })
 });
 
+
+// lấy dữ liệu từ API và hiển thị Products
+function displayProducts(url){
+    const boxProductElement = document.querySelector('.box-product');
+    const paginationElement = document.querySelector('.pagination');
+
+    fetch(url)
+        .then(response => response.json())
+        .then(products => {
+            displayResults(products);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    function displayResults(products) {
+        boxProductElement.innerHTML = ''; // Clear products if any
+        // hiển thị sản phẩm
+        for(const product of products.content){
+            var product_item = `
+            <div class="col l-3 m-6 c-6 product">
+                <div class="product-item">
+                    <a th:href="@{/neekine}">
+                        <div class="product-img">`
+            
+            if(product.phan_tram !== 0){
+                product_item += `<span class="percent">${product.phan_tram}%</span>`;
+            }
+
+            product_item += `<img src="/images/${product.photoNames[0]}" alt="" class="first-img">
+                            <img src="/images/${product.photoNames[1]}" alt="" class="second-img">
+                        </div>
+                        <p>${product.ten}</p>
+                    </a>`
+
+            if(product.phan_tram !== 0){
+                product_item += ` <div class="cost">
+                            <span class="new-price">${formatCurrency(product.gia_ban * (1-product.phan_tram/100))}₫</span>
+                            <span class="old-price">${formatCurrency(product.gia_ban)}₫</span>
+                        </div>`
+            }
+            else{
+                product_item += ` <div class="cost">
+                            <span class="price">${formatCurrency(product.gia_ban)}₫</span>
+                        </div>`
+            }
+                `</div>
+            </div>
+            `;
+            boxProductElement.innerHTML += product_item;
+        }
+
+        // hiển thị phân trang
+        var pagination = ``;
+
+        if(!products.first){
+            pagination += `
+                <li>
+                    <a th:href="@{/neekine/collections/all(page=${products.number})}" class="ti-arrow-left"></a>
+                </li>
+            `
+        }
+
+        for(let i=1; i<products.totalPages; i++){      
+            if((i <= products.number+2) && (i >= products.number)){
+                if(i == (products.number+1)){
+                    pagination += `<li class="active">`
+                }
+                else{
+                    pagination += `<li>`
+                }
+                
+                pagination += `
+                        <a th:href="@{/neekine/collections/all(page=${i})}">${i}</a>
+                    </li>
+                `
+            }
+        }
+
+        if(!products.last){
+            pagination += `
+                <li>
+                    <a th:href="@{/neekine/collections/all(page=${products.number+2})}" class="ti-arrow-right"></a>
+                </li>
+            `
+        }
+
+        paginationElement.innerHTML += pagination;
+    }
+};
+
 // gửi yêu cầu filter với các điều kiện được chọn
+function request(){
+    // tách path để biết xem đang ở trang nào
+    let pathname = window.location.pathname;
+    let segments = pathname.split('/');
+    let typeCollections;
+
+    for(let i = 0; i < segments.length; i++) {
+        if(segments[i] === "all" || segments[i] === "shoes" 
+            || segments[i] === "sandal" || segments[i] === "clothes"
+            || segments[i] === "bag"
+        )
+        {
+            typeCollections = segments[i];
+            break;
+        }
+    }
+    let url = '/api/products/collections/' + typeCollections;
+    
+    return url;
+}
+
+// duyệt qua các input[type="checkbox"] xem được thêm điều kiện nào để add vào request
 document.querySelectorAll('.body-item-filter input[type="checkbox"]').forEach(input => {
     input.addEventListener('change', function() {
         let brands = [];
@@ -203,23 +294,11 @@ document.querySelectorAll('.body-item-filter input[type="checkbox"]').forEach(in
             }
         });
 
-        let pathname = window.location.pathname;
-        let segments = pathname.split('/');
-        let typeCollections;
-
-        for(let i = 0; i < segments.length; i++) {
-            if(segments[i] === "all" || segments[i] === "shoes" 
-                || segments[i] === "sandal" || segments[i] === "clothes"
-                || segments[i] === "bag"
-            )
-            {
-                typeCollections = segments[i];
-                break;
-            }
-        }
-
         // Tạo URL với các tham số filter được nối lại bằng ký tự '&'
-        let url = '/neekine/collections/' + typeCollections + '?filter=' + brands.concat(prices, sizes).join('&');
-        window.location.href = url;
+        let url = request() + '?filter=' + brands.concat(prices, sizes).join('&');
+        console.log(url);
+        displayProducts(url);
     });
 });
+
+displayProducts(request());

@@ -1,10 +1,10 @@
 package vn.neekine.shoes_store_website.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +24,16 @@ public class API_StoreController {
         return productService.getAllProducts();
     }
 
-    // @GetMapping("/all")
-    // public Page<ProductDetailsDTO> productsPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
-    //     Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 20);
-    
-    //     return pages;
-    // }
+    @GetMapping("/collections/all")
+    public Page<ProductDetailsDTO> productsPage(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "filter", required = false) List<String> filters){
+        if(filters == null){
+            filters = new ArrayList<>();
+        }
+
+        Page<ProductDetailsDTO> pages = this.productService.getAllPages(page-1, 20, filters);
+
+        return pages;
+    }
 
     @GetMapping("/search")
     public List<ProductDetailsDTO> searchProducts(@RequestParam("keyword") String keyword) {
