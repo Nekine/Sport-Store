@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -76,6 +78,7 @@ public class SanPham {
         joinColumns = @JoinColumn(name = "sanPham_id"),
         inverseJoinColumns = @JoinColumn(name = "NSX_id")
     )
+    @JsonIgnore // Ngăn chặn vòng lặp vô hạn
     private List<NhaSanXuat> nhaSanXuats;
     
     // them anh cua san pham
@@ -90,7 +93,7 @@ public class SanPham {
     // them gio hang
     public void addGioHang(GioHang gioHang){
         if(gioHangs == null){
-            gioHangs = new ArrayList<>();
+            gioHangs = new ArrayList<>();;
         }
 
         gioHangs.add(gioHang);
@@ -99,7 +102,7 @@ public class SanPham {
     // them nha san xuat
     public void addNSX(NhaSanXuat nhaSanXuat){
         if(nhaSanXuats == null){
-            nhaSanXuats = new ArrayList<>();
+            nhaSanXuats = new ArrayList<>();;
         }
 
         nhaSanXuats.add(nhaSanXuat);

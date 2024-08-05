@@ -12,8 +12,8 @@ public interface ProductService {
     public List<ProductDetailsDTO> searchProduct(String name);
     public List<SanPham> filterProducts(List<String> filters);
     public Page<ProductDetailsDTO> getAllPages(int integer, int size, List<String> filters);
-    public Page<ProductDetailsDTO> getAllShoesPages(int integer, int size);
-    public Page<ProductDetailsDTO> getAllBagPages(int integer, int size);
-    public Page<ProductDetailsDTO> getAllClothesPages(int integer, int size);
-    public Page<ProductDetailsDTO> getAllSandalPages(int integer, int size);
+    public Page<ProductDetailsDTO> getAllShoesPages(int integer, int size, List<String> filters);
+    public Page<ProductDetailsDTO> getAllBagPages(int integer, int size, List<String> filters);
+    public Page<ProductDetailsDTO> getAllClothesPages(int integer, int size, List<String> filters);
+    public Page<ProductDetailsDTO> getAllSandalPages(int integer, int size, List<String> filters);
 }
