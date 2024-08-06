@@ -111,11 +111,19 @@ public class ProductServiceImpl implements ProductService{
         
         // Lấy tất cả sản phẩm từ cơ sở dữ liệu
         List<SanPham> products = this.productRepository.findAllProducts();
+        // Lưu sản phẩm đầu tiên gặp phải vào Map theo tên
+        Map<String, SanPham> productMap = new HashMap<>();
+        products.forEach(product -> {
+            productMap.putIfAbsent(product.getTenSanPham(), product);
+        });
+
+        // Chuyển các giá trị từ Map thành List
+        List<SanPham> uniqueProducts = productMap.values().stream().collect(Collectors.toList());
         
         // Lọc sản phẩm theo nhãn hiệu
         if (!brands.isEmpty()) {
             for(String brand : brands){
-                products = products.stream()
+                uniqueProducts = uniqueProducts.stream()
                 .filter(product -> product.getNhaSanXuats().stream()
                     .anyMatch(nsx -> nsx.getTen().contains(brand)))
                 .collect(Collectors.toList());
@@ -125,8 +133,12 @@ public class ProductServiceImpl implements ProductService{
         // Lọc sản phẩm theo kích thước
         if (!sizes.isEmpty()) {
             for(String size : sizes){
-                products = products.stream()
-                .filter(product -> product.getSize().contains(size))
+                uniqueProducts = uniqueProducts.stream()
+                .filter(product -> {
+                    // lỗi lấy size product ra null
+                    String sizeProduct = product.getSize() != null ? product.getSize() : "";
+                    return sizeProduct.equals(size);
+                })
                 .collect(Collectors.toList());
             }
         }
@@ -134,7 +146,7 @@ public class ProductServiceImpl implements ProductService{
         // Lọc sản phẩm theo giá
         if (!priceRanges.isEmpty()) {
             for(PriceRange priceRange : priceRanges){
-                products = products.stream()
+                uniqueProducts = uniqueProducts.stream()
                 .filter(product -> {
                     Long discountedPrice = product.getGiaBan() * (1 - (product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0) / 100);
                     return discountedPrice >= priceRange.getMinPrice() && discountedPrice <= priceRange.getMaxPrice();
@@ -143,7 +155,7 @@ public class ProductServiceImpl implements ProductService{
             }
         }
         
-        return products;
+        return uniqueProducts;
     }
 
     // Lớp PriceRange để lưu trữ cặp giá min và max
@@ -167,16 +179,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Page<ProductDetailsDTO> getAllPages(int page, int size, List<String> filters) {
-        List<SanPham> products = this.filterProducts(filters);
-
-        // Lưu sản phẩm đầu tiên gặp phải vào Map theo tên
-        Map<String, SanPham> productMap = new HashMap<>();
-        products.forEach(product -> {
-            productMap.putIfAbsent(product.getTenSanPham(), product);
-        });
-
-        // Chuyển các giá trị từ Map thành List
-        List<SanPham> uniqueProducts = productMap.values().stream().collect(Collectors.toList());
+        List<SanPham> uniqueProducts = this.filterProducts(filters);
 
         // Phân trang danh sách các sản phẩm không trùng tên
         int start = (int) PageRequest.of(page, size).getOffset();
