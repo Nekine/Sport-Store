@@ -125,6 +125,21 @@ document.addEventListener('DOMContentLoaded', function(){
     search('#searchInput-2', '#search-2');
 });
 
+// click vào thẻ a thì sẽ chuyển đến url mong muốn
+function redirect_to_path(){
+    const List_A_Elements = document.querySelectorAll('a');
+    List_A_Elements.forEach(function(item) {
+        item.addEventListener('click', function() {
+            // Lấy URL từ thuộc tính href của thẻ <a>
+            const url = item  .getAttribute('href');
+    
+            // Điều hướng đến URL
+            window.location.href = url;
+        });
+    });
+}
+
+
 // #########################################################################
 
 // click thay đổi icon thẻ i và danh sách sản phẩm của thẻ span
@@ -179,6 +194,7 @@ function displayProducts(url){
 
     function displayResults(products) {
         boxProductElement.innerHTML = ''; // Clear products if any
+        paginationElement.innerHTML = ''; // Clear pagination if any
         // hiển thị sản phẩm
         for(const product of products.content){
             var product_item = `
@@ -214,6 +230,10 @@ function displayProducts(url){
             boxProductElement.innerHTML += product_item;
         }
 
+        if(products.content.length === 0){
+            boxProductElement.innerHTML = '<p class="no-product">Không tìm thấy sản phẩm nào</p>';
+        }
+
         // hiển thị phân trang
         var pagination = ``;
 
@@ -225,7 +245,7 @@ function displayProducts(url){
             `
         }
 
-        for(let i=1; i<products.totalPages; i++){      
+        for(let i=1; i<=products.totalPages; i++){      
             if((i <= products.number+2) && (i >= products.number)){
                 if(i == (products.number+1)){
                     pagination += `<li class="active">`
@@ -250,6 +270,23 @@ function displayProducts(url){
         }
 
         paginationElement.innerHTML += pagination;
+
+        // Thêm lớp 'show' để kích hoạt hiệu ứng cho tất cả các sản phẩm
+        const productDivs = document.querySelectorAll('.product');
+        setTimeout(() => {
+            productDivs.forEach(div => {
+                div.classList.add('show');
+            });
+        }, 100);
+
+        // Cuộn trang về đầu trang khi thêm sản phẩm
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Hiệu ứng cuộn mượt mà
+        });
+
+        // click vào thẻ a thì sẽ chuyển đến url mong muốn
+        redirect_to_path();
     }
 };
 
@@ -296,9 +333,9 @@ document.querySelectorAll('.body-item-filter input[type="checkbox"]').forEach(in
 
         // Tạo URL với các tham số filter được nối lại bằng ký tự '&'
         let url = request() + '?filter=' + brands.concat(prices, sizes).join('&');
-        console.log(url);
         displayProducts(url);
     });
 });
 
+// chạy các hàm mong muốn
 displayProducts(request());
