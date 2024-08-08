@@ -17,9 +17,11 @@ const handleScroll = () => {
 // Add scroll event listener
 window.addEventListener('scroll', handleScroll);
 
-// Add resize event listener to handle changes in screen size
+// gọi khi thay đổi kích thước cửa sổ
 window.addEventListener('resize', () => {
     handleScroll(); // Re-evaluate scroll position on resize
+    toggleVisibility();
+
 });
 
 // body -> body-search-pc
@@ -130,11 +132,22 @@ function redirect_to_path(){
     const List_A_Elements = document.querySelectorAll('a');
     List_A_Elements.forEach(function(item) {
         item.addEventListener('click', function() {
-            // Lấy URL từ thuộc tính href của thẻ <a>
-            const url = item  .getAttribute('href');
-    
-            // Điều hướng đến URL
-            window.location.href = url;
+            // Lấy giá trị của thuộc tính th:href
+            const thHref = item.getAttribute('th:href');
+
+            // Kiểm tra nếu thHref không null và có định dạng @{...}
+            if (thHref && thHref.startsWith('@{') && thHref.endsWith('}')) {
+                // Trích xuất URL bên trong @{}
+                var url = thHref.slice(2, -1);
+
+                // chuyển về định dạng phân trang nếu có
+                url = url.replace("(", "?").replace(")", "");
+
+                // Điều hướng đến URL
+                window.location.href = url;
+            } else {
+                console.error("Invalid th:href format");
+            }
         });
     });
 }
@@ -176,6 +189,50 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     })
 });
+
+// tắt/bật thanh sidebar menu khi ở tablet & mobile 
+function toggleVisibility(){
+    const titleSidebar = document.querySelectorAll('.title-sidebar');
+    const bodySidebar = document.querySelectorAll('.body-sidebar');
+    const iconDown = document.querySelectorAll('.title-sidebar .ti-angle-down');
+    const iconUp = document.querySelectorAll('.title-sidebar .ti-angle-up');
+    
+    // ẩn sidebar khi chuyển sang tablet & mobile
+    const width = getWindowWidth();
+    if(width < 1000){
+        bodySidebar.forEach(function(item){
+            item.classList.add('none-block');
+        });
+    }
+    else {
+        bodySidebar.forEach(function(item){
+            item.classList.remove('none-block');
+        });
+    }
+
+    // lick để bật tắt sidebar
+    titleSidebar.forEach(function(item, index){
+        item.addEventListener('click', function(){
+            if(bodySidebar[index].classList.contains('none-block')){
+                bodySidebar[index].classList.remove('none-block');
+                iconDown[index].classList.add('none-block');
+                iconUp[index].classList.remove('none-block');
+            }
+            else{
+                bodySidebar[index].classList.add('none-block');
+                iconDown[index].classList.remove('none-block');
+                iconUp[index].classList.add('none-block');
+            }
+        });
+    });
+};
+document.addEventListener('DOMContentLoaded', toggleVisibility());
+
+// lấy kích thước width web
+function getWindowWidth() {
+    const width = document.documentElement.clientWidth || document.body.clientWidth;
+    return width;
+}
 
 
 // lấy dữ liệu từ API và hiển thị Products
@@ -279,12 +336,6 @@ function displayProducts(url){
             });
         }, 100);
 
-        // Cuộn trang về đầu trang khi thêm sản phẩm
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Hiệu ứng cuộn mượt mà
-        });
-
         // click vào thẻ a thì sẽ chuyển đến url mong muốn
         redirect_to_path();
     }
@@ -293,20 +344,11 @@ function displayProducts(url){
 // gửi yêu cầu filter với các điều kiện được chọn
 function request(){
     // tách path để biết xem đang ở trang nào
-    let pathname = window.location.pathname;
+    let pathname = window.location.href;
     let segments = pathname.split('/');
-    let typeCollections;
+    let typeCollections = "";
 
-    for(let i = 0; i < segments.length; i++) {
-        if(segments[i] === "all" || segments[i] === "shoes" 
-            || segments[i] === "sandal" || segments[i] === "clothes"
-            || segments[i] === "bag"
-        )
-        {
-            typeCollections = segments[i];
-            break;
-        }
-    }
+    typeCollections = segments[segments.length - 1];
     let url = '/api/products/collections/' + typeCollections;
     
     return url;
@@ -330,6 +372,22 @@ document.querySelectorAll('.body-item-filter input[type="checkbox"]').forEach(in
                 sizes.push(checkedInput.value);
             }
         });
+
+        // Cuộn trang về đầu trang khi thêm sản phẩm
+        var width = getWindowWidth();
+        const boxProductElement = document.querySelector('.box-product');
+        if(width <= 1000){
+            boxProductElement.scrollIntoView({
+                top: 0,
+                behavior: 'smooth' // Hiệu ứng cuộn mượt mà
+            });
+        }
+        else {
+            window.scrollTo({
+                top: 0,
+                behavior: 'auto' // Hiệu ứng cuộn tự đ��ng
+            });
+        }
 
         // Tạo URL với các tham số filter được nối lại bằng ký tự '&'
         let url = request() + '?filter=' + brands.concat(prices, sizes).join('&');
