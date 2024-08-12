@@ -154,6 +154,9 @@ async function fetchProducts() {
         }
     }
 
+    // click vào thẻ a thì sẽ chuyển đến url mong muốn
+    redirect_to_path();
+
     // xử lý sự kiện chuyển shoes products
     const slider = document.querySelector('.box-product');
     const nextButton = document.querySelector('.next');
@@ -282,3 +285,28 @@ document.addEventListener('DOMContentLoaded', function(){
     search('#searchInput-1', '#search-1');
     search('#searchInput-2', '#search-2');
 });
+
+// click vào thẻ a thì sẽ chuyển đến url mong muốn
+function redirect_to_path(){
+    const List_A_Elements = document.querySelectorAll('a');
+    List_A_Elements.forEach(function(item) {
+        item.addEventListener('click', function() {
+            // Lấy giá trị của thuộc tính th:href
+            const thHref = item.getAttribute('th:href');
+
+            // Kiểm tra nếu thHref không null và có định dạng @{...}
+            if (thHref && thHref.startsWith('@{') && thHref.endsWith('}')) {
+                // Trích xuất URL bên trong @{}
+                var url = thHref.slice(2, -1);
+
+                // chuyển về định dạng phân trang nếu có
+                url = url.replace("(", "?").replace(")", "");
+
+                // Điều hướng đến URL
+                window.location.href = url;
+            } else {
+                console.error("Invalid th:href format");
+            }
+        });
+    });
+}

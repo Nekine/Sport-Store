@@ -85,7 +85,7 @@ public class ProductServiceImpl implements ProductService{
         List<String> brands = new ArrayList<>();
         List<String> sizes = new ArrayList<>();
         List<PriceRange> priceRanges = new ArrayList<>();
-        
+
         // Các giá trị giá
         Map<String, Long[]> priceRangeMap = new HashMap<>();
         priceRangeMap.put("under_500", new Long[]{0L, 500000L});
@@ -93,10 +93,10 @@ public class ProductServiceImpl implements ProductService{
         priceRangeMap.put("1000_to_2000", new Long[]{1000000L, 2000000L});
         priceRangeMap.put("2000_to_5000", new Long[]{2000000L, 5000000L});
         priceRangeMap.put("above_5000", new Long[]{5000000L, Long.MAX_VALUE});
-        
+
         // Các kích thước hợp lệ
         List<String> validSizes = Arrays.asList("36", "37", "38", "39", "40", "41", "42", "1", "2", "3", "4", "5", "6");
-        
+
         // Phân loại các điều kiện lọc từ `filters`
         for (String filter : filters) {
             if (priceRangeMap.containsKey(filter)) {
@@ -108,7 +108,7 @@ public class ProductServiceImpl implements ProductService{
                 brands.add(filter);
             }
         }
-        
+
         // Lấy tất cả sản phẩm từ cơ sở dữ liệu
         List<SanPham> products = this.productRepository.findAllProducts();
         // Lưu sản phẩm đầu tiên gặp phải vào Map theo tên
@@ -119,7 +119,7 @@ public class ProductServiceImpl implements ProductService{
 
         // Chuyển các giá trị từ Map thành List
         List<SanPham> uniqueProducts = productMap.values().stream().collect(Collectors.toList());
-        
+
         // Lọc sản phẩm theo nhãn hiệu
         if (!brands.isEmpty()) {
             for(String brand : brands){
@@ -129,7 +129,7 @@ public class ProductServiceImpl implements ProductService{
                 .collect(Collectors.toList());
             }
         }
-        
+
         // Lọc sản phẩm theo kích thước
         if (!sizes.isEmpty()) {
             for(String size : sizes){
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService{
                 .collect(Collectors.toList());
             }
         }
-        
+
         // Lọc sản phẩm theo giá
         if (!priceRanges.isEmpty()) {
             for(PriceRange priceRange : priceRanges){
@@ -154,7 +154,7 @@ public class ProductServiceImpl implements ProductService{
                 .collect(Collectors.toList());
             }
         }
-        
+
         return uniqueProducts;
     }
 
@@ -388,5 +388,44 @@ public class ProductServiceImpl implements ProductService{
 
         // Trả về một trang chứa các ProductDetailsDTO
         return new PageImpl<>(productDTOs, PageRequest.of(page, size), uniqueProducts.size());
+    }
+
+    @Override
+    public ProductDetailsDTO getProduct(String name) {
+        // Chuẩn hóa chuỗi đầu vào
+        String normalizedInput = normalizeString(name);
+
+        List<ProductDetailsDTO> products = getAllProducts();
+        for(ProductDetailsDTO product : products) {
+            String normalizedProductName = normalizeString(product.getTen());
+            if(normalizedProductName.equalsIgnoreCase(normalizedInput)) {
+                return product;
+            }
+        }
+
+        return null;
+    }
+
+    // Loại bỏ ký tự đặc biệt và chuẩn hóa chuỗi
+    public static String normalizeString(String input) {
+        return input.replaceAll("[-/]", " ") // Thay thế '-' và '/' bằng dấu cách
+                    .replaceAll("\\s+", "") // Loại bỏ tất cả các khoảng trắng
+                    .trim() // Loại bỏ khoảng trắng ở đầu và cuối chuỗi
+                    .toLowerCase(); // Chuyển tất cả về chữ thường
+    }
+
+    @Override
+    public List<String> getAllSizesProduct(String name) {
+        List<SanPham> products = this.productRepository.findAll();
+
+        List<String> sizes = new ArrayList<String>();
+
+        for(SanPham product : products) {
+            if(product.getTenSanPham().equals(name)){
+                sizes.add(product.getSize());
+            }
+        }
+
+        return sizes;
     }
 }

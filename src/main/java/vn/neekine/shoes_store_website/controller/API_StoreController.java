@@ -48,6 +48,90 @@ public class API_StoreController {
         return pages;
     }
 
+    @GetMapping("/collections/shoes")
+    public Page<ProductDetailsDTO> productsShoesPage(@RequestParam(name = "page", defaultValue = "1") int page, HttpServletRequest request){
+        List<String> filters = new ArrayList<String>();
+
+        // Lấy chuỗi truy vấn từ request
+        String queryString = request.getQueryString();
+
+        // Kiểm tra nếu chuỗi truy vấn không rỗng và bắt đầu với "filter="
+        if (queryString != null && queryString.startsWith("filter=")) {
+            // Lấy phần sau "filter=" và tách các giá trị filter dựa theo dấu "&"
+            String filtersString = queryString.substring("filter=".length());
+            filters = Arrays.stream(filtersString.split("&"))
+                            .map(String::trim)
+                            .collect(Collectors.toList());
+        }
+
+        Page<ProductDetailsDTO> pages = this.productService.getAllShoesPages(page-1, 20, filters);
+
+        return pages;
+    }
+
+    @GetMapping("/collections/clothes")
+    public Page<ProductDetailsDTO> productsClothesPage(@RequestParam(name = "page", defaultValue = "1") int page, HttpServletRequest request){
+        List<String> filters = new ArrayList<String>();
+
+        // Lấy chuỗi truy vấn từ request
+        String queryString = request.getQueryString();
+
+        // Kiểm tra nếu chuỗi truy vấn không rỗng và bắt đầu với "filter="
+        if (queryString != null && queryString.startsWith("filter=")) {
+            // Lấy phần sau "filter=" và tách các giá trị filter dựa theo dấu "&"
+            String filtersString = queryString.substring("filter=".length());
+            filters = Arrays.stream(filtersString.split("&"))
+                            .map(String::trim)
+                            .collect(Collectors.toList());
+        }
+
+        Page<ProductDetailsDTO> pages = this.productService.getAllClothesPages(page-1, 20, filters);
+
+        return pages;
+    }
+
+    @GetMapping("/collections/bag")
+    public Page<ProductDetailsDTO> productsBagPage(@RequestParam(name = "page", defaultValue = "1") int page, HttpServletRequest request){
+        List<String> filters = new ArrayList<String>();
+
+        // Lấy chuỗi truy vấn từ request
+        String queryString = request.getQueryString();
+
+        // Kiểm tra nếu chuỗi truy vấn không rỗng và bắt đầu với "filter="
+        if (queryString != null && queryString.startsWith("filter=")) {
+            // Lấy phần sau "filter=" và tách các giá trị filter dựa theo dấu "&"
+            String filtersString = queryString.substring("filter=".length());
+            filters = Arrays.stream(filtersString.split("&"))
+                            .map(String::trim)
+                            .collect(Collectors.toList());
+        }
+
+        Page<ProductDetailsDTO> pages = this.productService.getAllBagPages(page-1, 20, filters);
+
+        return pages;
+    }
+
+    @GetMapping("/collections/sandal")
+    public Page<ProductDetailsDTO> productsSandalPage(@RequestParam(name = "page", defaultValue = "1") int page, HttpServletRequest request){
+        List<String> filters = new ArrayList<String>();
+
+        // Lấy chuỗi truy vấn từ request
+        String queryString = request.getQueryString();
+
+        // Kiểm tra nếu chuỗi truy vấn không rỗng và bắt đầu với "filter="
+        if (queryString != null && queryString.startsWith("filter=")) {
+            // Lấy phần sau "filter=" và tách các giá trị filter dựa theo dấu "&"
+            String filtersString = queryString.substring("filter=".length());
+            filters = Arrays.stream(filtersString.split("&"))
+                            .map(String::trim)
+                            .collect(Collectors.toList());
+        }
+
+        Page<ProductDetailsDTO> pages = this.productService.getAllSandalPages(page-1, 20, filters);
+
+        return pages;
+    }
+
     @GetMapping("/search")
     public List<ProductDetailsDTO> searchProducts(@RequestParam("keyword") String keyword) {
         return this.productService.searchProduct(keyword);
