@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -135,5 +136,12 @@ public class API_StoreController {
     @GetMapping("/search")
     public List<ProductDetailsDTO> searchProducts(@RequestParam("keyword") String keyword) {
         return this.productService.searchProduct(keyword);
+    }
+
+    @GetMapping("details/{name}")
+    public List<ProductDetailsDTO> products(@PathVariable String name){
+        
+        ProductDetailsDTO product = this.productService.getProduct(name);
+        return this.productService.relatedProducts(product.getLoai(), product.getTen());
     }
 }

@@ -71,6 +71,7 @@ public class StoreController {
 
             model.addAttribute("product", product);
             model.addAttribute("sizes", this.productService.getAllSizesProduct(product.getTen()));
+            model.addAttribute("relatedProducts", this.productService.relatedProducts(product.getLoai(), product.getTen()));
         } catch (Exception e) {
             // TODO: handle exception
             e.getMessage();

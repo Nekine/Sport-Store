@@ -150,12 +150,19 @@
 
             <!-- content -->
             <div class="content-product row">
-                <div class="images-product col l-8">
-                    <div class="row">
-                        <img th:src="@{'/images/' + ${img}}" class="col l-6" th:each="img : ${product.photoNames}" alt="">
+                <div class="images-product col l-8 m-12 c-12">
+                    <div class="images-product row">
+                        <div class="list-img col l-1-2 l-o-1">
+                            <div class="item-img" th:each="img : ${product.photoNames}">
+                                <img th:src="'/images/' + ${img}" alt="">
+                            </div>
+                        </div>
+                        <div class="main-img col l-9">
+                            <img id="mainImage" th:src="'/images/' + ${product.photoNames[0]}" alt="Main Image">
+                        </div>
                     </div>
                 </div>
-                <div class="info-product col l-4">
+                <div class="info-product col l-4 m-12 c-12">
                     <!-- name -->
                     <div class="partial">
                         <p th:text="${product.ten}"></p>
@@ -187,6 +194,31 @@
                     <!-- add cart -->
                     <div class="add-cart">
                         <button>THÊM VÀO GIỎ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- related products -->
+            <div class="related-products">
+                <h2>SẢN PHẨM LIÊN QUAN</h2>
+                <div class="box-product row">
+                    <div class="col l-2-4 m-6 c-6 product" th:each="product: ${relatedProducts}">
+                        <div class="product-item">
+                            <a th:href="@{/neekine}">
+                                <div class="product-img">
+                                    <span class="percent" th:if="${product.phan_tram != 0}" th:text="${product.phan_tram} + '%'"></span>
+                                    <img th:src="'/images/' + ${product.photoNames[0]}" alt="" class="first-img">
+                                    <img th:src="'/images/' + ${product.photoNames[1]}" alt="" class="second-img">
+                                </div>
+                                <p th:text="${product.ten}"></p>
+                            </a> 
+                            <div class="cost">
+                                <span th:if="${product.phan_tram != 0}" th:text="${((1 - product.phan_tram / 100.0) * product.gia_ban).intValue()} + '₫'" class="new-price"></span>
+                                <span th:if="${product.phan_tram != 0}" th:text="${product.gia_ban} + '₫'" class="old-price"></span>
+
+                                <span th:if="${product.phan_tram == 0}" th:text="${product.gia_ban} + '₫'" class="price"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

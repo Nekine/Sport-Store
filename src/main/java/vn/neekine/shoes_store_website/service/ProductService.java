@@ -12,6 +12,7 @@ public interface ProductService {
     public List<ProductDetailsDTO> searchProduct(String name);
     public List<SanPham> filterProducts(List<String> filters);
     public ProductDetailsDTO getProduct(String name);
+    public List<ProductDetailsDTO> relatedProducts (String kindOfProduct, String nameProduct);
     public List<String> getAllSizesProduct(String name);
     public Page<ProductDetailsDTO> getAllPages(int integer, int size, List<String> filters);
     public Page<ProductDetailsDTO> getAllShoesPages(int integer, int size, List<String> filters);

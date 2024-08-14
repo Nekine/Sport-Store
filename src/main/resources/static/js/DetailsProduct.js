@@ -126,14 +126,39 @@ document.addEventListener('DOMContentLoaded', function(){
     search('#searchInput-2', '#search-2');
 
     formatPrice();
+    selectSize();
+    displayProductImages()
 });
+
+// #########################################################################
+
+// hiển thị hình ảnh sản phẩm
+function displayProductImages() {
+    const listImages = document.querySelectorAll('.list-img .item-img');
+    const mainImage = document.getElementById('mainImage');
+
+
+    listImages.forEach(function(item) {
+        item.addEventListener('click', function() {
+            const img = item.querySelector('img')
+
+            mainImage.src = img.src
+        });
+    });
+}
 
 // chuyển price them đúng form tiền VND
 function formatPrice(){
     var oldPriceElements = document.querySelectorAll('.old-price');
+    var newPriceElements = document.querySelectorAll('.new-price');
     var priceElements = document.querySelectorAll('.price');
 
     oldPriceElements.forEach(function(element) {
+        var number = parseFloat(element.textContent);
+        element.textContent = formatCurrency(number) + '₫';
+    });
+
+    newPriceElements.forEach(function(element) {
         var number = parseFloat(element.textContent);
         element.textContent = formatCurrency(number) + '₫';
     });
@@ -144,4 +169,33 @@ function formatPrice(){
     });
 }
 
-// #########################################################################
+// chọn size product
+function selectSize(){
+    document.querySelectorAll('.size').forEach(function(item){
+        item.addEventListener('click', () => {
+            const activeSize = document.querySelector('.size.active');
+            if(activeSize){
+                activeSize.classList.remove('active');
+            }
+
+            item.classList.add('active');
+        })
+    });
+}
+
+// tăng/giảm số lượng sản phẩm
+function minusQuantity() {
+    const quantityInput = document.getElementById('quantity');
+    let currentQuantity = parseInt(quantityInput.value);
+
+    if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+    }
+}
+
+function plusQuantity() {
+    const quantityInput = document.getElementById('quantity');
+    let currentQuantity = parseInt(quantityInput.value);
+
+    quantityInput.value = currentQuantity + 1;
+}
