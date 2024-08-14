@@ -428,4 +428,22 @@ public class ProductServiceImpl implements ProductService{
 
         return sizes;
     }
+
+    @Override
+    public List<ProductDetailsDTO> relatedProducts(String kindOfProduct, String nameProduct) {
+        List<ProductDetailsDTO> products = this.getAllProducts();
+        List<ProductDetailsDTO> relatedProducts = new ArrayList<>();
+        int count = 0;
+
+        for(ProductDetailsDTO product : products) {
+            if(product.getLoai().equals(kindOfProduct) && !product.getTen().equals(nameProduct)){
+                relatedProducts.add(product);
+
+                count++;
+                if(count == 5) break;
+            }
+        }
+
+        return relatedProducts;
+    }
 }
