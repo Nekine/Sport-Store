@@ -75,7 +75,7 @@ function search(idInput, idContent) {
         for(let i=0; i<products.length; i++){
             if(products[i].ten !== name_product && count_product < 5){
                 var product_item = `
-                    <a th:href="@{/neekine}" class="search-item row">
+                    <a th:href="@{/neekine/products/${products[i].namePathProduct}}" class="search-item row">
                         <div class="content-product col l-10 m-11 c-10">
                             <p>${products[i].ten}</p>`
 
@@ -257,7 +257,7 @@ function displayProducts(url){
             var product_item = `
             <div class="col l-3 m-6 c-6 product">
                 <div class="product-item">
-                    <a th:href="@{/neekine}">
+                    <a th:href="@{/neekine/products/${product.namePathProduct}}">
                         <div class="product-img">`
             
             if(product.phan_tram !== 0){

@@ -43,7 +43,7 @@ async function fetchProducts() {
             var product_item = `
             <div class="col l-1-2 m-1-2 c-1-2 product">
                 <div class="product-item">
-                    <a th:href="@{/neekine}">
+                    <a th:href="@{/neekine/products/${products[i].namePathProduct}}">
                         <div class="product-img">`
             
             if(products[i].phan_tram !== 0){
@@ -79,7 +79,7 @@ async function fetchProducts() {
             var product_item = `
             <div class="col l-2-4 m-6 c-6 product">
                 <div class="product-item">
-                    <a th:href="@{/neekine}">
+                    <a th:href="@{/neekine/products/${products[i].namePathProduct}}">
                         <div class="product-img">`
             
             if(products[i].phan_tram !== 0){
@@ -115,7 +115,7 @@ async function fetchProducts() {
             var product_item = `
             <div class="col l-2-4 m-6 c-6 product">
                 <div class="product-item">
-                    <a th:href="@{/neekine}">
+                    <a th:href="@{/neekine/products/${products[i].namePathProduct}}">
                         <div class="product-img">`
             
             if(products[i].phan_tram !== 0){
@@ -239,7 +239,7 @@ function search(idInput, idContent) {
         for(let i=0; i<products.length; i++){
             if(products[i].ten !== name_product && count_product < 5){
                 var product_item = `
-                    <a th:href="@{/neekine}" class="search-item row">
+                    <a th:href="@{/neekine/products/${products[i].namePathProduct}}" class="search-item row">
                         <div class="content-product col l-10 m-11 c-10">
                             <p>${products[i].ten}</p>`
 

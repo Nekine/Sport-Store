@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<ProductDetailsDTO> getAllProducts() {
-        List<SanPham> products = productRepository.findAllProducts();
+        List<SanPham> products = productRepository.findAll();
         Map<String, SanPham> productMap = new HashMap<>();
 
         // Lưu sản phẩm đầu tiên gặp phải vào Map theo tên
@@ -46,6 +46,7 @@ public class ProductServiceImpl implements ProductService{
                             product.getId(), 
                             product.getLoai(), 
                             product.getTenSanPham(), 
+                            normalizeString(product.getTenSanPham()),
                             product.getSize(), 
                             product.getSoluong(), 
                             product.getGiaBan(), 
@@ -66,10 +67,11 @@ public class ProductServiceImpl implements ProductService{
                                                                 .map(Anh::getTen)
                                                                 .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                                 .collect(Collectors.toList());
-                            return new ProductDetailsDTO(
+                                return new ProductDetailsDTO(
                                     product.getId(), 
                                     product.getLoai(), 
                                     product.getTenSanPham(), 
+                                    normalizeString(product.getTenSanPham()),
                                     product.getSize(), 
                                     product.getSoluong(), 
                                     product.getGiaBan(), 
@@ -110,7 +112,7 @@ public class ProductServiceImpl implements ProductService{
         }
 
         // Lấy tất cả sản phẩm từ cơ sở dữ liệu
-        List<SanPham> products = this.productRepository.findAllProducts();
+        List<SanPham> products = this.productRepository.findAll();
         // Lưu sản phẩm đầu tiên gặp phải vào Map theo tên
         Map<String, SanPham> productMap = new HashMap<>();
         products.forEach(product -> {
@@ -192,14 +194,15 @@ public class ProductServiceImpl implements ProductService{
                                                         .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                         .collect(Collectors.toList());
                     return new ProductDetailsDTO(
-                            product.getId(),
-                            product.getLoai(),
-                            product.getTenSanPham(),
-                            product.getSize(),
-                            product.getSoluong(),
-                            product.getGiaBan(),
-                            phanTram,
-                            photoNames);
+                        product.getId(), 
+                        product.getLoai(), 
+                        product.getTenSanPham(), 
+                        normalizeString(product.getTenSanPham()),
+                        product.getSize(), 
+                        product.getSoluong(), 
+                        product.getGiaBan(), 
+                        phanTram, 
+                        photoNames);
                 })
                 .collect(Collectors.toList());
 
@@ -252,14 +255,15 @@ public class ProductServiceImpl implements ProductService{
                                                         .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                         .collect(Collectors.toList());
                     return new ProductDetailsDTO(
-                            product.getId(),
-                            product.getLoai(),
-                            product.getTenSanPham(),
-                            product.getSize(),
-                            product.getSoluong(),
-                            product.getGiaBan(),
-                            phanTram,
-                            photoNames);
+                        product.getId(), 
+                        product.getLoai(), 
+                        product.getTenSanPham(), 
+                        normalizeString(product.getTenSanPham()),
+                        product.getSize(), 
+                        product.getSoluong(), 
+                        product.getGiaBan(), 
+                        phanTram, 
+                        photoNames);
                 })
                 .collect(Collectors.toList());
 
@@ -293,14 +297,15 @@ public class ProductServiceImpl implements ProductService{
                                                         .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                         .collect(Collectors.toList());
                     return new ProductDetailsDTO(
-                            product.getId(),
-                            product.getLoai(),
-                            product.getTenSanPham(),
-                            product.getSize(),
-                            product.getSoluong(),
-                            product.getGiaBan(),
-                            phanTram,
-                            photoNames);
+                        product.getId(), 
+                        product.getLoai(), 
+                        product.getTenSanPham(), 
+                        normalizeString(product.getTenSanPham()),
+                        product.getSize(), 
+                        product.getSoluong(), 
+                        product.getGiaBan(), 
+                        phanTram, 
+                        photoNames);
                 })
                 .collect(Collectors.toList());
 
@@ -334,14 +339,15 @@ public class ProductServiceImpl implements ProductService{
                                                         .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                         .collect(Collectors.toList());
                     return new ProductDetailsDTO(
-                            product.getId(),
-                            product.getLoai(),
-                            product.getTenSanPham(),
-                            product.getSize(),
-                            product.getSoluong(),
-                            product.getGiaBan(),
-                            phanTram,
-                            photoNames);
+                        product.getId(), 
+                        product.getLoai(), 
+                        product.getTenSanPham(), 
+                        normalizeString(product.getTenSanPham()),
+                        product.getSize(), 
+                        product.getSoluong(), 
+                        product.getGiaBan(), 
+                        phanTram, 
+                        photoNames);
                 })
                 .collect(Collectors.toList());
 
@@ -374,14 +380,15 @@ public class ProductServiceImpl implements ProductService{
                                                         .map(Anh::getTen)
                                                         .sorted(this::comparePhotoNames) // Sắp xếp theo tên với comparator tùy chỉnh
                                                         .collect(Collectors.toList());
-                    return new ProductDetailsDTO(
-                            product.getId(),
-                            product.getLoai(),
-                            product.getTenSanPham(),
-                            product.getSize(),
-                            product.getSoluong(),
-                            product.getGiaBan(),
-                            phanTram,
+                        return new ProductDetailsDTO(
+                            product.getId(), 
+                            product.getLoai(), 
+                            product.getTenSanPham(), 
+                            normalizeString(product.getTenSanPham()),
+                            product.getSize(), 
+                            product.getSoluong(), 
+                            product.getGiaBan(), 
+                            phanTram, 
                             photoNames);
                 })
                 .collect(Collectors.toList());
@@ -392,13 +399,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDetailsDTO getProduct(String name) {
-        // Chuẩn hóa chuỗi đầu vào
-        String normalizedInput = normalizeString(name);
 
         List<ProductDetailsDTO> products = getAllProducts();
         for(ProductDetailsDTO product : products) {
-            String normalizedProductName = normalizeString(product.getTen());
-            if(normalizedProductName.equalsIgnoreCase(normalizedInput)) {
+            if(product.getNamePathProduct().equalsIgnoreCase(name)) {
                 return product;
             }
         }
@@ -406,12 +410,12 @@ public class ProductServiceImpl implements ProductService{
         return null;
     }
 
-    // Loại bỏ ký tự đặc biệt và chuẩn hóa chuỗi
+    // chuẩn hóa tên sản phẩm theo đúng path
     public static String normalizeString(String input) {
-        return input.replaceAll("[-/]", " ") // Thay thế '-' và '/' bằng dấu cách
-                    .replaceAll("\\s+", "") // Loại bỏ tất cả các khoảng trắng
-                    .trim() // Loại bỏ khoảng trắng ở đầu và cuối chuỗi
-                    .toLowerCase(); // Chuyển tất cả về chữ thường
+        return input.replaceAll("[-/()]", " ")
+                    .replaceAll("\\s+", "-")
+                    .trim()                      // Loại bỏ khoảng trắng ở đầu và cuối chuỗi
+                    .toLowerCase();              // Chuyển tất cả về chữ thường
     }
 
     @Override
