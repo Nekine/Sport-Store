@@ -366,16 +366,16 @@ header.fixed {
     z-index: 500;
 }
 
-.menu-desktop .current-page {
-    border-bottom: 2px solid #000;
-}
-
 .menu-desktop ul li a {
     text-decoration: none; /* Bỏ gạch chân */
     color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
     padding: 10px 0;
     font-size: 15px;
     color: #5a5a5a;
+}
+
+.menu-desktop ul li a:hover {
+    color: #000;
 }
 
 .menu-desktop ul li i {

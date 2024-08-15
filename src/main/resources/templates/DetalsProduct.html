@@ -32,7 +32,7 @@
             <div class="menu-desktop">
                 <ul class="row">
                     <li class="col l-1-3 l-o-1 m-0 c-0">
-                        <a th:href="@{/neekine}" class="current-page">TRANG CHỦ</a>
+                        <a th:href="@{/neekine}">TRANG CHỦ</a>
                     </li>
                     <li class="col l-1-5 m-0 c-0 has-subnav">
                         <a th:href="@{/neekine/collections/all}">TẤT CẢ SẢN PHẨM</a>
@@ -152,12 +152,20 @@
             <div class="content-product row">
                 <div class="images-product col l-8 m-12 c-12">
                     <div class="images-product row">
-                        <div class="list-img col l-1-2 l-o-1">
-                            <div class="item-img" th:each="img : ${product.photoNames}">
-                                <img th:src="'/images/' + ${img}" alt="">
+                        <div class="list-img col l-2 l-o-1 m-12 c-12">
+                            <div class="row">
+                                <div class="item-img col l-6 m-0 c-0" th:each="img : ${product.photoNames}">
+                                    <img th:src="'/images/' + ${img}" alt="">
+                                </div>
+                            </div>
+
+                            <div class="container l-0">
+                                <div class="item" th:each="img : ${product.photoNames}">
+                                    <img th:src="'/images/' + ${img}" alt="">
+                                </div>
                             </div>
                         </div>
-                        <div class="main-img col l-9">
+                        <div class="main-img col l-9 m-0 c-0">
                             <img id="mainImage" th:src="'/images/' + ${product.photoNames[0]}" alt="Main Image">
                         </div>
                     </div>
@@ -178,8 +186,8 @@
                     </div>
 
                     <!-- sizes -->
-                    <div class="partial">
-                        <div class="size col l-3" th:each="size : ${sizes}">
+                    <div class="partial" th:if="${product.kich_thuoc != null}">
+                        <div class="size col l-3 m-2 c-2" th:each="size : ${sizes}">
                             <span th:text="${size}"></span>
                         </div>
                     </div>
@@ -204,7 +212,7 @@
                 <div class="box-product row">
                     <div class="col l-2-4 m-6 c-6 product" th:each="product: ${relatedProducts}">
                         <div class="product-item">
-                            <a th:href="@{/neekine}">
+                            <a th:href="@{'/neekine/products/' + ${product.namePathProduct}}">
                                 <div class="product-img">
                                     <span class="percent" th:if="${product.phan_tram != 0}" th:text="${product.phan_tram} + '%'"></span>
                                     <img th:src="'/images/' + ${product.photoNames[0]}" alt="" class="first-img">

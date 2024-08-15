@@ -283,16 +283,16 @@ header.fixed {
     z-index: 500;
 }
 
-.menu-desktop .current-page {
-    border-bottom: 2px solid #000;
-}
-
 .menu-desktop ul li a {
     text-decoration: none; /* Bỏ gạch chân */
     color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
     padding: 10px 0;
     font-size: 15px;
     color: #5a5a5a;
+}
+
+.menu-desktop ul li a:hover {
+    color: #000;
 }
 
 .menu-desktop ul li i {
@@ -401,7 +401,7 @@ main .breadcrumb ol li span {
 }
 
 .content-product {
-    padding: 50px 0 0 20px;
+    padding-top: 50px;
 }
 
 .list-img {
@@ -412,18 +412,45 @@ main .breadcrumb ol li span {
 .list-img img {
     width: 100%;
     height: auto;
+    border-radius: 7px;
+}
+
+.item-img {
+    padding-right: 0;
+}
+
+.item-img img.active {
+    border: 1px solid #000000;
 }
 
 .info-product {
-    padding-right: 20px;
+    padding: 0 20px;
 }
 
 .info-product .partial {
-    padding: 15px 0;
+    padding: 20px 0;
     border-bottom: 1px dotted #dfe0e1;
     display: flex;
     align-items: center;
 }
+
+/* tạo hiệu ứng vuốt ngang ảnh ở tablet & mobile */
+@media(max-width: 999px){
+    .container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory; /* Kích hoạt tính năng snap */
+        scroll-behavior: smooth; /* Hiệu ứng cuộn mượt */
+    }
+    
+    .container .item {
+        flex: 0 0 100%; /* Mỗi thẻ div chiếm toàn bộ chiều rộng khung nhìn */
+        scroll-snap-align: start; /* Đặt điểm snap ở đầu mỗi thẻ div */
+        box-sizing: border-box;
+    }
+    
+}
+
 
 .info-product p {
     font-size: 20px;
