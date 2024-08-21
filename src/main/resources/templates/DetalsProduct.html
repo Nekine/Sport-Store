@@ -185,24 +185,26 @@
                         <span th:if="${product.phan_tram == 0}" th:text="${product.gia_ban} + '₫'" class="price"></span>
                     </div>
 
-                    <!-- sizes -->
-                    <div class="partial" th:if="${product.kich_thuoc != null}">
-                        <div class="size col l-3 m-2 c-2" th:each="size : ${sizes}">
-                            <span th:text="${size}"></span>
+                    <form th:action="@{/api/products/cart/add}" th:object="${cart}">
+                        <!-- sizes -->
+                        <div class="partial" th:if="${product.kich_thuoc != null}">
+                            <div class="col l-3 m-2 c-2" th:each="size : ${sizes}">
+                                <input type="button"  th:value="${size}" class="size">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Choose quantity -->
-                    <div class="quantity-area">
-                        <input type="button" value="-" onclick="minusQuantity()">
-                        <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
-                        <input type="button" value="+" onclick="plusQuantity()">
-                    </div>
+                        <!-- Choose quantity -->
+                        <div class="quantity-area">
+                            <input type="button" value="-" onclick="minusQuantity()">
+                            <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                            <input type="button" value="+" onclick="plusQuantity()">
+                        </div>
 
-                    <!-- add cart -->
-                    <div class="add-cart">
-                        <button>THÊM VÀO GIỎ</button>
-                    </div>
+                        <!-- add cart -->
+                        <div class="add-cart">
+                            <button type="submit">THÊM VÀO GIỎ</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 

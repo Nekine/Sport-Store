@@ -486,12 +486,12 @@ main .breadcrumb ol li span {
 .info-product .size {
     padding: 13px 15px;
     border: 1px solid #dbdbdb;
-    margin: 5px 10px 5px 0;
     background-color: #fff;
     color: #494949;
     text-align: center;
     cursor: pointer;
     font-weight: 600;
+    width: 100%;
 }
 
 .info-product .size:hover {

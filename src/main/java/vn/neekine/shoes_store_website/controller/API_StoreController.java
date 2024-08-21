@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import vn.neekine.shoes_store_website.DTO.ProductDetailsDTO;
+import vn.neekine.shoes_store_website.DTO.UserDetailsDTO;
+import vn.neekine.shoes_store_website.model.Account;
+import vn.neekine.shoes_store_website.model.GioHang;
 import vn.neekine.shoes_store_website.service.ProductService;
+import vn.neekine.shoes_store_website.service.serviceImpl.UserDetailsCurrentIpl;
 
 @RestController
 @RequestMapping("/api/products")
@@ -143,5 +150,24 @@ public class API_StoreController {
         
         ProductDetailsDTO product = this.productService.getProduct(name);
         return this.productService.relatedProducts(product.getLoai(), product.getTen());
+    }
+
+    @GetMapping("/cart")
+    public ResponseEntity<?> getCart(){
+        // Lấy Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            // Trả về thông báo hoặc giỏ hàng trống
+            return ResponseEntity.ok("User is not logged in or cart is empty.");
+        }
+
+        UserDetailsDTO userDetails = (UserDetailsDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Account account = userDetails.getAccount();
+        GioHang cart = account.getKhachHang().getGioHang();
+
+        return ResponseEntity.ok(cart);
     }
 }

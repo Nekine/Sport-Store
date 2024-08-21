@@ -31,6 +31,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(configurer -> 
                     configurer
                             .requestMatchers("/neekine/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/api/products/cart/**").hasRole("ADMIN, CLIENT")
                             .anyRequest().permitAll()    
             )
             // đường dẫn đến trang đăng nhập

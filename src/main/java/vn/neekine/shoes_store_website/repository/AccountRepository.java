@@ -8,5 +8,5 @@ import vn.neekine.shoes_store_website.model.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String>{
 
-    
+    Account findByEmail(String name);
 }
