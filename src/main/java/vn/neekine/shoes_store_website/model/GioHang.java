@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -25,27 +26,23 @@ public class GioHang {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Giohang - SanPham
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-        CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(
-        name = "sanPham_gioHang",
-        joinColumns = @JoinColumn(name = "gioHang_id"),
-        inverseJoinColumns = @JoinColumn(name = "sanPham_id")
-    )
-    private List<SanPham> sanPham_s;
+    // Giohang - Giohang_Sanpham
+    @OneToMany(mappedBy = "gioHang", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Giohang_Sanpham> gioHangSanPhams = new ArrayList<>();
 
     // GioHang - KhachHang
     @OneToOne(mappedBy = "gioHang", cascade = {CascadeType.PERSIST, CascadeType.DETACH,
         CascadeType.MERGE, CascadeType.REFRESH})
     private KhachHang khachHang;
 
-    // them san pham vao gio hang
-    public void addSanPham(SanPham sanPham){
-        if(sanPham_s == null){
-            sanPham_s = new ArrayList<>();
-        }
+    // Thêm sản phẩm vào giỏ hàng với số lượng
+    public void addSanPham(SanPham sanPham, int soLuong) {
+        Giohang_Sanpham gioHangSanPham = new Giohang_Sanpham(this, sanPham, soLuong);
+        gioHangSanPhams.add(gioHangSanPham);
+    }
 
-        sanPham_s.add(sanPham);
+    // Xóa sản phẩm khỏi giỏ hàng
+    public void removeSanPham(SanPham sanPham) {
+        gioHangSanPhams.removeIf(gioHangSanPham -> gioHangSanPham.getSanPham().equals(sanPham));
     }
 }

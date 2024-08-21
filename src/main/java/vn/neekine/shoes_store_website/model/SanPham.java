@@ -60,15 +60,9 @@ public class SanPham {
         CascadeType.MERGE, CascadeType.REFRESH})
     private List<Anh> photos;
 
-    // SanPham - GioHang
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-        CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(
-        name = "sanPham_gioHang",
-        joinColumns = @JoinColumn(name = "sanPham_id"),
-        inverseJoinColumns = @JoinColumn(name = "gioHang_id")
-    )
-    private List<GioHang> gioHangs;
+    // SanPham - Giohang_SanPham
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Giohang_Sanpham> gioHangSanPhams = new ArrayList<>();
 
     // SanPham - NSX
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH,
@@ -88,15 +82,6 @@ public class SanPham {
         }
 
         photos.add(photo);
-    }
-
-    // them gio hang
-    public void addGioHang(GioHang gioHang){
-        if(gioHangs == null){
-            gioHangs = new ArrayList<>();;
-        }
-
-        gioHangs.add(gioHang);
     }
 
     // them nha san xuat
