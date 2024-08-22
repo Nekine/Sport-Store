@@ -1,7 +1,7 @@
 package vn.neekine.shoes_store_website.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import vn.neekine.shoes_store_website.model.Account;
 
 public interface UserDetailsService {
-    UserDetails loadUserByUsername(String username);
+    public Account loadUserByUsername(String username);
 }

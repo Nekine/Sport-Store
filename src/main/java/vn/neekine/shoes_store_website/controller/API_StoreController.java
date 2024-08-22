@@ -10,25 +10,35 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import vn.neekine.shoes_store_website.DTO.InforProductAddToCart;
 import vn.neekine.shoes_store_website.DTO.ProductDetailsDTO;
-import vn.neekine.shoes_store_website.DTO.UserDetailsDTO;
-import vn.neekine.shoes_store_website.model.Account;
 import vn.neekine.shoes_store_website.model.GioHang;
+import vn.neekine.shoes_store_website.model.KhachHang;
+import vn.neekine.shoes_store_website.service.CartService;
 import vn.neekine.shoes_store_website.service.ProductService;
-import vn.neekine.shoes_store_website.service.serviceImpl.UserDetailsCurrentIpl;
+import vn.neekine.shoes_store_website.service.UserDetailsService;
 
 @RestController
 @RequestMapping("/api/products")
 public class API_StoreController {
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping
     public List<ProductDetailsDTO> getAllProducts() {
@@ -163,11 +173,33 @@ public class API_StoreController {
             return ResponseEntity.ok("User is not logged in or cart is empty.");
         }
 
-        UserDetailsDTO userDetails = (UserDetailsDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
+        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
+        GioHang cart = khachHang.getGioHang();
 
-        Account account = userDetails.getAccount();
-        GioHang cart = account.getKhachHang().getGioHang();
+        if(cart == null){
+            cart = new GioHang();
+            khachHang.setGioHang(cart);
+        }
 
-        return ResponseEntity.ok(cart);
+        return ResponseEntity.ok(this.cartService.getAllProductsInCart(cart));
+    }
+
+    @PostMapping("/cart/add")
+    public ResponseEntity<?> addProductToCart(@RequestBody InforProductAddToCart inforProduct){
+        // Lấy Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            // Trả về thông báo hoặc giỏ hàng trống
+            return ResponseEntity.ok("User is not logged in or cart is empty.");
+        }
+        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
+        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
+
+        GioHang cart = this.cartService.addProductToCart(inforProduct, khachHang);
+        
+        return ResponseEntity.ok("Success");
     }
 }

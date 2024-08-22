@@ -173,7 +173,7 @@
                 <div class="info-product col l-4 m-12 c-12">
                     <!-- name -->
                     <div class="partial">
-                        <p th:text="${product.ten}"></p>
+                        <p th:text="${product.ten}" id="nameProduct"></p>
                     </div>
 
                     <!-- promotion & price -->
@@ -185,11 +185,11 @@
                         <span th:if="${product.phan_tram == 0}" th:text="${product.gia_ban} + '₫'" class="price"></span>
                     </div>
 
-                    <form th:action="@{/api/products/cart/add}" th:object="${cart}">
+                    <form id="add-to-cart-form">
                         <!-- sizes -->
                         <div class="partial" th:if="${product.kich_thuoc != null}">
                             <div class="col l-3 m-2 c-2" th:each="size : ${sizes}">
-                                <input type="button"  th:value="${size}" class="size">
+                                <input type="button" th:value="${size}" class="size">
                             </div>
                         </div>
 

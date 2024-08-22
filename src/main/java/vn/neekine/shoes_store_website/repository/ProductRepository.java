@@ -16,4 +16,5 @@ public interface ProductRepository extends JpaRepository<SanPham, Long>{
               "WHERE p.tenSanPham LIKE ?1%")
        List<SanPham> searchProductByName(String name);
 
+       SanPham findByTenSanPhamAndSize(String name, String size);
 }

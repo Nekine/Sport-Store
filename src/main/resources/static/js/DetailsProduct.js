@@ -206,7 +206,8 @@ function formatPrice(){
 
 // chọn size product
 function selectSize(){
-    document.querySelectorAll('.size').forEach(function(item){
+    let button = document.querySelectorAll('.size')
+    button.forEach(function(item){
         item.addEventListener('click', () => {
             const activeSize = document.querySelector('.size.active');
             if(activeSize){
@@ -234,3 +235,46 @@ function plusQuantity() {
 
     quantityInput.value = currentQuantity + 1;
 }
+
+// gửi dữ liệu input product
+document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+    // Lấy dữ liệu product
+    var size = document.querySelector('.size.active');
+    const quantity = document.getElementById('quantity').value;
+    const name = document.getElementById('nameProduct').textContent;
+
+    if(size){
+        size = size.value;
+    }
+    else {
+        alert('Vui lòng chọn size sản phẩm !!');
+        return;
+    }
+
+    // Tạo dữ liệu để gửi đến server
+    const data = {
+        name: name,
+        size: size,
+        quantity: quantity
+    };
+
+    // // Gửi dữ liệu qua AJAX
+    fetch('/api/products/cart/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+    // sau khi thêm thành công sản phẩm vào giỏ hàng thì sẽ tự động mở giỏ hàng ra
+    const cart = document.querySelector(".body-search-pc");
+    const body = document.querySelector(".body-content");
+    cart.classList.add("active");
+    body.classList.add("blur");
+});

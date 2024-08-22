@@ -1,5 +1,9 @@
 package vn.neekine.shoes_store_website.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,21 +23,24 @@ public class Giohang_Sanpham {
     private Long id;
 
     // Mối quan hệ với GioHang
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gioHang_id", nullable = false)
     private GioHang gioHang;
 
     // Mối quan hệ với SanPham
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sanPham_id", nullable = false)
     private SanPham sanPham;
 
     @Column(name = "soLuong", nullable = false)
-    private int soLuong;
+    private Long soLuong;
 
-    public Giohang_Sanpham(GioHang gioHang, SanPham sanPham, int soLuong) {
+    public Giohang_Sanpham(GioHang gioHang, SanPham sanPham, Long soLuong) {
         this.gioHang = gioHang;
         this.sanPham = sanPham;
         this.soLuong = soLuong;
+    }
+
+    public Giohang_Sanpham(){
     }
 }
