@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import vn.neekine.shoes_store_website.DTO.ProductDetailsDTO;
 import vn.neekine.shoes_store_website.model.Anh;
+import vn.neekine.shoes_store_website.model.GioHang;
+import vn.neekine.shoes_store_website.model.Giohang_Sanpham;
 import vn.neekine.shoes_store_website.model.SanPham;
 import vn.neekine.shoes_store_website.repository.ProductRepository;
 import vn.neekine.shoes_store_website.service.ProductService;
@@ -59,8 +61,15 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<ProductDetailsDTO> searchProduct(String name) {
         List<SanPham> products = productRepository.searchProductByName(name);
+        Map<String, SanPham> productMap = new HashMap<>();
 
-        return products.stream()
+        // Lưu sản phẩm đầu tiên gặp phải vào Map theo tên
+        products.forEach(product -> {
+            productMap.putIfAbsent(product.getTenSanPham(), product);
+        });
+
+        // Tạo danh sách ProductDetailsDTO từ các sản phẩm trong Map
+        return productMap.values().stream()
                         .map(product -> {
                             Integer phanTram = product.getKhuyenMai() != null ? product.getKhuyenMai().getPhanTram() : 0;
                             List<String> photoNames = product.getPhotos().stream()

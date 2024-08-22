@@ -3,6 +3,8 @@ package vn.neekine.shoes_store_website.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,7 +38,7 @@ public class GioHang {
     private KhachHang khachHang;
 
     // Thêm sản phẩm vào giỏ hàng với số lượng
-    public void addSanPham(SanPham sanPham, int soLuong) {
+    public void addSanPham(SanPham sanPham, Long soLuong) {
         Giohang_Sanpham gioHangSanPham = new Giohang_Sanpham(this, sanPham, soLuong);
         gioHangSanPhams.add(gioHangSanPham);
     }
@@ -45,4 +47,5 @@ public class GioHang {
     public void removeSanPham(SanPham sanPham) {
         gioHangSanPhams.removeIf(gioHangSanPham -> gioHangSanPham.getSanPham().equals(sanPham));
     }
+
 }

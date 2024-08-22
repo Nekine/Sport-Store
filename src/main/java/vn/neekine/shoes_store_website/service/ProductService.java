@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import vn.neekine.shoes_store_website.DTO.ProductDetailsDTO;
+import vn.neekine.shoes_store_website.model.GioHang;
 import vn.neekine.shoes_store_website.model.SanPham;
 
 public interface ProductService {
