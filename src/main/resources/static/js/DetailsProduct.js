@@ -24,7 +24,7 @@ window.addEventListener('resize', () => {
 });
 
 // body -> body-search-pc
-// thao tác ẩn hiện search-pc
+// thao tác ẩn hiện search-pc & cart
 document.querySelector('.ti-search').addEventListener('click', () => {
     var search_pc = document.querySelector('.body-search-pc')
     var body_content = document.querySelector('.body-content')
@@ -33,7 +33,15 @@ document.querySelector('.ti-search').addEventListener('click', () => {
     body_content.classList.add('blur')
 });
 
-document.querySelector('.ti-close').addEventListener('click', () => {
+document.querySelector('.ti-shopping-cart').addEventListener('click', () => {
+    var cart = document.querySelector('.body-cart')
+    var body_content = document.querySelector('.body-content')
+
+    cart.classList.add('active')
+    body_content.classList.add('blur')
+});
+
+document.querySelector('.close-search-pc').addEventListener('click', () => {
     var search_pc = document.querySelector('.body-search-pc')
     var body_content = document.querySelector('.body-content')
 
@@ -41,6 +49,13 @@ document.querySelector('.ti-close').addEventListener('click', () => {
     body_content.classList.remove('blur')
 });
 
+document.querySelector('.close-cart').addEventListener('click', () => {
+    var cart = document.querySelector('.body-cart')
+    var body_content = document.querySelector('.body-content')
+
+    cart.classList.remove('active')
+    body_content.classList.remove('blur')
+});
 
 // xử lý sự kiện tìm kiếm
 function search(idInput, idContent) {
@@ -120,6 +135,60 @@ function search(idInput, idContent) {
     }
 }
 
+// xử lý hiện sản phẩm trong giỏ hàng và các thao tác
+function cart(){
+    const cartElement = document.querySelector('.content-cart');
+    const sumCost = document.querySelector('.total-cost');
+
+    fetch(`/api/products/cart`)
+                .then(response => response.json())
+                .then(products => {
+                    displayResults(products);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+    function displayResults(products) {
+        cartElement.innerHTML = '';
+        var sum = 0;
+
+        for(let i=0; i<products.length; i++){
+            sum += (products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong;
+
+            var product_item = `
+                <tr class="row">
+                    <td class="img col l-3">
+                        <a th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">
+                            <img src="/images/${products[i].photoNames[0]}">
+                        </a>
+                    </td>
+                    <td class="col l-8">
+                        <a class="pro-title-view" th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">${products[i].ten}</a><br>
+                        `
+            if(products[i].kich_thuoc){
+                product_item += `<span class="variant">${products[i].kich_thuoc}</span>`
+            }
+            else {
+                product_item += `<br>`
+            }
+            product_item +=
+                        `
+                        <span class="pro-quantity-view">${products[i].so_luong}</span>
+                        <span class="pro-price-view">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
+                        <span class="ti-close drop-product"></span>
+                    </td>
+                </tr>
+            `
+
+            cartElement.innerHTML += product_item;
+        }
+
+        // tổng giá trị các sản phẩm
+        sumCost.innerHTML = `<span>Tổng tiền: ${formatCurrency(sum)}₫</span>`
+    }
+}
+
 function formatCurrency(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -131,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function(){
     formatPrice();
     selectSize();
     displayProductImages()
+    cart();
 });
 
 // click vào thẻ a thì sẽ chuyển đến url mong muốn
@@ -242,11 +312,15 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
 
     // Lấy dữ liệu product
     var size = document.querySelector('.size.active');
+    var size_2 = document.querySelector('#size');
     const quantity = document.getElementById('quantity').value;
     const name = document.getElementById('nameProduct').textContent;
 
     if(size){
         size = size.value;
+    }
+    else if(size_2){
+        size = null;
     }
     else {
         alert('Vui lòng chọn size sản phẩm !!');
@@ -260,6 +334,7 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         quantity: quantity
     };
 
+    var check = false;
     // // Gửi dữ liệu qua AJAX
     fetch('/api/products/cart/add', {
         method: 'POST',
@@ -268,13 +343,19 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         },
         body: JSON.stringify(data)
     })
+    .then(response => response.json())
+    .then(data => {
+        check = true;
+    })
     .catch((error) => {
-        console.error('Error:', error);
+        alert('Vui lòng đăng nhập tài khoản để mua sản phẩm !!')
     });
 
     // sau khi thêm thành công sản phẩm vào giỏ hàng thì sẽ tự động mở giỏ hàng ra
-    const cart = document.querySelector(".body-search-pc");
-    const body = document.querySelector(".body-content");
-    cart.classList.add("active");
-    body.classList.add("blur");
+    if(check){
+        const cart = document.querySelector(".body-cart");
+        const body = document.querySelector(".body-content");
+        cart.classList.add("active");
+        body.classList.add("blur");
+    }
 });
