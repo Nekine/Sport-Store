@@ -200,6 +200,6 @@ public class API_StoreController {
 
         GioHang cart = this.cartService.addProductToCart(inforProduct, khachHang);
         
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.ok(cart);
     }
 }
