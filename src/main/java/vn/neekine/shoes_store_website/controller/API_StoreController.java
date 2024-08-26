@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -200,6 +201,17 @@ public class API_StoreController {
 
         GioHang cart = this.cartService.addProductToCart(inforProduct, khachHang);
         
-        return ResponseEntity.ok(cart);
+        return ResponseEntity.ok("{}");
+    }
+
+    @DeleteMapping("/cart/delete")
+    public ResponseEntity<?> deleteProductFromCart(@RequestBody InforProductAddToCart inforProduct){
+        // Lấy Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
+        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
+        this.cartService.deleteProductsFromCart(inforProduct, khachHang);
+
+        return ResponseEntity.ok("{}");
     }
 }

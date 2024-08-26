@@ -229,10 +229,11 @@
         </footer>
     </div>
 
+    <!-- search for pc -->
     <div class="body-search-pc">
         <div class="header-search">
             <p>Tìm kiếm</p>
-            <i class="ti-close"></i>
+            <i class="ti-close close-search-pc"></i>
         </div>
         <div class="search-box search-pc">
             <form th:action="@{/neekine}" class="row">
@@ -241,6 +242,27 @@
             </form>
             <div class="content-search grid" id="search-2">
                 <!-- search result -->
+            </div>
+        </div>
+    </div>
+
+    <!-- cart -->
+    <div class="body-cart">
+        <div class="header-cart">
+            <p>Giỏ hàng</p>
+            <i class="ti-close close-cart"></i>
+        </div>
+        <div class="cart-box">
+            <table id="cart-view">
+                <tbody class="content-cart">
+                
+                </tbody>
+            </table>
+            <div class="total-cost">
+            </div>
+            <div class="button-box row">
+                <button class="col l-o-1 l-4 m-o-1 m-4 c-o-1 c-5"><a th:href="@{/neekine/cart}" class="check-cart">XEM GIỎ HÀNG</a></button>
+                <button class="col l-o-2 l-4 m-o-2 m-4 c-o-1 c-5"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
             </div>
         </div>
     </div>

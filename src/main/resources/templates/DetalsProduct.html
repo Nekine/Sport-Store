@@ -187,12 +187,12 @@
 
                     <form id="add-to-cart-form">
                         <!-- sizes -->
-                        <div class="partial" th:if="${product.kich_thuoc != null}">
+                        <div class="partial" th:if="${!product.kich_thuoc.equals('0')}">
                             <div class="col l-3 m-2 c-2" th:each="size : ${sizes}">
                                 <input type="button" th:value="${size}" class="size">
                             </div>
                         </div>
-                        <div th:if="${product.kich_thuoc == null}">
+                        <div th:if="${product.kich_thuoc.equals('0')}">
                             <input type="hidden" id="size">
                         </div>
 
@@ -325,8 +325,8 @@
             <div class="total-cost">
             </div>
             <div class="button-box row">
-                <button class="col l-o-1 l-4"><a th:href="@{/neekine/cart}" class="check-cart">XEM GIỎ HÀNG</a></button>
-                <button class="col l-o-2 l-4"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
+                <button class="col l-o-1 l-4 m-o-1 m-4 c-o-1 c-5"><a th:href="@{/neekine/cart}" class="check-cart">XEM GIỎ HÀNG</a></button>
+                <button class="col l-o-2 l-4 m-o-2 m-4 c-o-1 c-5"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 package vn.neekine.shoes_store_website.service.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,8 @@ public class CartServiceImpl implements CartService{
         return cart;
     }
 
+    
+
     @Override
     public List<ProductDetailsDTO> getAllProductsInCart(GioHang cart) {
         List<ProductDetailsDTO> products = new ArrayList<>();
@@ -74,4 +77,29 @@ public class CartServiceImpl implements CartService{
 
         return products;
     }
+
+
+
+    @Override
+    public void deleteProductsFromCart(InforProductAddToCart productFromCart, KhachHang client) {
+        GioHang cart = client.getGioHang();
+    
+        if (cart == null) {
+            return;
+        }
+    
+        // Sử dụng Iterator để xóa phần tử an toàn
+        Iterator<Giohang_Sanpham> iterator = cart.getGioHangSanPhams().iterator();
+        while (iterator.hasNext()) {
+            Giohang_Sanpham item = iterator.next();
+            if (item.getSanPham().getTenSanPham().equals(productFromCart.getName()) &&
+                item.getSanPham().getSize().equals(productFromCart.getSize())) {
+                
+                iterator.remove();
+                this.cartRepository.save(cart);
+                return;
+            }
+        }
+    }
+    
 }
