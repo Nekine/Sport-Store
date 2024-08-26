@@ -55,7 +55,19 @@ body {
     transition: right 0.5s ease-in-out; /* Thêm hiệu ứng chuyển động */
     box-shadow: -10px 0px 15px -5px rgba(0, 0, 0, 0.5); /* Đổ bóng ở bên trái */   
     width: 40%;
-    padding: 40px 50px;
+    padding: 40px 35px;
+}
+
+@media (max-width: 999px){
+    .body-cart {
+        width: 50%;
+    }
+}
+
+@media (max-width: 729px){
+    .body-cart {
+        width: 100%;
+    }
 }
 
 .body-cart.active,
@@ -151,9 +163,6 @@ body {
 }
 
 /* cart */
-.body-cart {
-    padding-right: 10px;
-}
 .body-cart .cart-box {
     margin: 20px 0;
     flex-grow: 1;
@@ -163,7 +172,7 @@ body {
 }
 
 .cart-box #cart-view {
-    padding-right: 20px;
+    padding: 0 15px;
 }
 
 .cart-box table tr {
@@ -177,10 +186,9 @@ body {
 
 .cart-box table tr .img{
     padding-left: 0;
-    margin-left: 15px;
 }
 
-.cart-box table tr td {
+.cart-box table tr {
     position: relative;
 }
 
@@ -206,16 +214,14 @@ body {
     color: #757575;
 }
 
-.cart-box table tr td .drop-product {
+.cart-box table tr .drop-product {
     font-size: 15px;
     font-weight: 900;
-    position: absolute;
-    top: 0;
-    right: 0;
+    padding: 0;
 }
 
 .body-cart .total-cost {
-    padding: 10px 0;
+    padding: 10px 12px;
 }
 
 .body-cart .button-box {
@@ -489,10 +495,6 @@ main .breadcrumb ol li a {
 
 main .breadcrumb ol li span {
     color: #777;
-}
-
-.content-product {
-    padding-top: 50px;
 }
 
 .list-img {

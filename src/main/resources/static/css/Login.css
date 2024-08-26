@@ -43,7 +43,8 @@ body {
     z-index: 1; /* Đảm bảo nó nằm dưới body-search-pc */
 }
 
-/* body -> body-search-pc */
+/* body -> body-search-pc & body-cart */
+.body-cart,
 .body-search-pc {
     position: fixed;
     z-index: 1000; /* Đảm bảo nó nổi lên trên */
@@ -54,28 +55,42 @@ body {
     transition: right 0.5s ease-in-out; /* Thêm hiệu ứng chuyển động */
     box-shadow: -10px 0px 15px -5px rgba(0, 0, 0, 0.5); /* Đổ bóng ở bên trái */   
     width: 40%;
-    padding: 40px 50px;
+    padding: 40px 35px;
 }
 
+@media (max-width: 999px){
+    .body-cart {
+        width: 50%;
+    }
+}
+
+@media (max-width: 729px){
+    .body-cart {
+        width: 100%;
+    }
+}
+
+.body-cart.active,
 .body-search-pc.active {
     right: 0; /* Di chuyển vào khung hình */
 }
 
+
+.body-cart .header-cart,
 .body-search-pc .header-search {
     display: flex;
 }
 
+.body-cart p,
 .body-search-pc p {
     width: 100%;
     font-size: 15px;
     font-weight: 100;
 }
 
+.body-cart .ti-close,
 .body-search-pc .ti-close {
     cursor: pointer;
-}
-
-.body-search-pc .header-search i {
     right: 0;
     font-size: 25px;
     font-weight: 500;
@@ -141,11 +156,91 @@ body {
     text-decoration: line-through;
 }
 
+.content-cart a img,
 .content-search a img {
     width: 100%;
     height: auto;
 }
 
+/* cart */
+.body-cart .cart-box {
+    margin: 20px 0;
+    flex-grow: 1;
+    overflow-y:scroll; /* Kích hoạt thanh cuộn theo chiều dọc */
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+    max-height: calc(100vh - 100px); 
+}
+
+.cart-box #cart-view {
+    padding: 0 15px;
+}
+
+.cart-box table tr {
+    padding: 20px 0;
+    border-bottom: 1px dotted #bcbcbc;
+}
+
+.cart-box table tr:last-child {
+    border-bottom: 2px solid #000;
+}
+
+.cart-box table tr .img{
+    padding-left: 0;
+}
+
+.cart-box table tr {
+    position: relative;
+}
+
+.cart-box table tr td .pro-title-view {
+    font-weight: 600;
+}
+
+.cart-box table tr td .variant {
+    font-size: 13px;
+    color: #989797;
+    margin: 8px 0 15px 0;
+    display: block;
+}
+
+.cart-box table tr td .pro-quantity-view {
+    background-color: #ededed;
+    font-size: 13px;
+    padding: 7px 10px;
+    margin-right: 5px;
+}
+
+.cart-box table tr td .pro-price-view {
+    color: #757575;
+}
+
+.cart-box table tr .drop-product {
+    font-size: 15px;
+    font-weight: 900;
+    padding: 0;
+}
+
+.body-cart .total-cost {
+    padding: 10px 12px;
+}
+
+.body-cart .button-box {
+    padding: 20px 0;
+    display: flex;
+}
+
+.button-box button {
+    padding: 20px 5px;
+    background-color: #000;
+    color: #fff;
+    letter-spacing: 1px; /* dãn chữ trên dòng */
+    cursor: pointer;
+}
+
+.button-box button:hover {
+    background-color: #fff;
+    color: #000;
+}
 
 /* header */
 

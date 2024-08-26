@@ -23,12 +23,14 @@ public class Giohang_Sanpham {
     private Long id;
 
     // Mối quan hệ với GioHang
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "gioHang_id", nullable = false)
     private GioHang gioHang;
 
     // Mối quan hệ với SanPham
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "sanPham_id", nullable = false)
     private SanPham sanPham;
 

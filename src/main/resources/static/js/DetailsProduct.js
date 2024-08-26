@@ -158,24 +158,26 @@ function cart(){
 
             var product_item = `
                 <tr class="row">
-                    <td class="img col l-3">
+                    <td class="img col l-3 m-3 c-3">
                         <a th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">
                             <img src="/images/${products[i].photoNames[0]}">
                         </a>
                     </td>
-                    <td class="col l-8">
+                    <td class="col l-8 m-8 c-8">
                         <a class="pro-title-view" th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">${products[i].ten}</a><br>
                         `
-            if(products[i].kich_thuoc){
+            if(products[i].kich_thuoc !== '0'){
                 product_item += `<span class="variant">${products[i].kich_thuoc}</span>`
             }
             else {
-                product_item += `<br>`
+                product_item += `<span class="variant"></span>`
             }
             product_item +=
                         `
                         <span class="pro-quantity-view">${products[i].so_luong}</span>
                         <span class="pro-price-view">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</span>
+                    </td>
+                    <td class="col l-1 m-1 c-1">
                         <span class="ti-close drop-product"></span>
                     </td>
                 </tr>
@@ -186,6 +188,12 @@ function cart(){
 
         // tổng giá trị các sản phẩm
         sumCost.innerHTML = `<span>Tổng tiền: ${formatCurrency(sum)}₫</span>`
+
+        // click vào thẻ a thì sẽ chuyển đến url mong muốn
+        redirect_to_path();
+
+        // xóa sản phẩm trong giỏ hàng
+        deleteProductsFromCart();
     }
 }
 
@@ -320,7 +328,7 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         size = size.value;
     }
     else if(size_2){
-        size = null;
+        size = "0";
     }
     else {
         alert('Vui lòng chọn size sản phẩm !!');
@@ -333,8 +341,6 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         size: size,
         quantity: quantity
     };
-
-    var check = false;
     // // Gửi dữ liệu qua AJAX
     fetch('/api/products/cart/add', {
         method: 'POST',
@@ -344,18 +350,51 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(data => {
-        check = true;
+    .then(response => {
+        const cartElement = document.querySelector(".body-cart");
+        const body = document.querySelector(".body-content");
+        cartElement.classList.add("active");
+        body.classList.add("blur");
+
+        cart();
     })
     .catch((error) => {
         alert('Vui lòng đăng nhập tài khoản để mua sản phẩm !!')
     });
-
-    // sau khi thêm thành công sản phẩm vào giỏ hàng thì sẽ tự động mở giỏ hàng ra
-    if(check){
-        const cart = document.querySelector(".body-cart");
-        const body = document.querySelector(".body-content");
-        cart.classList.add("active");
-        body.classList.add("blur");
-    }
 });
+
+// gửi yêu cầu xóa products trong giỏ hàng
+function deleteProductsFromCart(){
+    document.querySelectorAll('.drop-product').forEach(function (item, index){
+        item.addEventListener('click', () => {
+            const name = document.querySelectorAll('.pro-title-view')[index].textContent;
+            let size = document.querySelectorAll('.variant')[index].textContent;
+            const quantity = document.querySelectorAll('.pro-quantity-view')[index].textContent;
+            if(size === ""){
+                size = "0";
+            }
+    
+            const data = {
+                name: name,
+                size: size,
+                quantity: quantity
+            };
+    
+            fetch('/api/products/cart/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(response => {
+                cart();
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
+        });
+        
+    });
+}
