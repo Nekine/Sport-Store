@@ -24,7 +24,7 @@ window.addEventListener('resize', () => {
 });
 
 // body -> body-search-pc
-// thao tác ẩn hiện search-pc & cart
+// thao tác ẩn hiện search-pc & cart & menu (for tablet & mobile)
 document.querySelector('.ti-search').addEventListener('click', () => {
     var search_pc = document.querySelector('.body-search-pc')
     var body_content = document.querySelector('.body-content')
@@ -41,6 +41,14 @@ document.querySelector('.ti-shopping-cart').addEventListener('click', () => {
     body_content.classList.add('blur')
 });
 
+document.querySelector('.ti-menu').addEventListener('click', () => {
+    var menu = document.querySelector('.body-menu')
+    var body_content = document.querySelector('.body-content')
+
+    menu.classList.add('active')
+    body_content.classList.add('blur')
+});
+
 document.querySelector('.close-search-pc').addEventListener('click', () => {
     var search_pc = document.querySelector('.body-search-pc')
     var body_content = document.querySelector('.body-content')
@@ -54,6 +62,14 @@ document.querySelector('.close-cart').addEventListener('click', () => {
     var body_content = document.querySelector('.body-content')
 
     cart.classList.remove('active')
+    body_content.classList.remove('blur')
+});
+
+document.querySelector('.close-menu').addEventListener('click', () => {
+    var menu = document.querySelector('.body-menu')
+    var body_content = document.querySelector('.body-content')
+
+    menu.classList.remove('active')
     body_content.classList.remove('blur')
 });
 
@@ -398,3 +414,38 @@ function deleteProductsFromCart(){
         
     });
 }
+
+// click thay đổi icon thẻ i và danh sách item trong menu
+document.addEventListener('DOMContentLoaded', function(){
+    const boxIcon = document.querySelectorAll('.icon-box');
+    var bodyItemFilter = document.querySelectorAll('.body-item-filter');
+    var iconDownElement = document.querySelectorAll('.ti-angle-down');
+    var iconUpElement = document.querySelectorAll('.ti-angle-up');
+
+    var checkElement = -1;
+
+    boxIcon.forEach(function(item, index){
+        item.addEventListener('click', function(){
+            if(iconDownElement[index+5].classList.contains('none-block')){
+                iconDownElement[index+5].classList.remove('none-block');
+                iconUpElement[index].classList.add('none-block');
+                bodyItemFilter[index].classList.add('none-block');
+            }
+            else{
+                iconDownElement[index+5].classList.add('none-block');
+                iconUpElement[index].classList.remove('none-block');
+                bodyItemFilter[index].classList.remove('none-block');
+
+                if(index !== checkElement){
+                    if(checkElement >= 0){
+                        bodyItemFilter[checkElement].classList.add('none-block');
+                        iconDownElement[checkElement+5].classList.remove('none-block');
+                        iconUpElement[checkElement].classList.add('none-block');
+                    }
+
+                    checkElement = index;
+                }
+            }
+        });
+    })
+});

@@ -157,7 +157,7 @@
                             <i class="ti-angle-down"></i>
                             <i class="ti-angle-up none-block"></i>
                         </div>
-                        <ul class="body-sidebar col l-12 m-12 c-12">
+                        <ul class="body-sidebar-filter col l-12 m-12 c-12">
                             <li>
                                 <a th:href="@{/neekine}">TRANG CHỦ</a>
                             </li>
@@ -257,7 +257,7 @@
                             <i class="ti-angle-down"></i>
                             <i class="ti-angle-up none-block"></i>
                         </div>
-                        <div class="body-sidebar block-content col l-12 m-12 c-12">
+                        <div class="body-sidebar-filter block-content col l-12 m-12 c-12">
                             <!-- filter/brand -->
                             <div class="group-filter">
                                 <div class="filter-title">
@@ -483,6 +483,132 @@
                 <button class="col l-o-1 l-4 m-o-1 m-4 c-o-1 c-5"><a th:href="@{/neekine/cart}" class="check-cart">XEM GIỎ HÀNG</a></button>
                 <button class="col l-o-2 l-4 m-o-2 m-4 c-o-1 c-5"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
             </div>
+        </div>
+    </div>
+
+    <!-- menu for tablet & mobile -->
+    <div class="body-menu">
+        <div class="header-menu">
+            <p>Menu</p>
+            <i class="ti-close close-menu"></i>
+        </div>
+        <div class="menu-box">
+            <ul class="body-sidebar ">
+                <li>
+                    <a th:href="@{/neekine}">TRANG CHỦ</a>
+                </li>
+                <li>
+                    <div class="title-item-menu">
+                        <a th:href="@{/neekine/collections/all}" class="item-filter">TẤT CẢ SẢN PHẨM 
+                        </a>
+                        <div class="icon-box">
+                            <i class="ti-angle-down"></i>
+                            <i class="ti-angle-up none-block"></i>
+                        </div>
+                    </div>
+                    <ul class="body-item-filter product-filter none-block">
+                        <li><a th:href="@{/neekine}">Nike By You on SALE</a></li>
+                        <li><a th:href="@{/neekine}">Nike Air Force 1</a></li>
+                        <li><a th:href="@{/neekine}">Nike Air Max</a></li>
+                        <li><a th:href="@{/neekine}">Nike Dunk</a></li>
+                        <li><a th:href="@{/neekine}">Air Jordan</a></li>
+                        <li><a th:href="@{/neekine}">adidas Adilette 22</a></li>
+                        <li><a th:href="@{/neekine}">adidas Samba</a></li>
+                        <li><a th:href="@{/neekine}">adidas Gazelle</a></li>
+                        <li><a th:href="@{/neekine}">adidas Campus</a></li>
+                        <li><a th:href="@{/neekine}">adidas Stan Smith</a></li>
+                        <li><a th:href="@{/neekine}">adidas UltraBOOST</a></li>
+                        <li><a th:href="@{/neekine}">adidas NMD</a></li>
+                        <li><a th:href="@{/neekine}">New Balance 530</a></li>
+                        <li><a th:href="@{/neekine}">New Balance 550</a></li>
+                        <li><a th:href="@{/neekine}">Reebok Club C</a></li>
+                        <li><a th:href="@{/neekine}">aReebok Court Advance</a></li>
+                        <li><a th:href="@{/neekine}">YEEZY</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="title-item-menu">
+                        <a th:href="@{/neekine/collections/shoes}" class="item-filter">GIÀY 
+                        </a >
+                        <div class="icon-box">
+                            <i class="ti-angle-down"></i>
+                            <i class="ti-angle-up none-block"></i>
+                        </div>
+                    </div>
+                    <ul class="body-item-filter product-filter none-block">
+                        <li><a th:href="@{/neekine}">Giày Nike</a></li>
+                        <li><a th:href="@{/neekine}">Giày adidas</a></li>
+                        <li><a th:href="@{/neekine}">Giày New Balance</a></li>
+                        <li><a th:href="@{/neekine}">Giày Reebok</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="title-item-menu">
+                        <a th:href="@{/neekine/collections/sandal}" class="item-filter">DÉP 
+                        </a>
+                        <div class="icon-box">
+                            <i class="ti-angle-down"></i>
+                            <i class="ti-angle-up none-block"></i>
+                        </div>
+                    </div>
+                    <ul class="body-item-filter product-filter none-block">
+                        <li><a th:href="@{/neekine}">Dép adidas</a></li>
+                        <li><a th:href="@{/neekine}">Dép Nike</a></li>
+                        <li><a th:href="@{/neekine}">Dép Puma</a></li>
+                        <li><a th:href="@{/neekine}">Dép Crocs</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="title-item-menu">
+                        <a th:href="@{/neekine/collections/clothes}" item-filter>QUẦN/ÁO</a>
+                        <div class="icon-box">
+                            <i class="ti-angle-down"></i>
+                            <i class="ti-angle-up none-block"></i>
+                        </div>
+                    </div>
+                    <ul class="body-item-filter product-filter none-block">
+                        <li><a th:href="@{/neekine}">OSS MERCHANDISE</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Nike</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo adidas</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Reebok</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Uniqlo</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Puma</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Champion</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Ralph Lauren</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo G-Star</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Fred Perry</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Lacoste</a></li>
+                        <li><a th:href="@{/neekine}">Quần áo Under Armour</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="title-item-menu">
+                        <a th:href="@{/neekine/collections/bag}" class="item-filter">BALO/TÚI 
+                        </a>
+                        <div class="icon-box">
+                            <i class="ti-angle-down"></i>
+                            <i class="ti-angle-up none-block"></i>
+                        </div>
+                    </div>
+                    <ul class="body-item-filter product-filter none-block">
+                        <li><a th:href="@{/neekine}">Balo/túi Nike</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi Herschel</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi FRONT</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi The North Face</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi Patagonia</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi adidas</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi Coach</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi Michael Kors</a></li>
+                        <li><a th:href="@{/neekine}">Balo/túi KENZO</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a th:href="@{/neekine}">TIN TỨC</a>
+                </li>
+                <li>
+                    <a th:href="@{/neekine}">TUYỂN DỤNG</a>
+                </li>
+            </ul>
         </div>
     </div>
 </body>

@@ -24,7 +24,7 @@ window.addEventListener('resize', () => {
 });
 
 // body -> body-search-pc
-// thao tác ẩn hiện search-pc & cart
+// thao tác ẩn hiện search-pc & cart & menu (for tablet & mobile)
 document.querySelector('.ti-search').addEventListener('click', () => {
     var search_pc = document.querySelector('.body-search-pc')
     var body_content = document.querySelector('.body-content')
@@ -41,6 +41,14 @@ document.querySelector('.ti-shopping-cart').addEventListener('click', () => {
     body_content.classList.add('blur')
 });
 
+document.querySelector('.ti-menu').addEventListener('click', () => {
+    var menu = document.querySelector('.body-menu')
+    var body_content = document.querySelector('.body-content')
+
+    menu.classList.add('active')
+    body_content.classList.add('blur')
+});
+
 document.querySelector('.close-search-pc').addEventListener('click', () => {
     var search_pc = document.querySelector('.body-search-pc')
     var body_content = document.querySelector('.body-content')
@@ -54,6 +62,14 @@ document.querySelector('.close-cart').addEventListener('click', () => {
     var body_content = document.querySelector('.body-content')
 
     cart.classList.remove('active')
+    body_content.classList.remove('blur')
+});
+
+document.querySelector('.close-menu').addEventListener('click', () => {
+    var menu = document.querySelector('.body-menu')
+    var body_content = document.querySelector('.body-content')
+
+    menu.classList.remove('active')
     body_content.classList.remove('blur')
 });
 
@@ -206,8 +222,6 @@ document.addEventListener('DOMContentLoaded', function(){
     search('#searchInput-2', '#search-2');
 
     formatPrice();
-    selectSize();
-    displayProductImages()
     cart();
 });
 
@@ -259,87 +273,6 @@ function formatPrice(){
         element.textContent = formatCurrency(number) + '₫';
     });
 }
-
-// chọn size product
-function selectSize(){
-    let button = document.querySelectorAll('.size')
-    button.forEach(function(item){
-        item.addEventListener('click', () => {
-            const activeSize = document.querySelector('.size.active');
-            if(activeSize){
-                activeSize.classList.remove('active');
-            }
-
-            item.classList.add('active');
-        })
-    });
-}
-
-// tăng/giảm số lượng sản phẩm
-function minusQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    let currentQuantity = parseInt(quantityInput.value);
-
-    if (currentQuantity > 1) {
-        quantityInput.value = currentQuantity - 1;
-    }
-}
-
-function plusQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    let currentQuantity = parseInt(quantityInput.value);
-
-    quantityInput.value = currentQuantity + 1;
-}
-
-// gửi dữ liệu input product
-document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định của form
-
-    // Lấy dữ liệu product
-    var size = document.querySelector('.size.active');
-    var size_2 = document.querySelector('#size');
-    const quantity = document.getElementById('quantity').value;
-    const name = document.getElementById('nameProduct').textContent;
-
-    if(size){
-        size = size.value;
-    }
-    else if(size_2){
-        size = "0";
-    }
-    else {
-        alert('Vui lòng chọn size sản phẩm !!');
-        return;
-    }
-
-    // Tạo dữ liệu để gửi đến server
-    const data = {
-        name: name,
-        size: size,
-        quantity: quantity
-    };
-    // // Gửi dữ liệu qua AJAX
-    fetch('/api/products/cart/add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(response => {
-        const cartElement = document.querySelector(".body-cart");
-        const body = document.querySelector(".body-content");
-        cartElement.classList.add("active");
-        body.classList.add("blur");
-
-        cart();
-    })
-    .catch((error) => {
-        alert('Vui lòng đăng nhập tài khoản để mua sản phẩm !!')
-    });
-});
 
 // gửi yêu cầu xóa products trong giỏ hàng
 function deleteProductsFromCart(){
@@ -416,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // tắt/bật thanh sidebar menu khi ở tablet & mobile 
 function toggleVisibility(){
     const titleSidebar = document.querySelectorAll('.title-sidebar');
-    const bodySidebar = document.querySelectorAll('.body-sidebar');
+    const bodySidebar = document.querySelectorAll('.body-sidebar-filter');
     const iconDown = document.querySelectorAll('.title-sidebar .ti-angle-down');
     const iconUp = document.querySelectorAll('.title-sidebar .ti-angle-up');
     
@@ -620,3 +553,38 @@ document.querySelectorAll('.body-item-filter input[type="checkbox"]').forEach(in
 
 // chạy các hàm mong muốn
 displayProducts(request());
+
+// click thay đổi icon thẻ i và danh sách item trong menu
+document.addEventListener('DOMContentLoaded', function(){
+    const boxIcon = document.querySelectorAll('.icon-box');
+    var bodyItemFilter = document.querySelectorAll('.body-item-filter');
+    var iconDownElement = document.querySelectorAll('.ti-angle-down');
+    var iconUpElement = document.querySelectorAll('.ti-angle-up');
+
+    var checkElement = -1;
+
+    boxIcon.forEach(function(item, index){
+        item.addEventListener('click', function(){
+            if(iconDownElement[index+5].classList.contains('none-block')){
+                iconDownElement[index+5].classList.remove('none-block');
+                iconUpElement[index].classList.add('none-block');
+                bodyItemFilter[index].classList.add('none-block');
+            }
+            else{
+                iconDownElement[index+5].classList.add('none-block');
+                iconUpElement[index].classList.remove('none-block');
+                bodyItemFilter[index].classList.remove('none-block');
+
+                if(index !== checkElement){
+                    if(checkElement >= 0){
+                        bodyItemFilter[checkElement].classList.add('none-block');
+                        iconDownElement[checkElement+5].classList.remove('none-block');
+                        iconUpElement[checkElement].classList.add('none-block');
+                    }
+
+                    checkElement = index;
+                }
+            }
+        });
+    })
+});
