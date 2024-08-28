@@ -31,6 +31,12 @@ body {
     position: relative;
 }
 
+a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+    cursor: pointer;
+}
+
 /* body -> body-content */
 .body-content {
     opacity: 1;
@@ -44,6 +50,7 @@ body {
 }
 
 /* body -> body-search-pc & body-cart */
+.body-menu,
 .body-cart,
 .body-search-pc {
     position: fixed;
@@ -59,28 +66,32 @@ body {
 }
 
 @media (max-width: 999px){
+    .body-menu,
     .body-cart {
         width: 50%;
     }
 }
 
 @media (max-width: 729px){
+    .body-menu,
     .body-cart {
-        width: 100%;
+        width: 90%;
     }
 }
 
+.body-menu.active,
 .body-cart.active,
 .body-search-pc.active {
     right: 0; /* Di chuyển vào khung hình */
 }
 
-
+.body-menu .header-menu,
 .body-cart .header-cart,
 .body-search-pc .header-search {
     display: flex;
 }
 
+.body-menu p,
 .body-cart p,
 .body-search-pc p {
     width: 100%;
@@ -88,6 +99,7 @@ body {
     font-weight: 100;
 }
 
+.body-menu .ti-close,
 .body-cart .ti-close,
 .body-search-pc .ti-close {
     cursor: pointer;
@@ -242,6 +254,147 @@ body {
     color: #000;
 }
 
+/* menu for tablet & mobile */
+.menu-box {
+    margin-top: 50px;
+    flex-grow: 1;
+    overflow-y:scroll; /* Kích hoạt thanh cuộn theo chiều dọc */
+    max-height: calc(100vh - 100px); 
+}
+
+.menu-box ul {
+    list-style-type: none;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px; /* dãn chữ trên dòng */
+    width: 80%;
+}
+
+.menu-box ul li {
+    padding: 14px 0;
+    position: relative;
+}
+
+.menu-box .title-item-menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu-box .item-filter:hover {
+    cursor: pointer;
+}
+
+.menu-box .icon-box {
+    display: flex;
+    align-items: center;
+}
+
+.menu-box i {
+    position: absolute;
+    font-weight: 600;
+    font-size: 15px;
+    right: 0;
+}
+
+.menu-box .none-block {
+    display: none;
+}
+
+.menu-box .group-menu ul a{
+    text-decoration: none;
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+}
+
+.menu-box .product-filter {
+    padding: 15px 0 0 15px;
+    letter-spacing: 0 !important;
+    color: #666;
+    font-size: 15px !important;
+}
+
+
+/* product */
+.box-product {
+    margin-top: 50px;
+    display: flex;
+}
+
+.product {
+    margin: 10px 0;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.product.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.product-item {
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng tổng */
+    padding: 0 5px;
+    overflow: hidden; /* Ẩn phần tràn ra ngoài của hình ảnh */
+    position: relative;
+}
+
+.product-item .percent {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding: 2px 5px;
+    background-color: #fff;
+    color: red;
+}
+
+.product-item img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều rộng của parent div */
+    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+}
+
+.product-item .product-img .first-img,
+.product-item .product-img:hover .second-img{
+    display: block;
+}
+
+.product-item .product-img:hover .first-img,
+.product-item .second-img {
+    display: none;
+}
+
+a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ như của văn bản xung quanh */
+    cursor: pointer;
+}
+
+.product-item p {
+    font-size: 14px;
+    padding-top: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;/* ẩn phần tên thừa khỏi khung */
+    width: 100%; /* Đảm bảo nó chiếm hết chiều rộng của phần tử cha */
+    display: block;
+}
+
+.product-item .cost {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.product-item .cost .new-price{
+    color: red;
+    padding-right: 10px;
+}
+
+.product-item .cost .old-price{
+    color: #9c9c9c;
+    text-decoration: line-through;
+}
+
 /* header */
 
 /* title */
@@ -299,7 +452,7 @@ header.fixed {
     font-weight: 900;
 }
 
-@media (max-width: 1112px){
+@media (max-width: 999px){
     .header-wrap-icon .ti-menu {
         display: flex; /* Đặt Flexbox */
         align-items: center; /* Căn giữa theo chiều dọc */
@@ -725,7 +878,7 @@ footer .top-footer .infor-store .email a {
     color: red;
 }
 
-@media (max-width: 1112px) {
+@media (max-width: 999px) {
     footer .top-footer .receive-email .email-text,
     footer .top-footer .receive-email .input-email,
     footer .top-footer .infor-store {
