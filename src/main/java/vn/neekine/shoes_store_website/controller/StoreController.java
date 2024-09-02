@@ -115,4 +115,9 @@ public class StoreController {
         
         return "redirect:/neekine";
     }
+
+    @GetMapping("/cart")
+    public String cart(){
+        return "Cart";
+    }
 }
