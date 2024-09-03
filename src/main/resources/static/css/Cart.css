@@ -231,11 +231,13 @@ body {
     padding: 10px 12px;
 }
 
+.button-box-page,
 .body-cart .button-box {
     padding: 20px 0;
     display: flex;
 }
 
+.button-box-page button,
 .button-box button {
     padding: 20px 5px;
     background-color: #000;
@@ -244,6 +246,7 @@ body {
     cursor: pointer;
 }
 
+.button-box-page button:hover,
 .button-box button:hover {
     background-color: #fff;
     color: #000;
@@ -605,7 +608,7 @@ main .body-content-cart .head-cart p {
     position: relative;
 }
 
-.body-page-cart .pro-title-view {
+.body-page-cart .pro-title-view-page {
     font-weight: 600;
     font-size: 16px;
     text-transform: uppercase;
@@ -614,7 +617,7 @@ main .body-content-cart .head-cart p {
     width: 85%;
 }
 
-.body-page-cart .variant,
+.body-page-cart .variant-page,
 .body-page-cart .pro-price-view {
     font-size: 15px;
     color: #4f4f4f;
@@ -665,24 +668,50 @@ main .body-content-cart .head-cart p {
     padding-right: 30px;
 }
 
+.body-page-cart .infor-sum-profuct .pro-sum-price-view p {
+    display: none;
+}
+
 @media (max-width: 739px){
     .body-page-cart .infor-sum-profuct .pro-sum-price-view {
         text-align: left; /* Căn nội dung về bên phải */
         margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .body-page-cart .infor-sum-profuct .pro-sum-price-view p {
+        display: block;
     }
 }
 
-.body-page-cart .drop-product {
+.body-page-cart .drop-product-page {
     font-weight: 600;
     position: absolute;
+    cursor: pointer;
     top: 20px;
     right: 20px;
 }
 
+.total-cost-page {
+    padding: 10px 20px 0 20px;
+}
 
+.total-cost-page span {
+    font-size: 25px;
+    font-weight: 600;
+}
 
-.button-box button {
-    margin-right: 15px;
+.button-box-page {
+    margin-left: 20px;
+}
+
+.button-box-page button {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.button-box-page button i {
+    font-weight: 600;
 }
 
 /* footer */

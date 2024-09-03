@@ -178,8 +178,8 @@ function cart(){
         for(let i=0; i<products.length; i++){
             sum += (products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong;
             count += products[i].so_luong;
-            if(list_quantity.length < products.length+1){
-                list_quantity.push = products[i].so_luong;
+            if(list_quantity.length <= products.length){
+                list_quantity.push(products[i].so_luong);
             }
 
             var product_item = `
@@ -217,28 +217,29 @@ function cart(){
                     </a>
                 </div>
                 <div class="infor col l-10 m-10 c-9">
-                    <div class="pro-title-view">
-                        <a th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">${products[i].ten}</a>
+                    <div class="pro-title-view-page">
+                        <a class="title-product" th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">${products[i].ten}</a>
                     </div>
                     <div class="pro-price-view">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</div>
                     `
         if(products[i].kich_thuoc !== '0'){
-            product_item_2 += `<div class="variant">${products[i].kich_thuoc}</div>`
+            product_item_2 += `<div class="variant-page">${products[i].kich_thuoc}</div>`
         }
         else {
-            product_item_2 += `<div class="variant"></div>`
+            product_item_2 += `<div class="variant-page"></div>`
         }
         product_item_2 +=
                     `
                     <div class="infor-sum-profuct row">
                         <div class="quantity-area col l-10 m-10 c-12">
                             <input type="button" value="-" class="minus">
-                            <input type="text" class="value_quantity" name="quantity" value="${products[i].so_luong}" min="${products[i].so_luong}" class="quantity-selector">
+                            <input type="text" class="value_quantity" name="quantity" value="${list_quantity[i]}" min="${products[i].so_luong}" class="quantity-selector">
                             <input type="button" value="+" class="plus">
                         </div>
-                        <div class="pro-sum-price-view col l-2 m-2 c-12">${formatCurrency((products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong)}₫</div>
+                        <div class="pro-sum-price-view col l-2 m-2 c-0">${formatCurrency((products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong)}₫</div>
+                        <div class="pro-sum-price-view col l-0 m-0 c-12">Thành tiền: ${formatCurrency((products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong)}₫</div>
                     </div>
-                    <span class="ti-close drop-product"></span>
+                    <span class="ti-close drop-product-page"></span>
                 </div> 
         `
 
@@ -247,12 +248,12 @@ function cart(){
         }
 
         body_page_cart.innerHTML += `
-            <div class="total-cost">
-                <span>Tổng tiền: ${formatCurrency(sum)}₫</span>
+            <div class="total-cost-page">
+                Tổng tiền: <span>${formatCurrency(sum)}₫</span>
             </div>
-            <div class="button-box row">
-                <button class="col l-2"><a th:href="@{/neekine}" class="check-cart">TIẾP TỤC MUA HÀNG</a></button>
-                <button class="col l-2"><a th:href="@{/neekine/cart}" class="check-cart">CẬP NHẬT</a></button>
+            <div class="button-box-page row">
+                <button class="col l-2"><a th:href="@{/neekine}" class="back-buy"><i class="ti-back-left"></i> TIẾP TỤC MUA HÀNG</a></button>
+                <button class="col l-2"><a th:href="@{/neekine/cart}" class="update-cart">CẬP NHẬT</a></button>
                 <button class="col l-2"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
             </div>
             </div> 
@@ -266,8 +267,12 @@ function cart(){
         // click vào thẻ a thì sẽ chuyển đến url mong muốn
         redirect_to_path();
 
+        // tăng & giảm số lượng sản phẩm
+        plus_minus_quantity()
+
         // xóa sản phẩm trong giỏ hàng
         deleteProductsFromCart();
+        deleteProductsFromCartPage();
     }
 }
 
@@ -310,33 +315,30 @@ function redirect_to_path(){
 // #########################################################################
 
 // tăng/giảm số lượng sản phẩm
-document.querySelectorAll(".minus").forEach(function(item, index){
-    item.addEventListener('click', () => {
-        minusQuantity(index);
-    })
-});
-
-document.querySelectorAll(".plus").forEach(function(item, index){
-    item.addEventListener('click', () => {
-        plusQuantity(index);
-    })
-});
+function plus_minus_quantity(){
+    document.querySelectorAll(".minus").forEach(function(item, index){
+        item.addEventListener('click', () => {
+            minusQuantity(index);
+        })
+    });
+    
+    document.querySelectorAll(".plus").forEach(function(item, index){
+        item.addEventListener('click', () => {
+            plusQuantity(index);
+        })
+    });
+}
 
 function minusQuantity(index) {
-    const quantityInput = document.querySelectorAll(".value_quantity")[index];
-    let currentQuantity = parseInt(quantityInput.value);
-
-    if (currentQuantity > 1) {
-        quantityInput.value = currentQuantity - 1;
+    if (list_quantity[index] > 1) {
+        list_quantity[index] -= 1;
+        cart();
     }
 }
 
 function plusQuantity(index) {
-    const quantityInput = document.querySelectorAll(".value_quantity")[index];
-    let currentQuantity = parseInt(quantityInput.value);
-
-    quantityInput.value = currentQuantity + 1;
-    console.log("ok")
+    list_quantity[index] += 1;
+    cart();
 }
 
 // gửi yêu cầu xóa products trong giỏ hàng
@@ -346,6 +348,41 @@ function deleteProductsFromCart(){
             const name = document.querySelectorAll('.pro-title-view')[index].textContent;
             let size = document.querySelectorAll('.variant')[index].textContent;
             const quantity = document.querySelectorAll('.pro-quantity-view')[index].textContent;
+            if(size === ""){
+                size = "0";
+            }
+    
+            const data = {
+                name: name,
+                size: size,
+                quantity: quantity
+            };
+    
+            fetch('/api/products/cart/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(response => {
+                cart();
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
+        });
+        
+    });
+}
+
+function deleteProductsFromCartPage(){
+    document.querySelectorAll('.drop-product-page').forEach(function (item, index){
+        item.addEventListener('click', () => {
+            const name = document.querySelectorAll('.title-product')[index].textContent;
+            let size = document.querySelectorAll('.variant-page')[index].textContent;
+            const quantity = document.querySelectorAll('.value_quantity')[index].value;
             if(size === ""){
                 size = "0";
             }
