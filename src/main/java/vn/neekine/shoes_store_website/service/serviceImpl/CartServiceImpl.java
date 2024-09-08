@@ -101,5 +101,28 @@ public class CartServiceImpl implements CartService{
             }
         }
     }
+
+
+
+    @Override
+    public void updateProductsFromCart(InforProductAddToCart productFromCart, KhachHang client) {
+        GioHang cart = client.getGioHang();
+    
+        if (cart == null) {
+            return;
+        }
+
+        Iterator<Giohang_Sanpham> iterator = cart.getGioHangSanPhams().iterator();
+        while (iterator.hasNext()) {
+            Giohang_Sanpham item = iterator.next();
+            if (item.getSanPham().getTenSanPham().equals(productFromCart.getName()) &&
+                item.getSanPham().getSize().equals(productFromCart.getSize())) {
+                
+                item.setSoLuong(productFromCart.getQuantity());
+                this.cartRepository.save(cart);
+                return;
+            }
+        }
+    }
     
 }

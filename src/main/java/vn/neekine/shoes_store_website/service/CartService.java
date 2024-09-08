@@ -10,5 +10,6 @@ import vn.neekine.shoes_store_website.model.KhachHang;
 public interface CartService {
     public GioHang addProductToCart(InforProductAddToCart addToCart, KhachHang client);
     public void deleteProductsFromCart(InforProductAddToCart productFromCart, KhachHang client);
+    public void updateProductsFromCart(InforProductAddToCart productFromCart, KhachHang client);
     public List<ProductDetailsDTO> getAllProductsInCart(GioHang cart);
 }

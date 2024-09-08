@@ -253,7 +253,7 @@ function cart(){
             </div>
             <div class="button-box-page row">
                 <button class="col l-2"><a th:href="@{/neekine}" class="back-buy"><i class="ti-back-left"></i> TIẾP TỤC MUA HÀNG</a></button>
-                <button class="col l-2"><a th:href="@{/neekine/cart}" class="update-cart">CẬP NHẬT</a></button>
+                <button class="col l-2 update-cart">CẬP NHẬT</button>
                 <button class="col l-2"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
             </div>
             </div> 
@@ -273,6 +273,9 @@ function cart(){
         // xóa sản phẩm trong giỏ hàng
         deleteProductsFromCart();
         deleteProductsFromCartPage();
+
+        // update sản phẩm trong giỏ hàng
+        updateProducts();
     }
 }
 
@@ -411,6 +414,46 @@ function deleteProductsFromCartPage(){
         
     });
 }
+
+// update sản phẩm
+function updateProducts() {
+    document.querySelector('.update-cart').addEventListener('click', () => {
+        const names = document.querySelectorAll('.title-product');
+        let sizes = document.querySelectorAll('.variant-page');
+        const quantities = document.querySelectorAll('.value_quantity');
+
+        var data = []
+
+        names.forEach((item, index) => {
+            const name = item.textContent;
+            const size = sizes[index].textContent;
+            const quantity = quantities[index].value;
+
+            data.push({
+                name: name,
+                size: size,
+                quantity: quantity
+            })
+        });
+
+        // Gửi yêu cầu PUT đến API
+        fetch('/api/products/cart/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => {
+            cart();
+        })
+        .catch((error) => {
+            console.log("Error: " + error);
+        });
+    });
+}
+
 
 // click thay đổi icon thẻ i và danh sách item trong menu
 document.addEventListener('DOMContentLoaded', function(){
