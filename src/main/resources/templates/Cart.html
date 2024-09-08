@@ -149,13 +149,47 @@
             <div class="body-content-cart">
                 <div class="head-cart">
                     <h1>Giỏ hàng của bạn</h1>
-                    <p class="count-products-cart"></p>
+                    <p class="count-products-cart">Có <span th:text="${totalQuantity}"></span> sản phẩm trong giỏ hàng</p>
                 </div>
 
                 <div class="body-page-cart">
-
+                    <div class="row" th:each="product : ${cart}">
+                        <div class="img col l-2 m-2 c-3">
+                            <a th:href="@{'/neekine/products/' + ${product.namePathProduct}}" title="'/neekine/products/' + ${product.namePathProduct}">
+                                <img th:src="@{'/images/' + ${product.photoNames[0]}}">
+                            </a>
+                        </div>
+                        <div class="infor col l-10 m-10 c-9">
+                            <div class="pro-title-view-page">
+                                <a class="title-product" th:href="@{'/neekine/products/' + ${product.namePathProduct}}" title="'/neekine/products/' + ${product.namePathProduct}" th:text="${product.ten}"></a>
+                            </div>
+                            <div class="pro-price-view" th:if="${product.phan_tram != 0}" th:text="${((1 - product.phan_tram / 100.0) * product.gia_ban).intValue()} + '₫'"></div>
+                            <div class="variant-page" th:if="${!product.kich_thuoc.equals('0')}" th:text="${product.kich_thuoc}"></div>
+                            <div class="infor-sum-profuct row">
+                                <div class="quantity-area col l-10 m-10 c-12">
+                                    <input type="button" value="-" onclick="minusQuantity(this)" th:data-id="${product.id}">
+                                    <input type="text" th:id="'quantity-' + ${product.id}" name="quantity" th:value="${product.so_luong}" min="1" class="quantity-selector">
+                                    <input type="button" value="+" onclick="plusQuantity(this)" th:data-id="${product.id}">
+                                </div>
+                                
+                                <div class="pro-sum-price-view col l-2 m-2 c-0" th:text="${((1 - product.phan_tram / 100.0) * product.gia_ban * product.so_luong).intValue()} + '₫'"></div>
+                                <div class="pro-sum-price-view col l-0 m-0 c-12">Thành tiền: <span th:text="${((1 - product.phan_tram / 100.0) * product.gia_ban * product.so_luong).intValue()} + '₫'"></span></div>
+                            </div>
+                            <span class="ti-close drop-product-page"></span>
+                        </div> 
+                    </div>
+                    <div class="total-cost-page">
+                        Tổng tiền: <span class="sum-cost-allProducts" th:text="${sumCost}"></span>
+                    </div>
+                    <div class="button-box-page row">
+                        <button class="col l-2"><a th:href="@{/neekine}" class="back-buy"><i class="ti-back-left"></i> TIẾP TỤC MUA HÀNG</a></button>
+                        <button class="col l-2"><a th:href="@{/neekine/cart}" class="update-cart">CẬP NHẬT</a></button>
+                        <button class="col l-2"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
+                    </div>
                 </div>
             </div>
+
+            
             
         </main>
         <footer class="grid">

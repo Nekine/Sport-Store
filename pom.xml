@@ -57,7 +57,7 @@
 				</dependency>
                 
                 <!-- ADD SUPPORT FOR SPRING SECURITY (cấp cho mật khẩu user để truy cập đến các đường dẫn) -->
-               	<dependency>
+            	<dependency>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-security</artifactId>
 				</dependency>

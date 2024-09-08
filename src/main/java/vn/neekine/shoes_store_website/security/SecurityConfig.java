@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,7 +31,8 @@ public class SecurityConfig {
             // cấp quyền cho người dùng
             .authorizeHttpRequests(configurer -> 
                     configurer
-                            .requestMatchers("/neekine/admin/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/neekine/cart").hasAnyRole("CLIENT", "ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/neekine/admin/**").hasRole("ADMIN")
                             .anyRequest().permitAll()    
             )
             // đường dẫn đến trang đăng nhập

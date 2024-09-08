@@ -157,8 +157,6 @@ var list_quantity = [];
 function cart(){
     const cartElement = document.querySelector('.content-cart');
     const sumCost = document.querySelector('.total-cost');
-    const count_product = document.querySelector('.count-products-cart');
-    const body_page_cart = document.querySelector('.body-page-cart');
 
     fetch(`/api/products/cart`)
                 .then(response => response.json())
@@ -171,16 +169,10 @@ function cart(){
 
     function displayResults(products) {
         cartElement.innerHTML = '';
-        body_page_cart.innerHTML = '';
         var sum = 0;
-        var count = 0;
 
         for(let i=0; i<products.length; i++){
             sum += (products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong;
-            count += products[i].so_luong;
-            if(list_quantity.length <= products.length){
-                list_quantity.push(products[i].so_luong);
-            }
 
             var product_item = `
                 <tr class="row">
@@ -209,66 +201,13 @@ function cart(){
                 </tr>
             `
 
-            var product_item_2 = `
-            <div class="row">
-                <div class="img col l-2 m-2 c-3">
-                    <a th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">
-                        <img src="/images/${products[i].photoNames[0]}">
-                    </a>
-                </div>
-                <div class="infor col l-10 m-10 c-9">
-                    <div class="pro-title-view-page">
-                        <a class="title-product" th:href="@{/neekine/products/${products[i].namePathProduct}}" title="/neekine/products/${products[i].namePathProduct}">${products[i].ten}</a>
-                    </div>
-                    <div class="pro-price-view">${formatCurrency(products[i].gia_ban * (1-products[i].phan_tram/100))}₫</div>
-                    `
-        if(products[i].kich_thuoc !== '0'){
-            product_item_2 += `<div class="variant-page">${products[i].kich_thuoc}</div>`
-        }
-        else {
-            product_item_2 += `<div class="variant-page"></div>`
-        }
-        product_item_2 +=
-                    `
-                    <div class="infor-sum-profuct row">
-                        <div class="quantity-area col l-10 m-10 c-12">
-                            <input type="button" value="-" class="minus">
-                            <input type="text" class="value_quantity" name="quantity" value="${list_quantity[i]}" min="${products[i].so_luong}" class="quantity-selector">
-                            <input type="button" value="+" class="plus">
-                        </div>
-                        <div class="pro-sum-price-view col l-2 m-2 c-0">${formatCurrency((products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong)}₫</div>
-                        <div class="pro-sum-price-view col l-0 m-0 c-12">Thành tiền: ${formatCurrency((products[i].gia_ban * (1-products[i].phan_tram/100)) * products[i].so_luong)}₫</div>
-                    </div>
-                    <span class="ti-close drop-product-page"></span>
-                </div> 
-        `
-
             cartElement.innerHTML += product_item;
-            body_page_cart.innerHTML += product_item_2;
         }
-
-        body_page_cart.innerHTML += `
-            <div class="total-cost-page">
-                Tổng tiền: <span>${formatCurrency(sum)}₫</span>
-            </div>
-            <div class="button-box-page row">
-                <button class="col l-2"><a th:href="@{/neekine}" class="back-buy"><i class="ti-back-left"></i> TIẾP TỤC MUA HÀNG</a></button>
-                <button class="col l-2"><a th:href="@{/neekine/cart}" class="update-cart">CẬP NHẬT</a></button>
-                <button class="col l-2"><a th:href="@{/neekine/checkout}" class="checkout">THANH TOÁN</a></button>
-            </div>
-            </div> 
-        `
-
-        count_product.innerHTML = `<span>Có ${count} sản phẩm trong giỏ hàng</spam>`
-
         // tổng giá trị các sản phẩm
         sumCost.innerHTML = `<span>Tổng tiền: ${formatCurrency(sum)}₫</span>`
 
         // click vào thẻ a thì sẽ chuyển đến url mong muốn
         redirect_to_path();
-
-        // tăng & giảm số lượng sản phẩm
-        plus_minus_quantity()
 
         // xóa sản phẩm trong giỏ hàng
         deleteProductsFromCart();
@@ -285,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function(){
     search('#searchInput-2', '#search-2');
 
     cart();
+    formatPrice()
 });
 
 // click vào thẻ a thì sẽ chuyển đến url mong muốn
@@ -314,31 +254,43 @@ function redirect_to_path(){
 
 // #########################################################################
 
-// tăng/giảm số lượng sản phẩm
-function plus_minus_quantity(){
-    document.querySelectorAll(".minus").forEach(function(item, index){
-        item.addEventListener('click', () => {
-            minusQuantity(index);
-        })
+// chuyển price them đúng form tiền VND
+function formatPrice(){
+    var sumCost = document.querySelectorAll('.pro-sum-price-view');
+    var priceElements = document.querySelectorAll('.pro-price-view');
+    var sumCostAllProducts = document.querySelector('.sum-cost-allProducts');
+
+    sumCost.forEach(function(element) {
+        var number = parseFloat(element.textContent);
+        element.textContent = formatCurrency(number) + '₫';
     });
     
-    document.querySelectorAll(".plus").forEach(function(item, index){
-        item.addEventListener('click', () => {
-            plusQuantity(index);
-        })
+    priceElements.forEach(function(element) {
+        var number = parseFloat(element.textContent);
+        element.textContent = formatCurrency(number) + '₫';
     });
+
+    var number = parseFloat(sumCostAllProducts.textContent);
+    sumCostAllProducts.textContent = formatCurrency(number) + '₫';
 }
 
-function minusQuantity(index) {
-    if (list_quantity[index] > 1) {
-        list_quantity[index] -= 1;
-        cart();
+// tăng/giảm số lượng sản phẩm
+function minusQuantity(button) {
+    const productId = button.getAttribute('data-id');
+    const quantityInput = document.getElementById('quantity-' + productId);
+    let currentQuantity = parseInt(quantityInput.value);
+
+    if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
     }
 }
 
-function plusQuantity(index) {
-    list_quantity[index] += 1;
-    cart();
+function plusQuantity(button) {
+    const productId = button.getAttribute('data-id');
+    const quantityInput = document.getElementById('quantity-' + productId);
+    let currentQuantity = parseInt(quantityInput.value);
+
+    quantityInput.value = currentQuantity + 1;
 }
 
 // gửi yêu cầu xóa products trong giỏ hàng
@@ -382,7 +334,7 @@ function deleteProductsFromCartPage(){
         item.addEventListener('click', () => {
             const name = document.querySelectorAll('.title-product')[index].textContent;
             let size = document.querySelectorAll('.variant-page')[index].textContent;
-            const quantity = document.querySelectorAll('.value_quantity')[index].value;
+            const quantity = document.querySelectorAll('.quantity-selector')[index].value;
             if(size === ""){
                 size = "0";
             }

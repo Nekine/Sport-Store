@@ -1,6 +1,11 @@
 package vn.neekine.shoes_store_website.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.neekine.shoes_store_website.DTO.ProductDetailsDTO;
 import vn.neekine.shoes_store_website.DTO.RegisterClient_AccountDTO;
 import vn.neekine.shoes_store_website.model.Account;
+import vn.neekine.shoes_store_website.model.GioHang;
 import vn.neekine.shoes_store_website.model.Giohang_Sanpham;
 import vn.neekine.shoes_store_website.model.KhachHang;
 import vn.neekine.shoes_store_website.model.Role;
 import vn.neekine.shoes_store_website.service.AccountService;
+import vn.neekine.shoes_store_website.service.CartService;
 import vn.neekine.shoes_store_website.service.ClientService;
 import vn.neekine.shoes_store_website.service.ProductService;
 import vn.neekine.shoes_store_website.service.RolesService;
+import vn.neekine.shoes_store_website.service.UserDetailsService;
 
 @Controller
 @RequestMapping("/neekine")
@@ -34,6 +42,12 @@ public class StoreController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private CartService cartService;
     
     @GetMapping
     public String homePage(){
@@ -117,7 +131,29 @@ public class StoreController {
     }
 
     @GetMapping("/cart")
-    public String cart(){
+    public String cart(Model model){
+        // Lấy Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
+        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
+        GioHang cart = khachHang.getGioHang();
+
+        if(cart == null){
+            cart = new GioHang();
+            khachHang.setGioHang(cart);
+        }
+
+        List<ProductDetailsDTO> products_From_Cart = this.cartService.getAllProductsInCart(cart);
+        int totalQuantity = 0;
+        int sumCostAllProducts = 0;
+        for(ProductDetailsDTO p : products_From_Cart){
+            totalQuantity += p.getSo_luong();
+            sumCostAllProducts += p.getSo_luong()*p.getGia_ban()*(1 - p.getPhan_tram()/100.0);
+        }
+
+        model.addAttribute("cart", products_From_Cart);
+        model.addAttribute("totalQuantity", totalQuantity);
+        model.addAttribute("sumCost", sumCostAllProducts);
         return "Cart";
     }
 }
