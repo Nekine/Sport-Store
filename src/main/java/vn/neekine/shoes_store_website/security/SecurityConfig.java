@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,7 +31,8 @@ public class SecurityConfig {
             // cấp quyền cho người dùng
             .authorizeHttpRequests(configurer -> 
                     configurer
-                            .requestMatchers("/neekine/admin/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/neekine/admin/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/neekine/cart").hasRole("CLIENT")
                             .anyRequest().permitAll()    
             )
             // đường dẫn đến trang đăng nhập
@@ -38,11 +40,25 @@ public class SecurityConfig {
                     form
                                 .loginPage("/neekine/login")
                                 .loginProcessingUrl("/authenticateTheUser")
-                                .defaultSuccessUrl("/neekine") // URL chuyển hướng sau khi đăng nhập thành công
+                                .defaultSuccessUrl("/neekine", true)
                                 .permitAll()
             )
+            // Tích hợp đăng nhập bằng Google OAuth2
+            .oauth2Login(oauth2 -> 
+                    oauth2
+                                .loginPage("/neekine/login") // Trang đăng nhập chung (bao gồm Google)
+                                .defaultSuccessUrl("/neekine") // Chuyển hướng sau khi đăng nhập bằng Google thành công
+            )
             // đường dẫn đến trang đăng nhập khi muốn đăng xuất 
-            //.logout(logout -> logout.permitAll())
+            // Đường dẫn đến trang đăng xuất
+            .logout(logout -> 
+                    logout
+                            .logoutUrl("/neekine/logout") // URL để xử lý khi đăng xuất
+                            .logoutSuccessUrl("/neekine/login") // Chuyển hướng sau khi đăng xuất thành công
+                            .invalidateHttpSession(true) // Hủy session hiện tại sau khi đăng xuất
+                            .deleteCookies("JSESSIONID") // Xóa cookie của session
+                            .permitAll() // Cho phép tất cả người dùng truy cập URL này
+            )
             // đường dẫn đến trang khi không truy cập được trang mong muốn
             .exceptionHandling(configurer -> 
                 configurer.accessDeniedPage("/neekine")

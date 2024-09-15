@@ -1,6 +1,11 @@
 package vn.neekine.shoes_store_website.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,33 +41,99 @@ public class StoreController {
     private ProductService productService;
     
     @GetMapping
-    public String homePage(){
-        return "Home";
+    public String homePage(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "Home";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "Home";
+        }
     }
 
     @GetMapping("/collections/all")
-    public String productsPage(){
-        return "Products";
+    public String productsPage(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "Products";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "Products";
+        }
     }
 
     @GetMapping("/collections/shoes")
-    public String productsShoesPage(){
-        return "SneakerProducts";
+    public String productsShoesPage(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "SneakerProducts";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "SneakerProducts";
+        }
     }
 
     @GetMapping("/collections/sandal")
-    public String productsSandalPage(){
-        return "SandalProducts";
+    public String productsSandalPage(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "SandalProducts";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "SandalProducts";
+        }
     }
 
     @GetMapping("/collections/bag")
-    public String productsBagPage(){
-        return "BagProducts";
+    public String productsBagPage(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "BagProducts";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "BagProducts";
+        }
     }
 
     @GetMapping("/collections/clothes")
-    public String productsClothesPage(){
-        return "ClothesProducts";
+    public String productsClothesPage(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "ClothesProducts";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "ClothesProducts";
+        }
     }
 
     @GetMapping("/products/{name}")
@@ -77,11 +148,46 @@ public class StoreController {
             // TODO: handle exception
             e.getMessage();
         }
-        return "DetalsProduct";
+
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "DetalsProduct";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "DetalsProduct";
+        }
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage(Model model) {
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("username", "");
+            return "Login";
+        }
+
+        // Nếu đăng nhập bằng Google OAuth2 (qua email)
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            // Lấy email hoặc bất kỳ thông tin nào khác từ OAuth2User attributes
+            String email = (String) oAuth2User.getAttributes().get("email");
+            model.addAttribute("username", email);
+        }
+        // Nếu đăng nhập thông thường bằng username
+        else if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+            model.addAttribute("username", username);
+        }
+
         return "Login";
     }
 
@@ -93,7 +199,19 @@ public class StoreController {
     @GetMapping("/account/register")
     public String registerPage(Model model){
         model.addAttribute("registerClientDTO", new RegisterClient_AccountDTO());
-        return "Register";
+
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "Register";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "Register";
+        }
     }
 
     @PostMapping("/addUser")
@@ -117,7 +235,18 @@ public class StoreController {
     }
 
     @GetMapping("/cart")
-    public String cart(){
-        return "Cart";
+    public String cart(Model model){
+        // Lấy thông tin Authentication từ SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            model.addAttribute("checkLogin", 0);
+            return "Cart";
+        }
+        else {
+            model.addAttribute("checkLogin", 1);
+            return "Cart";
+        }
     }
 }
