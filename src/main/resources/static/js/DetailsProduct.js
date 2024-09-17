@@ -126,7 +126,7 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         size: size,
         quantity: quantity
     };
-    
+    console.log("ok")
     fetch('/api/products/cart/add', {
         method: 'POST',
         headers: {
@@ -140,10 +140,14 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
         const body = document.querySelector(".body-content");
         cartElement.classList.add("active");
         body.classList.add("blur");
-
+        
         cart();
     })
     .catch((error) => {
         alert('Vui lòng đăng nhập tài khoản để mua sản phẩm !!')
     });
+});
+
+document.addEventListener('click', () => {
+    selectSize();
 });

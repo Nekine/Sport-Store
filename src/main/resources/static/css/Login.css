@@ -106,6 +106,25 @@ main .form-login input:focus {
     background-color: #fff; /* Đổi màu nền */
 }
 
+main .login-With-Google {
+    display: flex;
+    color: #484848;
+    margin: 30px 0;
+    border: 1px solid #b3b3b3;
+    padding: 15px 0;
+    width: 50%;
+    cursor: pointer;
+}
+
+main .login-With-Google i {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0 5px;
+}
+
+
+
 @media (max-width: 999px) {
     main .title-login {
         height: 50vh;
