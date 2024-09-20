@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -196,6 +197,19 @@ public class API_StoreController {
         if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
             // Trả về thông báo hoặc giỏ hàng trống
             return ResponseEntity.ok("User is not logged in or cart is empty.");
+        }
+
+        KhachHang client;
+        // Nếu đăng nhập bằng Google OAuth2 (qua email)
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            // Lấy email hoặc bất kỳ thông tin nào khác từ OAuth2User attributes
+            String email = (String) oAuth2User.getAttributes().get("email");
+        }
+        // Nếu đăng nhập thông thường bằng username
+        else if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
         }
         UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
         KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();

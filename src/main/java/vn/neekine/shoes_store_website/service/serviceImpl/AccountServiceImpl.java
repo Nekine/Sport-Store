@@ -17,5 +17,11 @@ public class AccountServiceImpl implements AccountService{
         this.accountRepository.save(account);
     }
 
+    @Override
+    public boolean isFirstTimeLogin(String email) {
+        Account user = this.accountRepository.findByEmail(email);
+
+        return user == null;
+    }
     
 }
