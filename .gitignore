@@ -34,3 +34,6 @@ build/
 
 ### không đẩy folder images lên remote ###
 src/main/resources/static/images/
+
+## không đẩy file chứa key
+/src/main/resources/application.properties
