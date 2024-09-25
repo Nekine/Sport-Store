@@ -148,6 +148,8 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
     });
 });
 
-document.addEventListener('click', () => {
+document.addEventListener('DOMContentLoaded', () => {
     selectSize();
+    displayProductImages();
+    formatPrice()
 });

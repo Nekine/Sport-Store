@@ -92,6 +92,7 @@ function cart(){
 
             cartElement.innerHTML += product_item;
             body_page_cart.innerHTML += product_item_2;
+
         }
 
         body_page_cart.innerHTML += `

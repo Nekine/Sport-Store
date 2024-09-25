@@ -170,19 +170,28 @@ public class API_StoreController {
         // Lấy Authentication từ SecurityContext
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Kiểm tra nếu người dùng chưa đăng nhập
-        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
-            // Trả về thông báo hoặc giỏ hàng trống
-            return ResponseEntity.ok("User is not logged in or cart is empty.");
+        KhachHang client = new KhachHang();
+        // Nếu đăng nhập bằng Google OAuth2 (qua email)
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            // Lấy email hoặc bất kỳ thông tin nào khác từ OAuth2User attributes
+            String email = (String) oAuth2User.getAttributes().get("email");
+
+            client = this.userDetailsService.loadUserByUsername(email).getKhachHang();
+        }
+        // Nếu đăng nhập thông thường bằng username
+        else if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+
+            client = this.userDetailsService.loadUserByUsername(username).getKhachHang();
         }
 
-        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
-        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
-        GioHang cart = khachHang.getGioHang();
+        GioHang cart = client.getGioHang();
 
         if(cart == null){
             cart = new GioHang();
-            khachHang.setGioHang(cart);
+            client.setGioHang(cart);
         }
 
         return ResponseEntity.ok(this.cartService.getAllProductsInCart(cart));
@@ -199,22 +208,24 @@ public class API_StoreController {
             return ResponseEntity.ok("User is not logged in or cart is empty.");
         }
 
-        KhachHang client;
+        KhachHang client = new KhachHang();
         // Nếu đăng nhập bằng Google OAuth2 (qua email)
         if (authentication.getPrincipal() instanceof OAuth2User) {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             // Lấy email hoặc bất kỳ thông tin nào khác từ OAuth2User attributes
             String email = (String) oAuth2User.getAttributes().get("email");
+
+            client = this.userDetailsService.loadUserByUsername(email).getKhachHang();
         }
         // Nếu đăng nhập thông thường bằng username
         else if (authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String username = userDetails.getUsername();
-        }
-        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
-        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
 
-        GioHang cart = this.cartService.addProductToCart(inforProduct, khachHang);
+            client = this.userDetailsService.loadUserByUsername(username).getKhachHang();
+        }
+
+        GioHang cart = this.cartService.addProductToCart(inforProduct, client);
         
         return ResponseEntity.ok("{}");
     }
@@ -223,9 +234,23 @@ public class API_StoreController {
     public ResponseEntity<?> deleteProductFromCart(@RequestBody InforProductAddToCart inforProduct){
         // Lấy Authentication từ SecurityContext
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
-        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
-        this.cartService.deleteProductsFromCart(inforProduct, khachHang);
+        KhachHang client = new KhachHang();
+        // Nếu đăng nhập bằng Google OAuth2 (qua email)
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            // Lấy email hoặc bất kỳ thông tin nào khác từ OAuth2User attributes
+            String email = (String) oAuth2User.getAttributes().get("email");
+
+            client = this.userDetailsService.loadUserByUsername(email).getKhachHang();
+        }
+        // Nếu đăng nhập thông thường bằng username
+        else if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+
+            client = this.userDetailsService.loadUserByUsername(username).getKhachHang();
+        }
+        this.cartService.deleteProductsFromCart(inforProduct, client);
 
         return ResponseEntity.ok("{}");
     }
@@ -234,11 +259,25 @@ public class API_StoreController {
     public ResponseEntity<?> updateProductsFromCart(@RequestBody List<InforProductAddToCart> inforProducts){
         // Lấy Authentication từ SecurityContext
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userCurrent = (UserDetails) authentication.getPrincipal();
-        KhachHang khachHang = this.userDetailsService.loadUserByUsername(userCurrent.getUsername()).getKhachHang();
+        KhachHang client = new KhachHang();
+        // Nếu đăng nhập bằng Google OAuth2 (qua email)
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            // Lấy email hoặc bất kỳ thông tin nào khác từ OAuth2User attributes
+            String email = (String) oAuth2User.getAttributes().get("email");
+
+            client = this.userDetailsService.loadUserByUsername(email).getKhachHang();
+        }
+        // Nếu đăng nhập thông thường bằng username
+        else if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+
+            client = this.userDetailsService.loadUserByUsername(username).getKhachHang();
+        }
         
         for(InforProductAddToCart product : inforProducts){
-            this.cartService.updateProductsFromCart(product, khachHang);
+            this.cartService.updateProductsFromCart(product, client);
         }
 
         return ResponseEntity.ok("{}");

@@ -1,18 +1,37 @@
 package vn.neekine.shoes_store_website.security;
 
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import vn.neekine.shoes_store_website.model.Account;
+import vn.neekine.shoes_store_website.model.KhachHang;
+import vn.neekine.shoes_store_website.model.Role;
+import vn.neekine.shoes_store_website.service.AccountService;
+import vn.neekine.shoes_store_website.service.ClientService;
+//import vn.neekine.shoes_store_website.service.OAuth2LoginSuccessHandler;
+import vn.neekine.shoes_store_website.service.RolesService;
+
 @Configuration
 public class SecurityConfig {
+    // @Autowired
+    // private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
     // truy vấn Database để lấy thông tin Spring biết để xác thực thông tin đăng nhập khi truy cập API
     @Bean
     UserDetailsManager userDetailsManager(DataSource dataSource) {
@@ -47,6 +66,7 @@ public class SecurityConfig {
             .oauth2Login(oauth2 -> 
                     oauth2
                                 .loginPage("/neekine/login") // Trang đăng nhập chung (bao gồm Google)
+                                // .successHandler(oAuth2LoginSuccessHandler)
                                 .defaultSuccessUrl("/neekine") // Chuyển hướng sau khi đăng nhập bằng Google thành công
             )
             // đường dẫn đến trang đăng nhập khi muốn đăng xuất 
